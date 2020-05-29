@@ -1,0 +1,50 @@
+<?php
+
+/* @var $this yii\web\View */
+
+$this->title = 'My Yii Application';
+?>
+<div class="site-index">
+
+    <div class="jumbotron">
+        <h1>wene - Certificados</h1>
+
+        <p class="lead">Sistema de Certificados de las Actividades realizadas por la Facultad de Informática de la Universidad Nacional del Comahue</p>
+
+        <p><?= \yii\helpers\Html::a('Ver demo', ['/site/demo', 'hash' => md5('demo'),'pdf'=>'true'], ['class' => 'btn btn-lg btn-success']);?>
+            
+<!--            <a class="btn btn-lg btn-success" href="http://www.yiiframework.com">Ver Demo</a>-->
+        </p>
+    </div>
+
+    <div class="body-content">
+
+        <div class="row">
+            <div class="col-lg-4">
+                <h2>Certificados Digitales</h2>
+
+                <p>Con el objetivo de agilizar los procesos, hacer un aporte al medio ambiente y ahorrar papel, todas las actividades realizadas por la Facultad de Informática tendrán solamente certificados digitales</p>
+
+                <p><a class="btn btn-default" href="">Resolución XXX/20 &raquo;</a></p>
+            </div>
+            <div class="col-lg-4">
+                <h2>Validación por codigo QR</h2>
+
+                <p>Teniendo una copia digital se puede acceder mediante la lectura de código QR o mediante un código del certificado,
+                utilizando como fuente auténtica el subdominio de la Facultad de Informática https://wene.fi.uncoma.edu.ar. El subdominio
+                tiene certificación ssl.</p>
+
+                <p><?= \yii\helpers\Html::a('Ver demo &raquo;', ['/site/demo', 'hash' => md5('demo'),'pdf'=>'true'], ['class' => 'btn btn-default']);?>
+<!--                    <a class="btn btn-default" href="http://www.yiiframework.com/forum/">Yii Forum &raquo;</a></p>-->
+            </div>
+            <div class="col-lg-4">
+                <h2>Válidos en CPE Neuquén</h2>
+
+                <p></p>
+
+                <p><a class="btn btn-default" href="">Resolución CPE XXX &raquo;</a></p>
+            </div>
+        </div>
+
+    </div>
+</div>

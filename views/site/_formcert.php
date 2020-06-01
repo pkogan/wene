@@ -16,7 +16,7 @@ use yii\bootstrap\ActiveForm;
         ]
     ); ?>
     
-        <?=  $form->field($model, 'hash')->textInput(['autofocus' => true,'name'=>'hash']) ?>
+        <?=  $form->field($model, 'hash')->textInput(['name'=>'hash']) ?>
         <?= Html::submitButton('Validar', ['class' => 'btn btn-primary']) ?>
 
     <?php ActiveForm::end(); ?>

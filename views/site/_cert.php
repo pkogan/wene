@@ -14,7 +14,7 @@ use Da\QrCode\QrCode;
     <h1><?= Html::encode($model['title']) ?></h1>
 
     <?php
-    $qrCode = (new QrCode(\yii\helpers\Url::base('http') . '?r=site/demo&hash=' . $model['hash']))
+    $qrCode = (new QrCode(\yii\helpers\Url::base('https') . '?r=site/demo&hash=' . $model['hash']))
             ->setSize(150)
             ->setMargin(5);
     //->useForegroundColor(51, 153, 255);
@@ -41,9 +41,10 @@ use Da\QrCode\QrCode;
     <h3>Neuquén, 28 de mayo de 2020.</h3>
 
     <p>
-        Accediendo al siguiente código QR se puede validar el certificado
+        Accediendo al siguiente código QR se puede validar el certificado.  Si no tienen lector de códigos QR el certificado se puede validar entrando a <a href="<?=\yii\helpers\Url::base('https') ?>"><?=\yii\helpers\Url::base('https') ?></a> con el código <b><?=$model['hash']?>
     </p>
     <img class="qr" src="<?= $qrCode->writeDataUri() ?>">
+    
     <?php /*    DetailView::widget([
       'model' => $model,
       'attributes' => [

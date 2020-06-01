@@ -2,7 +2,7 @@
 
 /* @var $this yii\web\View */
 
-$this->title = 'My Yii Application';
+$this->title = 'wene - Certificados Facultad de Informática';
 ?>
 <div class="site-index">
 
@@ -10,8 +10,8 @@ $this->title = 'My Yii Application';
         <h1>wene - Certificados</h1>
 
         <p class="lead">Sistema de Certificados de las Actividades realizadas por la Facultad de Informática de la Universidad Nacional del Comahue</p>
-
-        <p><?= \yii\helpers\Html::a('Ver demo', ['/site/demo', 'hash' => md5('demo'),'pdf'=>'true'], ['class' => 'btn btn-lg btn-success']);?>
+ <p> <?=$this->render('_formcert',['model'=>$model])?>
+       <?php //echo \yii\helpers\Html::a('Ver demo', ['/site/demo', 'hash' => substr(md5('demo'),0,7),'pdf'=>'true'], ['class' => 'btn btn-lg btn-success']);?>
             
 <!--            <a class="btn btn-lg btn-success" href="http://www.yiiframework.com">Ver Demo</a>-->
         </p>

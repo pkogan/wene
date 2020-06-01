@@ -59,7 +59,9 @@ class SiteController extends Controller {
      * @return string
      */
     public function actionIndex() {
-        return $this->render('index');
+        $model=new \app\models\CertForm();
+        $model->hash=substr(md5('demo'),0,7);
+        return $this->render('index',['model'=>$model]);
     }
 
     /**
@@ -89,8 +91,9 @@ class SiteController extends Controller {
      * @return Response|string
      */
     public function actionDemo($hash,$pdf=false) {
-        if ($hash != md5('demo')) {
-            throw new \yii\web\HttpException('Certificado Erroneo');
+        if ($hash != substr(md5('demo'),0,7)) {
+            throw new \yii\web\MethodNotAllowedHttpException('Certificado Erroneo');
+            //Yii::warning("Certificado Erroneo");
         }
         $model = [];
         $model['title']='Certificado de Aprobación';

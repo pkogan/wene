@@ -14,3 +14,5 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <?= Html::a('Descargar pdf', ['demo', 'hash' => $model['hash'],'pdf'=>'true'], ['class' => 'btn btn-primary']). ' ';?>
 <?= $this->render('_cert', ['model' => $model]);?>
+<p>Validar nuevo Certificado</p>
+<?= $this->render('_formcert', ['model' => new \app\models\CertForm()]);?>

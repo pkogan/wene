@@ -11,7 +11,7 @@ use yii\bootstrap\ActiveForm;
 ?>
     <?php $form = ActiveForm::begin([
         'id' => 'cert-form',
-        'action'=> yii\helpers\Url::to(['site/demo']),
+        'action'=> yii\helpers\Url::to(['certificado/view']),
         'method'=> 'get'
         ]
     ); ?>

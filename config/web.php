@@ -14,6 +14,17 @@ $config = [
         '@npm'   => '@vendor/npm-asset',
     ],
     'components' => [
+        'urlManager' => [
+           'enablePrettyUrl' => true,
+           'showScriptName' => false,
+           'rules' => [
+               '' => 'site/index',
+               
+               '<action>'=>'<action>'
+
+               
+           ],
+       ],
         'request' => [
             // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
             'cookieValidationKey' => 'EIZ0IPfXYjcj3E0786F_0VO7uaOg0gfd',
@@ -22,18 +33,32 @@ $config = [
             'class' => 'yii\caching\FileCache',
         ],
         'user' => [
-            'identityClass' => 'app\models\User',
+            'identityClass' => 'app\models\Usuario',
             'enableAutoLogin' => true,
         ],
         'errorHandler' => [
             'errorAction' => 'site/error',
         ],
         'mailer' => [
+          
             'class' => 'yii\swiftmailer\Mailer',
             // send all mails to a file by default. You have to set
             // 'useFileTransport' to false and configure a transport
             // for the mailer to send real emails.
-            'useFileTransport' => true,
+             'transport' => [
+                'class' => 'Swift_SmtpTransport',
+                'host' => 'smtp.gmail.com',
+                'username' => 'xxx@fi.uncoma.edu.ar',
+                'password' => '',
+                'port' => '587',
+                'encryption' => 'tls',
+            ],
+            'useFileTransport' => false,
+
+            // send all mails to a file by default. You have to set
+            // 'useFileTransport' to false and configure a transport
+            // for the mailer to send real emails.
+
         ],
         'log' => [
             'traceLevel' => YII_DEBUG ? 3 : 0,

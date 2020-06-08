@@ -137,9 +137,7 @@ a.desc:after {
     max-width: 200px;
     max-height: 150px;
 }
-.cert-view{
-    text-align: center;
-}
+
 h1, h2, h3, h4, h5, h6 {
     font-family: inherit;
     font-weight: 500;

@@ -7,7 +7,7 @@ $this->title = 'wene - Certificados Facultad de Informática';
 <div class="site-index">
 
     <div class="jumbotron">
-        <h1>wene - Certificados</h1>
+        <h1><img height="75px" src="img/logolargonegro.png"> - Certificados</h1>
 
         <p class="lead">Sistema de Certificados de las Actividades realizadas por la Facultad de Informática de la Universidad Nacional del Comahue</p>
  <p> <?=$this->render('_formcert',['model'=>$model])?>

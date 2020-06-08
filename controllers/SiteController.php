@@ -60,7 +60,7 @@ class SiteController extends Controller {
      */
     public function actionIndex() {
         $model=new \app\models\CertForm();
-        $model->hash=substr(md5('demo'),0,7);
+        $model->hash='ab514d';
         return $this->render('index',['model'=>$model]);
     }
 

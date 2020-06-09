@@ -12,11 +12,11 @@ use Da\QrCode\QrCode;
     <div class="row" >
 
         <div class="col-xs-6">
-            <img  src="<?= yii\helpers\Url::home();?>img/uncoma150.png" alt="UNCo"/></div>
+            <img  src="img/uncoma150.png" alt="UNCo"/></div>
 <!--        <img class="logo" src="img/sadosky.png" alt="Sadosky"/>-->
 
         <div class="col-xs-5">
-            <img  src="<?= yii\helpers\Url::home();?>img/faif150.png" alt="Facultad de Informática"/></div>
+            <img  src="img/faif150.png" alt="Facultad de Informática"/></div>
     </div>
 
     <h1 >Certificado</h1>

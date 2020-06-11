@@ -18,7 +18,7 @@ class DependenciaSearch extends Dependencia
     {
         return [
             [['idDependecia', 'idDependenciaPadre'], 'integer'],
-            [['Nombre'], 'safe'],
+            [['nombre'], 'safe'],
         ];
     }
 
@@ -62,7 +62,7 @@ class DependenciaSearch extends Dependencia
             'idDependenciaPadre' => $this->idDependenciaPadre,
         ]);
 
-        $query->andFilterWhere(['like', 'Nombre', $this->Nombre]);
+        $query->andFilterWhere(['like', 'nombre', $this->nombre]);
 
         return $dataProvider;
     }

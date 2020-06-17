@@ -59,6 +59,7 @@ use yii\widgets\ActiveForm;
          ])
   ?>
   <?= $form->field($model, 'duracion')->textInput() ?>
+  <?= $form->field($model, 'medidaDuracion')->textInput() ?>
     <?= $form->field($model, 'norma')->textInput(['maxlength' => true]) ?>
 
     

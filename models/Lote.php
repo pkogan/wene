@@ -115,8 +115,7 @@ class Lote extends \yii\db\ActiveRecord
     }
     public function getFechaTexto()
     {
-        $date=new \DateTime($this->fechaEmision);
-        return $date->format('d/m/Y');
+       return DateSpanish::cadena($this->fechaEmision);
         
     }
 }

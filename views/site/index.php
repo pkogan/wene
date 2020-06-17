@@ -24,8 +24,8 @@ $this->title = 'wene - Certificados Facultad de Informática';
                 <h2>Certificados Digitales</h2>
 
                 <p>Con el objetivo de agilizar los procesos, hacer un aporte al medio ambiente y ahorrar papel, todas las actividades realizadas por la Facultad de Informática tendrán solamente certificados digitales</p>
-
-                <p><a class="btn btn-default" href="">Resolución XXX/20 &raquo;</a></p>
+                <p><a class="btn btn-default" href="<?=\yii\helpers\Url::base('http')?>/img/ResDecAdRef-077-Sistema-Reintegro-Certificados-Digitales-EXT-2020.pdf">Res. AdRef Nro 077/20 &raquo;</a></p>
+<!--                <p><a class="btn btn-default" href="">Resolución XXX/20 &raquo;</a></p>-->
             </div>
             <div class="col-lg-4">
                 <h2>Validación por codigo QR</h2>
@@ -34,15 +34,15 @@ $this->title = 'wene - Certificados Facultad de Informática';
                 utilizando como fuente auténtica el subdominio de la Facultad de Informática https://wene.fi.uncoma.edu.ar. El subdominio
                 tiene certificación ssl.</p>
 
-                <p><?= \yii\helpers\Html::a('Ver demo &raquo;', ['/site/demo', 'hash' => md5('demo'),'pdf'=>'true'], ['class' => 'btn btn-default']);?>
+                <p><?= \yii\helpers\Html::a('Ver demo &raquo;', ['/certificado/view', 'hash' =>'ab514d' ,'pdf'=>'true'], ['class' => 'btn btn-default']);?>
 <!--                    <a class="btn btn-default" href="http://www.yiiframework.com/forum/">Yii Forum &raquo;</a></p>-->
             </div>
             <div class="col-lg-4">
                 <h2>Válidos en CPE Neuquén</h2>
 
-                <p></p>
+                <p>RESOLUCIÓN N°1135 / EXPEDIENTE N°8120-003418/2019 12/9/2019</p>
 
-                <p><a class="btn btn-default" href="">Resolución CPE XXX &raquo;</a></p>
+                <p><a class="btn btn-default" href="">Resolución CPE 1135/19 &raquo;</a></p>
             </div>
         </div>
 

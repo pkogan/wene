@@ -17,6 +17,7 @@ use Yii;
  * @property string|null $norma
  * @property int|null $idCiudad
  * @property int|null $duracion
+ * @property string|null $medidaDuracion
  * @property string|null $observaciones
  *
  * @property Actividad $idActividadPadre0
@@ -45,7 +46,7 @@ class Actividad extends \yii\db\ActiveRecord
         return [
             [['idTipoActividad', 'idDependencia', 'nombre', 'descripcion', 'fecha'], 'required'],
             [['idTipoActividad', 'idDependencia', 'idActividadPadre', 'idCiudad', 'duracion'], 'integer'],
-            [['descripcion', 'observaciones'], 'string'],
+            [['descripcion', 'observaciones', 'medidaDuracion'], 'string'],
             [['fecha'], 'safe'],
             [['nombre'], 'string', 'max' => 300],
             [['norma'], 'string', 'max' => 100],
@@ -72,6 +73,7 @@ class Actividad extends \yii\db\ActiveRecord
             'norma' => 'Norma',
             'idCiudad' => 'Id Ciudad',
             'duracion' => 'Duracion',
+            'medidaDuracion' => 'Medida duracion',
             'observaciones' => 'Observaciones',
         ];
     }
@@ -138,8 +140,7 @@ class Actividad extends \yii\db\ActiveRecord
     
     public function getFechaTexto()
     {
-        $date=new \DateTime($this->fecha);
-        return $date->format('d/m/Y');
+        return DateSpanish::cadena($this->fecha);
         
     }
 }

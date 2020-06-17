@@ -128,7 +128,7 @@ class CertificadoController extends Controller {
             'marginLeft' => 15,
             'marginRight' => 15,
             'methods' => [
-                'SetHeader' => ['Certificado Digital emitido por la Facultad de Informática de la Universidad Nacional del Comahue (<a href="http://faiweb.uncoma.edu.ar">Res. XXX/20</a>)'],
+                'SetHeader' => ['Certificado Digital emitido por la Facultad de Informática de la Universidad Nacional del Comahue (<a href="'.\yii\helpers\Url::base('http').'/img/ResDecAdRef-077-Sistema-Reintegro-Certificados-Digitales-EXT-2020.pdf">Res. AdRef Nro 077/20</a>)'],
                 'SetFooter' => ['<p>Se puede validar el Certificado, accediendo al link del código QR, o a <a href="'.\yii\helpers\Url::base('https').'">'.\yii\helpers\Url::base('https').'</a> con el código '.$model->hash.'</p>'.
                      'Sistema de Certificados <img style="padding-top:2px" height="12px" src="img/logolargonegro.png"/>  '],
             ]
@@ -143,7 +143,7 @@ class CertificadoController extends Controller {
                         ->setFrom('pablo.kogan@fi.uncoma.edu.ar')
                         ->setTo($model->idPersona0->mail)
                         ->setSubject('Certificado del ' . $model->idLote0->idActividad0->idTipoActividad0->tipo . ' ' . $model->idLote0->idActividad0->nombre)
-                        ->setHtmlBody('Estomadx, ' . $model->idPersona0->apellidoNombre .
+                        ->setHtmlBody('Estimadx, ' . $model->idPersona0->apellidoNombre .
                                 ', este correo es enviado por el sistema (wene.fi.uncoma.edu.ar) de Certificados emitidos por la Facultad de Informática de la Universidad Nacional Comahue. ' .
                                 ' Ingrese al siguiente ' . \yii\helpers\Html::a('link', $model->getLink()) . ' para descargar su certificado.  Muchas Gracias.')
                         ->send()) {

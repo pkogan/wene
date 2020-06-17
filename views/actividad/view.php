@@ -40,6 +40,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'norma',
             'idCiudad0.ciudad',
             'duracion',
+            'medidaDuracion',
             'observaciones:ntext',
         ],
     ]) ?>

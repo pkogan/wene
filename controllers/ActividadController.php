@@ -37,6 +37,10 @@ class ActividadController extends Controller {
                         'allow' => true,
                         'actions' => ['index', 'view', 'update', 'delete', 'create'],
                         'roles' => [\app\models\Rol::ROL_GESTOR],
+                    ],[
+                        'allow' => true,
+                        'actions' => ['index', 'view'],
+                        'roles' => [\app\models\Rol::ROL_HACEDOR],
                     ],
                 ],
             ],

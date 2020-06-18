@@ -43,7 +43,7 @@ class CertificadoController extends Controller {
                         [
                         'allow' => true,
                         'actions' => ['view'],
-                        'roles' => ['?'],
+                        'roles' => ['?', \app\models\Rol::ROL_HACEDOR],
                     ],
                 ],
             ],

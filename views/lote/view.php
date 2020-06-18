@@ -19,18 +19,20 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Importar', ['view', 'id' => $model->idLote], ['class' => 'btn btn-success']) ?>
-        <?= Html::a('Comunicar', ['/certificado/maillote', 'id' => $model->idLote], ['class' => 'btn btn-primary',
+        <?php if(!Yii::$app->user->isGuest && Yii::$app->user->identity->idRol== app\models\Rol::ROL_GESTOR){
+          echo Html::a('Importar', ['view', 'id' => $model->idLote], ['class' => 'btn btn-success']);  
+          echo Html::a('Comunicar', ['/certificado/maillote', 'id' => $model->idLote], ['class' => 'btn btn-primary',
                 'data' => ['confirm' => 'Está seguro de enviar mail a '.count($model->certificados).' personas del lote?']
-            ]) ?>        
-        <?= Html::a('Update', ['update', 'id' => $model->idLote], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Delete', ['delete', 'id' => $model->idLote], [
+            ]);
+          echo Html::a('Update', ['update', 'id' => $model->idLote], ['class' => 'btn btn-primary']);
+          echo Html::a('Delete', ['delete', 'id' => $model->idLote], [
             'class' => 'btn btn-danger',
             'data' => [
                 'confirm' => 'Are you sure you want to delete this item?',
                 'method' => 'post',
             ],
-        ]) ?>
+        ]);
+        }  ?>
     </p>
 
     <?= DetailView::widget([
@@ -46,7 +48,9 @@ $this->params['breadcrumbs'][] = $this->title;
         ],
     ]) ?>
      <h2>Certificados del Lote</h2>
-        <?= Html::a('Crear Certificado', ['/certificado/create', 'id' => $model->idLote], ['class' => 'btn btn-success']) ?>
+        <?php if(!Yii::$app->user->isGuest && Yii::$app->user->identity->idRol== app\models\Rol::ROL_GESTOR){
+            echo Html::a('Crear Certificado', ['/certificado/create', 'id' => $model->idLote], ['class' => 'btn btn-success']);
+        }  ?>
      <?= yii\grid\GridView::widget([
         'dataProvider' => $dataProvider,
         //'filterModel' => $searchModel,

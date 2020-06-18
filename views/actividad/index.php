@@ -7,7 +7,7 @@ use yii\widgets\Pjax;
 /* @var $searchModel app\models\ActividadSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Actividads';
+$this->title = 'Actividades';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="actividad-index">
@@ -15,7 +15,10 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Create Actividad', ['create'], ['class' => 'btn btn-success']) ?>
+        <?php
+         if(!Yii::$app->user->isGuest && Yii::$app->user->identity->idRol== app\models\Rol::ROL_GESTOR){
+             echo Html::a('Create Actividad', ['create'], ['class' => 'btn btn-success']);
+         }?>
     </p>
 
     <?php Pjax::begin(); ?>

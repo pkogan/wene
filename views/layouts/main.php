@@ -41,7 +41,15 @@ AppAsset::register($this);
                 'items' => [
                         ['label' => 'Inicio', 'url' => ['/site/index']],
                         ['label' => 'Acerca de', 'url' => ['/site/about']],
-                        ['label' => 'gestión',
+                        ['label' => 'Hacedor',
+                        'visible' => !Yii::$app->user->isGuest && Yii::$app->user->identity->idRol == \app\models\Rol::ROL_HACEDOR,
+                        'items' => [
+                                ['label' => 'Actividades', 'url' => ['/actividad'],
+                                'visible' => !Yii::$app->user->isGuest && Yii::$app->user->identity->idRol == \app\models\Rol::ROL_HACEDOR
+                            ]
+                                
+                        ]],
+                        ['label' => 'Gestión',
                         'visible' => !Yii::$app->user->isGuest && Yii::$app->user->identity->idRol == \app\models\Rol::ROL_GESTOR,
                         'items' => [
                                 ['label' => 'Actividades', 'url' => ['/actividad'],
@@ -52,7 +60,7 @@ AppAsset::register($this);
                             ],
                                 
                         ]],
-                        ['label' => 'admin',
+                        ['label' => 'Admin',
                         'visible' => !Yii::$app->user->isGuest && Yii::$app->user->identity->idRol == \app\models\Rol::ROL_ADMIN,
                         'items' => [
                                 ['label' => 'Usuarios', 'url' => ['/usuario'],

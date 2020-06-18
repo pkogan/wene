@@ -69,12 +69,13 @@ class Actividad extends \yii\db\ActiveRecord
             'idActividadPadre' => 'Id Actividad Padre',
             'nombre' => 'Nombre',
             'descripcion' => 'Descripcion',
+            'observaciones' => 'Texto en Certificado',
             'fecha' => 'Fecha',
             'norma' => 'Norma',
             'idCiudad' => 'Id Ciudad',
             'duracion' => 'Duracion',
             'medidaDuracion' => 'Medida duracion',
-            'observaciones' => 'Observaciones',
+            
         ];
     }
 

@@ -16,7 +16,8 @@ class Rol extends \yii\db\ActiveRecord
 {
     const ROL_ADMIN = 1;
     const ROL_GESTOR = 2;
-    const ROL_CERTIFICANTE = 3;
+    const ROL_HACEDOR = 3;
+    const ROL_CERTIFICANTE = 4;
     /**
      * {@inheritdoc}
      */

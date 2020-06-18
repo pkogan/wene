@@ -39,6 +39,12 @@ class LoteController extends Controller
                         'actions' => ['index', 'view', 'update', 'delete', 'create'],
                         'roles' => [\app\models\Rol::ROL_GESTOR],
                     ],
+                                            [
+                        'allow' => true,
+                        'actions' => ['view'],
+                        'roles' => [\app\models\Rol::ROL_HACEDOR],
+                    ],
+
                 ],
             ],
 

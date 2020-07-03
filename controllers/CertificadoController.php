@@ -140,8 +140,8 @@ class CertificadoController extends Controller {
 
     private function mail($model) {
         if (Yii::$app->mailer->compose()
-                        ->setFrom('pablo.kogan@fi.uncoma.edu.ar')
-                        ->setTo($model->idPersona0->mail)
+                        ->setFrom('wene@fi.uncoma.edu.ar')
+                        ->setTo(trim($model->idPersona0->mail))
                         ->setSubject('Certificado del ' . $model->idLote0->idActividad0->idTipoActividad0->tipo . ' ' . $model->idLote0->idActividad0->nombre)
                         ->setHtmlBody('Estimadx, ' . $model->idPersona0->apellidoNombre .
                                 ', este correo es enviado por el sistema (wene.fi.uncoma.edu.ar) de Certificados emitidos por la Facultad de Informática de la Universidad Nacional Comahue. ' .

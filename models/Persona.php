@@ -47,6 +47,7 @@ class Persona extends \yii\db\ActiveRecord
             [['Comentario'], 'string', 'max' => 347],
             [['dni'], 'unique'],
             [['mail'], 'unique'],
+            [['mail'], 'email'],
             [['idUsuario'], 'exist', 'skipOnError' => true, 'targetClass' => Usuario::className(), 'targetAttribute' => ['idUsuario' => 'idUsuario']],
             [['idCiudad'], 'exist', 'skipOnError' => true, 'targetClass' => Ciudad::className(), 'targetAttribute' => ['idCiudad' => 'idCiudad']],
         ];

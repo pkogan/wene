@@ -128,9 +128,9 @@ class CertificadoController extends Controller {
             'marginLeft' => 15,
             'marginRight' => 15,
             'methods' => [
-                'SetHeader' => ['Certificado Digital emitido por la Facultad de Informática de la Universidad Nacional del Comahue (<a href="'.\yii\helpers\Url::base('http').'/img/ResDecAdRef-077-Sistema-Reintegro-Certificados-Digitales-EXT-2020.pdf">Res. AdRef Nro 077/20</a>)'],
-                'SetFooter' => ['<p>Se puede validar el Certificado, accediendo al link del código QR, o a <a href="'.\yii\helpers\Url::base('https').'">'.\yii\helpers\Url::base('https').'</a> con el código '.$model->hash.'</p>'.
-                     'Sistema de Certificados <img style="padding-top:2px" height="12px" src="img/logolargonegro.png"/>  '],
+                'SetHeader' => ['Certificado Digital emitido por la Facultad de Informática de la Universidad Nacional del Comahue (<a href="' . \yii\helpers\Url::base('http') . '/img/ResDecAdRef-077-Sistema-Reintegro-Certificados-Digitales-EXT-2020.pdf">Res. AdRef Nro 077/20</a>)'],
+                'SetFooter' => ['<p>Se puede validar el Certificado, accediendo al link del código QR, o a <a href="' . \yii\helpers\Url::base('https') . '">' . \yii\helpers\Url::base('https') . '</a> con el código ' . $model->hash . '</p>' .
+                    'Sistema de Certificados <img style="padding-top:2px" height="12px" src="img/logolargonegro.png"/>  '],
             ]
         ]);
 
@@ -188,10 +188,12 @@ class CertificadoController extends Controller {
          * se envía mail a todo el lote
          */
         foreach ($lote->certificados as $model) {
-            $this->mail($model);
-            $model->idEstado = \app\models\Estado::ESTADO_ENVIADO;
-            if (!$model->save()) {
-                throw new \yii\web\NotAcceptableHttpException('Error al guardar certificado');
+            if ($model->idEstado == \app\models\Estado::ESTADO_INICIAL) {
+                $this->mail($model);
+                $model->idEstado = \app\models\Estado::ESTADO_ENVIADO;
+                if (!$model->save()) {
+                    throw new \yii\web\NotAcceptableHttpException('Error al guardar certificado');
+                }
             }
         }
         /**
@@ -236,11 +238,11 @@ class CertificadoController extends Controller {
 
         $model->idLote = $id;
 
-        if ($model->load(Yii::$app->request->post())){
-            
-            $model->hash=substr(md5(uniqid()),0,6);
-            if($model->save()) {
-                       return $this->redirect(['view', 'hash' => $model->hash]);
+        if ($model->load(Yii::$app->request->post())) {
+
+            $model->hash = substr(md5(uniqid()), 0, 6);
+            if ($model->save()) {
+                return $this->redirect(['view', 'hash' => $model->hash]);
             }
         }
 

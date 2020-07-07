@@ -40,7 +40,7 @@ class Persona extends \yii\db\ActiveRecord
         return [
             [['idUsuario', 'dni', 'idCiudad'], 'integer'],
             [['dni'], 'required'],
-            [['mail'], 'string', 'max' => 35],
+            [['mail'], 'string', 'max' => 100],
             [['apellidoNombre', 'token'], 'string', 'max' => 32],
             [['telefono'], 'string', 'max' => 30],
             [['localidad'], 'string', 'max' => 100],

@@ -38,8 +38,11 @@ use Da\QrCode\QrCode;
 
 
 
-        <h3>Se certifica que <b><?= $model->idPersona0->apellidoNombre; ?></b>, DNI Nº <b><?= number_format($model->idPersona0->dni); ?></b>
-            <b><?= $model->idLote0->idTipoCertificado0->tipo ?></b> al <b>XV <?= $model->idLote0->idActividad0->idTipoActividad0->tipo ?></b>
+        <h3>Se certifica que <b><?= $model->idPersona0->apellidoNombre; ?></b>
+<!--            , DNI Nº <b><?= $model->idPersona0->dni; ?></b>
+            ha participado en calidad de <b><?= $model->idLote0->idTipoCertificado0->tipo ?></b>del artículo-->
+            ha presentado el artículo
+            <b><i><?=$model->observacion?></i></b> en el <b>XV <?= $model->idLote0->idActividad0->idTipoActividad0->tipo ?></b>
             <b>"<?= $model->idLote0->idActividad0->nombre ?>"</b>. 
             <?= $model->idLote0->observacion ?></h3>
 

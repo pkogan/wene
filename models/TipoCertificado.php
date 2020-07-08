@@ -9,7 +9,8 @@ use Yii;
  *
  * @property int $idTipoCertificado
  * @property string $tipo
- *
+ * @property string $conectorM
+ * @property string $conectorF
  * @property Lote[] $lotes
  */
 class TipoCertificado extends \yii\db\ActiveRecord

@@ -32,18 +32,18 @@ use Da\QrCode\QrCode;
                 <img  width="90%" src="img/faif.png" alt="Facultad de Informática"/></div>
         </div>
 
-        <h1 >Certificado</h1>
+        <h2 >Certificado</h2>
         <!--        <h3>Facultad de Informática Universidad Nacional del Comahue</h3>-->
 
 
 
 
-        <h4>Se certifica que <b><?= mb_strtoupper($model->idPersona0->apellidoNombre); ?></b>, DNI Nº <b><?= number_format($model->idPersona0->dni,0,',','.') ?></b>
-            ha participado en calidad de <b><?= $model->idLote0->idTipoCertificado0->tipo ?></b> del artículo
+        <h3>Se certifica que <b><?= mb_strtoupper($model->idPersona0->apellidoNombre); ?></b>, DNI Nº <b><?= number_format($model->idPersona0->dni,0,',','.') ?></b>
+            ha participado en calidad de <b><?= strtolower($model->idLote0->idTipoCertificado0->tipo) ?></b> del artículo
 <!--            ha presentado el artículo-->
             <b><i>"<?=$model->observacion?>"</i></b> en el <b>XV <?= $model->idLote0->idActividad0->idTipoActividad0->tipo ?></b>
             <b>"<?= $model->idLote0->idActividad0->nombre ?>"</b>. 
-            <?= $model->idLote0->observacion ?></h4>
+            <?= $model->idLote0->observacion ?></h3>
 
 <!--        <h3>Neuquén, <?= $model->idLote0->getFechaTexto(); ?>.</h3>-->
 

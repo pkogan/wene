@@ -11,14 +11,20 @@ use app\models\Certificado;
  */
 class CertificadoSearch extends Certificado
 {
+    public $apellidoNombre;
+    public $dni;
+    public $estado;
+    public $mail;
+    
+    
     /**
      * {@inheritdoc}
      */
     public function rules()
     {
         return [
-            [['idCertificado', 'idPersona', 'idLote', 'idEstado', 'observacion'], 'integer'],
-            [['hash'], 'safe'],
+            [['idCertificado', 'idPersona','dni', 'idLote', 'idEstado', 'observacion'], 'integer'],
+            [['hash','apellidoNombre','estado','mail'], 'safe'],
         ];
     }
 
@@ -55,6 +61,9 @@ class CertificadoSearch extends Certificado
             // $query->where('0=1');
             return $dataProvider;
         }
+        
+        
+        $query->joinWith('idPersona0');
 
         // grid filtering conditions
         $query->andFilterWhere([
@@ -62,11 +71,24 @@ class CertificadoSearch extends Certificado
             'idPersona' => $this->idPersona,
             'idLote' => $this->idLote,
             'idEstado' => $this->idEstado,
-            'observacion' => $this->observacion,
+            //'observacion' => $this->observacion,
+            'persona.dni' => $this->dni,
+          
         ]);
 
-        $query->andFilterWhere(['like', 'hash', $this->hash]);
-
+        $query->andFilterWhere(['like', 'hash', $this->hash])
+              ->andFilterWhere(['like','persona.apellidoNombre', $this->apellidoNombre])
+                ->andFilterWhere(['like','persona.mail', $this->mail]) ;
+        
+        $dataProvider->sort->attributes['apellidoNombre'] = [
+            'asc' => ['persona.apellidoNombre' => SORT_ASC],
+            'desc' => ['persona.apellidoNombre' => SORT_DESC],
+        ];
+        
+        $dataProvider->sort->attributes['mail'] = [
+            'asc' => ['persona.mail' => SORT_ASC],
+            'desc' => ['persona.mail' => SORT_DESC],
+        ];
         return $dataProvider;
     }
 }

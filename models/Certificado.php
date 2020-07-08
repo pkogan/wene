@@ -39,6 +39,7 @@ class Certificado extends \yii\db\ActiveRecord
             [['observacion'], 'string'],
             [['hash'], 'string', 'max' => 6],
             [['hash'], 'unique'],
+            [['idPersona'], 'unique', 'targetAttribute' => ['idPersona', 'idLote']],
             [['idEstado'], 'exist', 'skipOnError' => true, 'targetClass' => Estado::className(), 'targetAttribute' => ['idEstado' => 'idEstado']],
             [['idPersona'], 'exist', 'skipOnError' => true, 'targetClass' => Persona::className(), 'targetAttribute' => ['idPersona' => 'idPersona']],
             [['idLote'], 'exist', 'skipOnError' => true, 'targetClass' => Lote::className(), 'targetAttribute' => ['idLote' => 'idLote']],

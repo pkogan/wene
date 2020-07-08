@@ -143,7 +143,7 @@ class CertificadoController extends Controller {
                         ->setFrom('wene@fi.uncoma.edu.ar')
                         ->setTo(trim($model->idPersona0->mail))
                         ->setSubject('Certificado del ' . $model->idLote0->idActividad0->idTipoActividad0->tipo . ' ' . $model->idLote0->idActividad0->nombre)
-                        ->setHtmlBody('Estimadx, ' . strtoupper($model->idPersona0->apellidoNombre) .
+                        ->setHtmlBody('Estimadx, ' . mb_strtoupper($model->idPersona0->apellidoNombre) .
                                 ', este correo es enviado por el sistema (wene.fi.uncoma.edu.ar) de Certificados emitidos por la Facultad de Informática de la Universidad Nacional Comahue. ' .
                                 ' Ingrese al siguiente ' . \yii\helpers\Html::a('link', $model->getLink()) . ' para descargar su certificado.  Muchas Gracias.')
                         ->send()) {

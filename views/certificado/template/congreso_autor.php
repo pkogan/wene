@@ -38,7 +38,7 @@ use Da\QrCode\QrCode;
 
 
 
-        <h3>Se certifica que <b><?= $model->idPersona0->apellidoNombre; ?></b>
+        <h3>Se certifica que <b><?= mb_strtoupper($model->idPersona0->apellidoNombre); ?></b>
             , DNI Nº <b><?= number_format($model->idPersona0->dni,0,',','.') ?></b>
             ha participado en calidad de <b><?= $model->idLote0->idTipoCertificado0->tipo ?></b> del artículo
 <!--            ha presentado el artículo-->

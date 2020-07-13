@@ -22,7 +22,10 @@ use Yii;
  * @property TipoCertificado $idTipoCertificado0
  */
 class Lote extends \yii\db\ActiveRecord
+
+
 {
+    const TOPE_MAIL_LOTE = 50;
     /**
      * {@inheritdoc}
      */
@@ -74,6 +77,25 @@ class Lote extends \yii\db\ActiveRecord
         return $this->hasMany(Certificado::className(), ['idLote' => 'idLote']);
     }
 
+    public function getCertificadosEstado($idEstado=null){
+         if($idEstado==null){
+            return $this->getCertificados();
+        }else{
+            return $this->hasMany(Certificado::className(), ['idLote' => 'idLote'])
+                    ->andOnCondition(['certificado.idEstado'=>$idEstado]);
+        }
+    }
+    
+    public function getCountCertificados($idEstado=null)
+    {
+        if($idEstado==null){
+            return $this->getCertificados()->count();
+        }else{
+            return $this->getCertificadosEstado($idEstado)->count();
+        }
+        
+    }
+    
     /**
      * Gets query for [[IdTemplate0]].
      *

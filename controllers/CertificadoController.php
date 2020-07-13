@@ -185,16 +185,21 @@ class CertificadoController extends Controller {
             throw new \yii\web\NotAcceptableHttpException('Lote Inexistente');
         }
         /*
-         * se envía mail a todo el lote
+         * se envía mail a todo el lote en ESTADO_INICIAL a TOPE_MAIL_LOTE
          */
-        foreach ($lote->certificados as $model) {
-            if ($model->idEstado == \app\models\Estado::ESTADO_INICIAL) {
+        $certificadosEstadoInicial=$lote->getCertificadosEstado(\app\models\Estado::ESTADO_INICIAL)
+                ->limit(\app\models\Lote::TOPE_MAIL_LOTE)
+                ->all();
+        
+        foreach ($certificadosEstadoInicial as $model) {
+            //print_r($model);exit();
+           // if ($model->idEstado == \app\models\Estado::ESTADO_INICIAL) {
                 $this->mail($model);
                 $model->idEstado = \app\models\Estado::ESTADO_ENVIADO;
                 if (!$model->save()) {
                     throw new \yii\web\NotAcceptableHttpException('Error al guardar certificado');
                 }
-            }
+            //}
         }
         /**
          * actualizar estado del lote

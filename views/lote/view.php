@@ -20,10 +20,16 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <p>
         <?php
+        $inicial=$model->getCountCertificados(\app\models\Estado::ESTADO_INICIAL);
+        if($inicial>app\models\Lote::TOPE_MAIL_LOTE){
+            $msj=app\models\Lote::TOPE_MAIL_LOTE. ' de '.$inicial;
+        }else{
+            $msj=$inicial;
+        }
         if (!Yii::$app->user->isGuest && Yii::$app->user->identity->idRol == app\models\Rol::ROL_GESTOR) {
             echo Html::a('Importar', ['importar', 'id' => $model->idLote], ['class' => 'btn btn-success']);
             echo ' '.Html::a('Comunicar', ['/certificado/maillote', 'id' => $model->idLote], ['class' => 'btn btn-primary',
-                'data' => ['confirm' => 'Está seguro de enviar mail a ' . count($model->certificados) . ' personas del lote?']
+                'data' => ['confirm' => 'Está seguro de enviar mail a ' . $msj . ' personas con certificados en estado inicial del lote?']
             ]);
             echo ' '.Html::a('Actualizar', ['update', 'id' => $model->idLote], ['class' => 'btn btn-primary']);
             echo ' '.Html::a('Borrar', ['delete', 'id' => $model->idLote], [
@@ -48,6 +54,11 @@ $this->params['breadcrumbs'][] = $this->title;
             'idTemplate0.template',
             'fechaEmision:date',
             'observacion:ntext',
+            ['label'=>'Iniciados','value'=>$model->getCountCertificados(\app\models\Estado::ESTADO_INICIAL)],
+            ['label'=>'Emitidos','value'=>$model->getCountCertificados(\app\models\Estado::ESTADO_EMITIDO)],
+            ['label'=>'Enviados','value'=>$model->getCountCertificados(\app\models\Estado::ESTADO_ENVIADO)],
+            ['label'=>'Recibidos','value'=>$model->getCountCertificados(\app\models\Estado::ESTADO_RECIBIDO)],
+            ['label'=>'Total Certificados','value'=>$model->getCountCertificados()]
         ],
     ])
     ?>

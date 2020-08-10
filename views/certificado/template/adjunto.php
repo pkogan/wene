@@ -11,12 +11,12 @@ use Da\QrCode\QrCode;
 
     <div class="row" >
 
-        <div class="col-xs-6">
-            <img  width="30%" src="img/uncomarecortado.png" alt="UNCo"/></div>
+        <div class="col-xs-5">
+            <img  width="40%" src="img/uncomarecortado.png" alt="UNCo"/></div>
 <!--        <img class="logo" src="img/sadosky.png" alt="Sadosky"/>-->
 
         <div class="col-xs-5">
-            <img  width="55%" src="img/faif.png" alt="Facultad de Informática"/></div>
+            <img  width="65%" src="img/faif.png" alt="Facultad de Informática"/></div>
     </div>
 
     <h1 >Certificado Digital</h1>

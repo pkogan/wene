@@ -9,6 +9,7 @@ use Yii;
  *
  * @property int $idTemplate
  * @property string $template
+ * @property string $orientacion
  *
  * @property Lote[] $lotes
  */
@@ -29,8 +30,9 @@ class Template extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['template'], 'required'],
+            [['template','orientacion'], 'required'],
             [['template'], 'string', 'max' => 50],
+            [['orientacion'], 'string', 'max' => 1],
         ];
     }
 
@@ -42,6 +44,8 @@ class Template extends \yii\db\ActiveRecord
         return [
             'idTemplate' => 'Id Template',
             'template' => 'Template',
+            'orientacion' => 'Orientacion',
+
         ];
     }
 

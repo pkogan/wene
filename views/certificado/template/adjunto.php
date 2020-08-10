@@ -34,6 +34,8 @@ use Da\QrCode\QrCode;
             ['label'=>'Detalles','value'=>$model->idLote0->observacion],
             //['label'=>'Descripción Actividad','value'=>$model->idLote0->idActividad0->observaciones],
             ['label'=>'Dependencia Otorgante','value'=>$model->idLote0->idActividad0->idDependencia0->nombre],
+            ['attribute'=>'idLote0.idActividad0.norma',
+            'visible'=>$model->idLote0->idActividad0->norma!=''],
             ['label'=>'Fecha Emisión','value'=>$model->idLote0->getFechaTexto()],
             //'idLote0.idActividad0.norma',
             //['label'=>'Fecha','value'=>$model->idLote0->idActividad0->getFechaTexto()],

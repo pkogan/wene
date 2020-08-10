@@ -17,6 +17,7 @@ use Yii;
  * @property string|null $Comentario
  * @property int|null $idCiudad
  * @property string|null $token
+ * @property string|null $legajo
  *
  * @property Certificado[] $certificados
  * @property Usuario $idUsuario0
@@ -41,10 +42,12 @@ class Persona extends \yii\db\ActiveRecord
             [['idUsuario', 'dni', 'idCiudad'], 'integer'],
             [['dni'], 'required'],
             [['apellidoNombre','mail'], 'string', 'max' => 100],
+            [[ 'legajo'], 'string', 'max' => 20],
             [[ 'token'], 'string', 'max' => 32],
             [['telefono'], 'string', 'max' => 30],
             [['localidad'], 'string', 'max' => 100],
             [['Comentario'], 'string', 'max' => 347],
+            [['legajo'], 'unique'],
             [['dni'], 'unique'],
             [['mail'], 'unique'],
             [['mail'], 'email'],
@@ -69,6 +72,7 @@ class Persona extends \yii\db\ActiveRecord
             'Comentario' => 'Comentario',
             'idCiudad' => 'Id Ciudad',
             'token' => 'Token',
+            'legajo' => 'Legajo',
         ];
     }
 

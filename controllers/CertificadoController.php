@@ -134,6 +134,9 @@ class CertificadoController extends Controller {
             ]
         ]);
 
+        if($model->adjunto){
+            $pdf->addPdfAttachment($model->nombreArchivo());
+        }
         // return the pdf output as per the destination setting
         return $pdf->render();
     }
@@ -168,6 +171,7 @@ class CertificadoController extends Controller {
         if ($model == null) {
             throw new \yii\web\NotAcceptableHttpException('Certificado Inexistente');
         }
+        $model->validarPermisos();
         $this->mail($model);
         /**
          * actualizar estado
@@ -184,6 +188,7 @@ class CertificadoController extends Controller {
         if (($lote = \app\models\Lote::findOne($id)) == null) {
             throw new \yii\web\NotAcceptableHttpException('Lote Inexistente');
         }
+        $lote->validarPermisos();
         /*
          * se envía mail a todo el lote en ESTADO_INICIAL a TOPE_MAIL_LOTE
          */
@@ -240,13 +245,14 @@ class CertificadoController extends Controller {
         if (($lote = \app\models\Lote::findOne($id)) == null) {
             throw new Exception('Lote Inexistente');
         }
+        $lote->validarPermisos();
 
         $model->idLote = $id;
 
         if ($model->load(Yii::$app->request->post())) {
 
             $model->hash = substr(md5(uniqid()), 0, 6);
-            if ($model->save()) {
+            if ($model->upload() && $model->save()) {
                 return $this->redirect(['view', 'hash' => $model->hash]);
             }
         }
@@ -266,8 +272,8 @@ class CertificadoController extends Controller {
      */
     public function actionUpdate($id) {
         $model = $this->findModel($id);
-
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        
+        if ($model->load(Yii::$app->request->post()) && $model->upload() && $model->save()) {
             return $this->redirect(['view', 'hash' => $model->hash]);
         }
 
@@ -284,11 +290,14 @@ class CertificadoController extends Controller {
      * @throws NotFoundHttpException if the model cannot be found
      */
     public function actionDelete($id) {
-        $this->findModel($id)->delete();
-
-        return $this->redirect(['index']);
+        $model=$this->findModel($id);
+        $idLote=$model->idLote;
+        $model->delete();
+        return $this->redirect(['/lote/view','id'=>$idLote]);
     }
 
+
+    
     /**
      * Finds the Certificado model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
@@ -298,7 +307,7 @@ class CertificadoController extends Controller {
      */
     protected function findModel($id) {
         if (($model = Certificado::findOne($id)) !== null) {
-            return $model;
+            if($model->validarPermisos()) return $model;
         }
 
         throw new NotFoundHttpException('The requested page does not exist.');

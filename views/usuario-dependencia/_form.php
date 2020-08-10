@@ -4,22 +4,21 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
 /* @var $this yii\web\View */
-/* @var $model app\models\Usuario */
+/* @var $model app\models\UsuarioDependencia */
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
-<div class="usuario-form">
+<div class="usuario-dependencia-form">
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'nombreUsuario')->textInput(['maxlength' => true]) ?>
+    <?php //$form->field($model, 'idUsuario')->textInput() ?>
 
-    <?= $form->field($model, 'clave')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'idRol')->dropDownList(\app\models\Rol::find()
+    <?= $form->field($model, 'idDependencia')->dropDownList(\app\models\Dependencia::find()
             ->select(['nombre'])
-            ->indexBy('idRol')
+            ->indexBy('idDependecia')
             ->column())?>
+    
 
     <div class="form-group">
         <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>

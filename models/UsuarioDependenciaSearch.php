@@ -4,12 +4,12 @@ namespace app\models;
 
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use app\models\Persona;
+use app\models\UsuarioDependencia;
 
 /**
- * PersonaSearch represents the model behind the search form of `app\models\Persona`.
+ * UsuarioDependenciaSearch represents the model behind the search form of `app\models\UsuarioDependencia`.
  */
-class PersonaSearch extends Persona
+class UsuarioDependenciaSearch extends UsuarioDependencia
 {
     /**
      * {@inheritdoc}
@@ -17,8 +17,7 @@ class PersonaSearch extends Persona
     public function rules()
     {
         return [
-            [['idPersona', 'idUsuario', 'dni', 'idCiudad'], 'integer'],
-            [['mail', 'apellidoNombre', 'telefono', 'localidad', 'Comentario', 'token', 'legajo'], 'safe'],
+            [['idUsuarioDependencia', 'idUsuario', 'idDependencia'], 'integer'],
         ];
     }
 
@@ -40,7 +39,7 @@ class PersonaSearch extends Persona
      */
     public function search($params)
     {
-        $query = Persona::find();
+        $query = UsuarioDependencia::find();
 
         // add conditions that should always apply here
 
@@ -58,19 +57,10 @@ class PersonaSearch extends Persona
 
         // grid filtering conditions
         $query->andFilterWhere([
-            'idPersona' => $this->idPersona,
+            'idUsuarioDependencia' => $this->idUsuarioDependencia,
             'idUsuario' => $this->idUsuario,
-            'dni' => $this->dni,
-            'idCiudad' => $this->idCiudad,
+            'idDependencia' => $this->idDependencia,
         ]);
-
-        $query->andFilterWhere(['like', 'mail', $this->mail])
-            ->andFilterWhere(['like', 'apellidoNombre', $this->apellidoNombre])
-            ->andFilterWhere(['like', 'telefono', $this->telefono])
-            ->andFilterWhere(['like', 'localidad', $this->localidad])
-            ->andFilterWhere(['like', 'Comentario', $this->Comentario])
-            ->andFilterWhere(['like', 'token', $this->token])
-            ->andFilterWhere(['like', 'legajo', $this->legajo]);
 
         return $dataProvider;
     }

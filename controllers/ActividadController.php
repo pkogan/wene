@@ -37,7 +37,7 @@ class ActividadController extends Controller {
                         'allow' => true,
                         'actions' => ['index', 'view', 'update', 'delete', 'create'],
                         'roles' => [\app\models\Rol::ROL_GESTOR],
-                    ],[
+                    ], [
                         'allow' => true,
                         'actions' => ['index', 'view'],
                         'roles' => [\app\models\Rol::ROL_HACEDOR],
@@ -139,7 +139,10 @@ class ActividadController extends Controller {
      */
     protected function findModel($id) {
         if (($model = Actividad::findOne($id)) !== null) {
-            return $model;
+            if ($model->validarPermisos())
+                return $model;
+
+            throw new NotFoundHttpException('Está intentando acceder a una actividad sobre la que no tiene permisos.');
         }
 
         throw new NotFoundHttpException('The requested page does not exist.');

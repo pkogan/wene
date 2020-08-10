@@ -12,6 +12,7 @@ use Yii;
  * @property int|null $idDependenciaPadre
  *
  * @property Actividad[] $actividads
+ * @property UsuarioDependencia[] $usuarioDependencias 
  */
 class Dependencia extends \yii\db\ActiveRecord
 {
@@ -56,4 +57,14 @@ class Dependencia extends \yii\db\ActiveRecord
     {
         return $this->hasMany(Actividad::className(), ['idDependencia' => 'idDependecia']);
     }
+    
+      /** 
+    * Gets query for [[UsuarioDependencias]]. 
+    * 
+    * @return \yii\db\ActiveQuery 
+    */ 
+   public function getUsuarioDependencias() 
+   { 
+       return $this->hasMany(UsuarioDependencia::className(), ['idDependencia' => 'idDependecia']); 
+   } 
 }

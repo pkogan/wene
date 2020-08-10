@@ -36,6 +36,7 @@ use yii\widgets\ActiveForm;
 
     <?= //$form->field($model, 'idDependencia')->textInput()
             $form->field($model, 'idDependencia')->dropDownList(\app\models\Dependencia::find()
+            ->joinWith('usuarioDependencias')->where(['idUsuario'=> \Yii::$app->user->identity->idUsuario])
             ->select(['nombre'])
             ->indexBy('idDependecia')
             ->column())?>

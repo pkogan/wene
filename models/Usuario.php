@@ -14,6 +14,7 @@ use Yii;
  *
  * @property Persona[] $personas
  * @property Rol $idRol0
+ * @property UsuarioDependencia[] $usuarioDependencias 
  */
 //class Usuario extends \yii\db\ActiveRecord
 //{
@@ -127,4 +128,18 @@ class Usuario extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
     {
         return $this->hasOne(Rol::className(), ['idRol' => 'idRol']);
     }
+    
+    /** 
+    * Gets query for [[UsuarioDependencias]]. 
+    * 
+    * @return \yii\db\ActiveQuery 
+    */ 
+   public function getUsuarioDependencias() 
+   { 
+       return $this->hasMany(UsuarioDependencia::className(), ['idUsuario' => 'idUsuario']); 
+   } 
+   
+   public function getDependenciasIn(){
+       
+   }
 }

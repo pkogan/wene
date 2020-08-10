@@ -140,4 +140,12 @@ class Lote extends \yii\db\ActiveRecord
        return DateSpanish::cadena($this->fechaEmision);
         
     }
+    
+    public function validarPermisos(){
+          foreach ($this->idActividad0->idDependencia0->usuarioDependencias as $usuarioDependencia){
+                if(\Yii::$app->user->identity->idUsuario==$usuarioDependencia->idUsuario) return true;
+            }
+          throw new \yii\web\NotFoundHttpException('Está intentando acceder a un lote de una actividad sobre la que no tiene permisos.');
+     }
+    
 }

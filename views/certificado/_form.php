@@ -29,6 +29,10 @@ use yii\widgets\ActiveForm;
     <?php // $form->field($model, 'hash')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'observacion')->textInput() ?>
+    
+    <?= $form->field($model, 'adjunto')->checkbox() ?>
+    
+    <?= $form->field($model, 'archivo')->fileInput() ?>
 
     <div class="form-group">
         <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>

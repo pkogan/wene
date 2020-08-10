@@ -49,9 +49,7 @@ class LoteController extends Controller {
     }
 
     public function actionImportar($id) {
-        if (($lote = \app\models\Lote::findOne($id)) == null) {
-            throw new \yii\web\NotAcceptableHttpException('Lote Inexistente');
-        }
+        $lote = $this->findModel($id);
         $model = new \app\models\ImportarLoteForm();
         $rows = [];
         $contadores = [];
@@ -203,12 +201,16 @@ class LoteController extends Controller {
         if (($actividad = \app\models\Actividad::findOne($id)) == null) {
             throw new Exception('No existe la Activiadad');
         }
+        $actividad->validarPermisos();
 
         $model = new Lote();
         $model->idActividad = $id;
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->idLote]);
+        }
+        if(is_null($model->observacion)){
+            $model->observacion=$actividad->descripcion;
         }
 
         return $this->render('create', [
@@ -244,9 +246,11 @@ class LoteController extends Controller {
      * @throws NotFoundHttpException if the model cannot be found
      */
     public function actionDelete($id) {
-        $this->findModel($id)->delete();
+        $model=$this->findModel($id);
+        $idActividad=$model->idActividad;
+        $model->delete();
 
-        return $this->redirect(['index']);
+        return $this->redirect(['/actividad/view','id'=>$idActividad]);
     }
 
     /**
@@ -258,7 +262,7 @@ class LoteController extends Controller {
      */
     protected function findModel($id) {
         if (($model = Lote::findOne($id)) !== null) {
-            return $model;
+               if($model->validarPermisos()) return $model;
         }
 
         throw new NotFoundHttpException('The requested page does not exist.');

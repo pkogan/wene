@@ -14,6 +14,7 @@ use Yii;
  */
 class Template extends \yii\db\ActiveRecord
 {
+    const ADJUNTO=6;
     /**
      * {@inheritdoc}
      */

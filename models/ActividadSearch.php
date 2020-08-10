@@ -41,6 +41,8 @@ class ActividadSearch extends Actividad
     public function search($params)
     {
         $query = Actividad::find();
+        $query->joinWith('idDependencia0.usuarioDependencias');
+        $query->where(['usuarioDependencia.idUsuario'=> \Yii::$app->user->identity->idUsuario]);
 
         // add conditions that should always apply here
 

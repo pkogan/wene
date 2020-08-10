@@ -66,9 +66,16 @@ public function behaviors() {
      */
     public function actionView($id)
     {
+        $searchModel = new \app\models\UsuarioDependenciaSearch();
+        $searchModel->idUsuario = $id;
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
         return $this->render('view', [
-            'model' => $this->findModel($id),
+                    'model' => $this->findModel($id),
+                    'searchModel' => $searchModel,
+                    'dataProvider' => $dataProvider,
         ]);
+        
     }
 
     /**

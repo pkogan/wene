@@ -5,10 +5,15 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model app\models\Lote */
 
-$this->title = 'Update Lote: ' . $model->idLote;
-$this->params['breadcrumbs'][] = ['label' => 'Lotes', 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => $model->idLote, 'url' => ['view', 'id' => $model->idLote]];
-$this->params['breadcrumbs'][] = 'Update';
+
+$v = 'Lote #' . $model->idLote;
+$this->title = 'Actualizar '.$v;
+$actividad = $model->idActividad0;
+$this->params['breadcrumbs'][] = ['label' => 'Actividades', 'url' => ['/actividad/index']];
+$this->params['breadcrumbs'][] = ['label' => $actividad->idTipoActividad0->tipo . ': ' . $actividad->nombre,
+    'url' => ['/actividad/view', 'id' => $actividad->idActividad]];
+$this->params['breadcrumbs'][] = ['label' => $v, 'url' => ['view', 'id' => $model->idLote]];
+$this->params['breadcrumbs'][] = 'Actualizar';
 ?>
 <div class="lote-update">
 

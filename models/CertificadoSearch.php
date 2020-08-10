@@ -15,16 +15,19 @@ class CertificadoSearch extends Certificado
     public $dni;
     public $estado;
     public $mail;
-    
-    
+    public $actividad;
+    public $dependencia;
+    public $idTipoCertificado;
+    public $idTipoActividad;
+    public $dealerAvailableDate;
     /**
      * {@inheritdoc}
      */
     public function rules()
     {
         return [
-            [['idCertificado', 'idPersona','dni', 'idLote', 'idEstado', 'observacion'], 'integer'],
-            [['hash','apellidoNombre','estado','mail'], 'safe'],
+            [['idCertificado', 'idPersona','dni', 'idLote', 'idEstado', 'observacion', 'idTipoCertificado', 'idTipoActividad'], 'integer'],
+            [['hash','apellidoNombre','estado','mail','actividad','dependencia','dealerAvailableDate'], 'safe'],
         ];
     }
 
@@ -63,22 +66,29 @@ class CertificadoSearch extends Certificado
         }
         
         
-        $query->joinWith('idPersona0');
+        $query->joinWith('idPersona0')->joinWith('idLote0.idActividad0.idDependencia0.usuarioDependencias');
+        $query->where(['usuarioDependencia.idUsuario'=> \Yii::$app->user->identity->idUsuario]);
+        
 
         // grid filtering conditions
         $query->andFilterWhere([
             'idCertificado' => $this->idCertificado,
             'idPersona' => $this->idPersona,
-            'idLote' => $this->idLote,
+            'certificado.idLote' => $this->idLote,
             'idEstado' => $this->idEstado,
             //'observacion' => $this->observacion,
             'persona.dni' => $this->dni,
+            'lote.idTipoCertificado'=> $this->idTipoCertificado,
+            'actividad.idTipoActividad'=> $this->idTipoActividad
           
         ]);
 
         $query->andFilterWhere(['like', 'hash', $this->hash])
               ->andFilterWhere(['like','persona.apellidoNombre', $this->apellidoNombre])
-                ->andFilterWhere(['like','persona.mail', $this->mail]) ;
+                ->andFilterWhere(['like','persona.mail', $this->mail])
+                ->andFilterWhere(['like','actividad.nombre', $this->actividad])
+                ->andFilterWhere(['like','dependencia.nombre', $this->dependencia])
+                ;
         
         $dataProvider->sort->attributes['apellidoNombre'] = [
             'asc' => ['persona.apellidoNombre' => SORT_ASC],
@@ -89,6 +99,19 @@ class CertificadoSearch extends Certificado
             'asc' => ['persona.mail' => SORT_ASC],
             'desc' => ['persona.mail' => SORT_DESC],
         ];
+
+        $dataProvider->sort->attributes['dealerAvailableDate'] = [
+            'asc' => ['lote.fechaEmision' => SORT_ASC],
+            'desc' => ['lote.fechaEmision' => SORT_DESC],
+        ];
+        
+        if (isset($this->dealerAvailableDate) && $this->dealerAvailableDate != '') { //you dont need the if function if yourse sure you have a not null date
+            $date_explode = explode(" - ", $this->dealerAvailableDate);
+            $date1 = trim($date_explode[0]);
+            $date2 = trim($date_explode[1]);
+            $query->andFilterWhere(['between', 'lote.fechaEmision', $date1, $date2]);
+        }
+        
         return $dataProvider;
     }
 }

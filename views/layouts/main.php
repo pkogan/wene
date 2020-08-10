@@ -58,6 +58,9 @@ AppAsset::register($this);
                             ['label' => 'Personas', 'url' => ['/persona'],
                                 'visible' => !Yii::$app->user->isGuest && Yii::$app->user->identity->idRol == \app\models\Rol::ROL_GESTOR
                             ],
+                            ['label' => 'Certificados', 'url' => ['/certificado'],
+                                'visible' => !Yii::$app->user->isGuest && Yii::$app->user->identity->idRol == \app\models\Rol::ROL_GESTOR
+                            ],
                                 
                         ]],
                         ['label' => 'Admin',

@@ -29,16 +29,24 @@ $this->params['breadcrumbs'][] = $this->title;
     <p>
 <?= Html::a('Descargar PDF', ['view', 'hash' => $model->hash, 'pdf'=>true], ['class' => 'btn btn-success']) ?>
     <?php if(!Yii::$app->user->isGuest && Yii::$app->user->identity->idRol== app\models\Rol::ROL_GESTOR){
-         echo Html::a('Update', ['update', 'id' => $model->idCertificado], ['class' => 'btn btn-primary']). ' ';
-        
-         echo Html::a('Delete', ['delete', 'id' => $model->idCertificado], [
-            'class' => 'btn btn-danger',
+         echo Html::a('Comunicar', ['mail', 'hash' => $model->hash], [
+            'class' => 'btn btn-primary',
             'data' => [
-                'confirm' => 'Are you sure you want to delete this item?',
+                'confirm' => '¿Está seguro de enviar certificado por mail a '.$model->idPersona0->mail.'?',
                 'method' => 'post',
             ],
         ]).' ';
-        echo Html::a('Update Persona', ['/persona/update', 'id' => $model->idPersona], ['class' => 'btn btn-primary']). ' ';
+         
+         echo Html::a('Actualizar', ['update', 'id' => $model->idCertificado], ['class' => 'btn btn-primary']). ' ';
+        
+         echo Html::a('Borrar', ['delete', 'id' => $model->idCertificado], [
+            'class' => 'btn btn-danger',
+            'data' => [
+                'confirm' => '¿Está seguro de borrar el certificado?',
+                'method' => 'post',
+            ],
+        ]).' ';
+        echo Html::a('Actualizar Persona', ['/persona/update', 'id' => $model->idPersona], ['class' => 'btn btn-primary']). ' ';
     }
 ?>
     </p>

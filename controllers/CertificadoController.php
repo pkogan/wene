@@ -134,7 +134,7 @@ class CertificadoController extends Controller {
             ]
         ]);
 
-        if($model->adjunto){
+        if ($model->adjunto) {
             $pdf->addPdfAttachment($model->nombreArchivo());
         }
         // return the pdf output as per the destination setting
@@ -142,10 +142,19 @@ class CertificadoController extends Controller {
     }
 
     private function mail($model) {
+        $subject = 'Certificado - ';
+        /* Hack cambiar del en el caso de por ejermplo Académica 
+            Todo: ver forma de generalizar */
+        if ($model->idLote0->idActividad0->idTipoActividad0->tipo == 'Académica') {
+            $subject .= $model->idLote0->idActividad0->nombre;
+        } else {
+            $subject .= $model->idLote0->idActividad0->idTipoActividad0->tipo . ' ' . $model->idLote0->idActividad0->nombre;
+        }
+
         if (Yii::$app->mailer->compose()
                         ->setFrom('wene@fi.uncoma.edu.ar')
                         ->setTo(trim($model->idPersona0->mail))
-                        ->setSubject('Certificado del ' . $model->idLote0->idActividad0->idTipoActividad0->tipo . ' ' . $model->idLote0->idActividad0->nombre)
+                        ->setSubject($subject)
                         ->setHtmlBody('Estimadx, ' . mb_strtoupper($model->idPersona0->apellidoNombre) .
                                 ', este correo es enviado por el sistema (wene.fi.uncoma.edu.ar) de Certificados emitidos por la Facultad de Informática de la Universidad Nacional Comahue. ' .
                                 ' Ingrese al siguiente ' . \yii\helpers\Html::a('link', $model->getLink()) . ' para descargar su certificado.  Muchas Gracias.')
@@ -192,18 +201,18 @@ class CertificadoController extends Controller {
         /*
          * se envía mail a todo el lote en ESTADO_INICIAL a TOPE_MAIL_LOTE
          */
-        $certificadosEstadoInicial=$lote->getCertificadosEstado(\app\models\Estado::ESTADO_INICIAL)
+        $certificadosEstadoInicial = $lote->getCertificadosEstado(\app\models\Estado::ESTADO_INICIAL)
                 ->limit(\app\models\Lote::TOPE_MAIL_LOTE)
                 ->all();
-        
+
         foreach ($certificadosEstadoInicial as $model) {
             //print_r($model);exit();
-           // if ($model->idEstado == \app\models\Estado::ESTADO_INICIAL) {
-                $this->mail($model);
-                $model->idEstado = \app\models\Estado::ESTADO_ENVIADO;
-                if (!$model->save()) {
-                    throw new \yii\web\NotAcceptableHttpException('Error al guardar certificado');
-                }
+            // if ($model->idEstado == \app\models\Estado::ESTADO_INICIAL) {
+            $this->mail($model);
+            $model->idEstado = \app\models\Estado::ESTADO_ENVIADO;
+            if (!$model->save()) {
+                throw new \yii\web\NotAcceptableHttpException('Error al guardar certificado');
+            }
             //}
         }
         /**
@@ -272,7 +281,7 @@ class CertificadoController extends Controller {
      */
     public function actionUpdate($id) {
         $model = $this->findModel($id);
-        
+
         if ($model->load(Yii::$app->request->post()) && $model->upload() && $model->save()) {
             return $this->redirect(['view', 'hash' => $model->hash]);
         }
@@ -290,14 +299,12 @@ class CertificadoController extends Controller {
      * @throws NotFoundHttpException if the model cannot be found
      */
     public function actionDelete($id) {
-        $model=$this->findModel($id);
-        $idLote=$model->idLote;
+        $model = $this->findModel($id);
+        $idLote = $model->idLote;
         $model->delete();
-        return $this->redirect(['/lote/view','id'=>$idLote]);
+        return $this->redirect(['/lote/view', 'id' => $idLote]);
     }
 
-
-    
     /**
      * Finds the Certificado model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
@@ -307,7 +314,8 @@ class CertificadoController extends Controller {
      */
     protected function findModel($id) {
         if (($model = Certificado::findOne($id)) !== null) {
-            if($model->validarPermisos()) return $model;
+            if ($model->validarPermisos())
+                return $model;
         }
 
         throw new NotFoundHttpException('The requested page does not exist.');

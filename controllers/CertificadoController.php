@@ -93,12 +93,29 @@ class CertificadoController extends Controller {
         header('Content-Type: ' . $qrCode->getContentType());
         return $qrCode;
     }
-
+    /**
+     * 
+     * @param Certificado $model
+     * @param type $qrCode
+     * @return type
+     */
     private function pdf($model, $qrCode) {
         /* @var $model Certificado */
 
         $content = $this->renderPartial('template/' . $model->idLote0->idTemplate0->template, ['model' => $model,
             'qrCode' => $qrCode]);
+        /**
+         * :Todo Abstraer hack header pdf en Dependencia
+         */
+        if($model->idLote0->idActividad0->idTipoActividad0->tipo="Académica"){
+            $header='Certificado Digital emitido por la Facultad de Informática de la Universidad Nacional del Comahue (<a href="' . \yii\helpers\Url::base('http') . '/img/ResDecAdRef-117-Emision-Certificados-Diguitales-SA-2020.pdf">Res. AdRef Nro 117/20</a>)';
+            
+        }else{
+            
+            $header='Certificado Digital emitido por la Facultad de Informática de la Universidad Nacional del Comahue (<a href="' . \yii\helpers\Url::base('http') . '/img/ResDecAdRef-077-Sistema-Reintegro-Certificados-Digitales-EXT-2020.pdf">Res. AdRef Nro 077/20</a>)';
+        }
+        
+        
         // get your HTML raw content without any layouts or scripts
         // setup kartik\mpdf\Pdf component
         $pdf = new Pdf([
@@ -128,7 +145,7 @@ class CertificadoController extends Controller {
             'marginLeft' => 15,
             'marginRight' => 15,
             'methods' => [
-                'SetHeader' => ['Certificado Digital emitido por la Facultad de Informática de la Universidad Nacional del Comahue (<a href="' . \yii\helpers\Url::base('http') . '/img/ResDecAdRef-077-Sistema-Reintegro-Certificados-Digitales-EXT-2020.pdf">Res. AdRef Nro 077/20</a>)'],
+                'SetHeader' => [$header],
                 'SetFooter' => ['<p>Se puede validar el Certificado, accediendo al link del código QR, o a <a href="' . \yii\helpers\Url::base('https') . '">' . \yii\helpers\Url::base('https') . '</a> con el código ' . $model->hash . '</p>' .
                     'Sistema de Certificados <img style="padding-top:2px" height="12px" src="img/logolargonegro.png"/>  '],
             ]

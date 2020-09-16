@@ -44,7 +44,7 @@ $this->title = 'wene - Certificados Facultad de Informática';
 
                 <p>RESOLUCIÓN N°1135 / EXPEDIENTE N°8120-003418/2019 12/9/2019</p>
 
-                <p><a class="btn btn-default" href="">Resolución CPE 1135/19 &raquo;</a></p>
+                <p><a class="btn btn-default" href="<?=\yii\helpers\Url::base('http')?>/img/r_1135_19.pdf">Resolución CPE 1135/19 &raquo;</a></p>
             </div>
         </div>
 

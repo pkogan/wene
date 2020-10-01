@@ -24,8 +24,8 @@ $this->title = 'wene - Certificados Facultad de Informática';
                 <h2>Certificados Digitales</h2>
 
                 <p>Con el objetivo de agilizar los procesos, hacer un aporte al medio ambiente y ahorrar papel, todas las actividades realizadas por la Facultad de Informática tendrán solamente certificados digitales</p>
-                <p><a class="btn btn-default" href="<?=\yii\helpers\Url::base('http')?>/img/ResDecAdRef-077-Sistema-Reintegro-Certificados-Digitales-EXT-2020.pdf">Res. AdRef Nro 077/20 &raquo;</a>
-                    <a class="btn btn-default" href="<?=\yii\helpers\Url::base('http')?>/img/ResDecAdRef-117-Emision-Certificados-Diguitales-SA-2020.pdf">Res. AdRef Nro 117/20 &raquo;</a>
+                <p> <a class="btn btn-default" href="<?=\yii\helpers\Url::base('https')?>/img/ResCD-031-Ratificar-ResAdRef077-Certificados-Digitales-EXTescopia.pdf">ResCD Nro 031/20 &raquo;</a>
+                    <a class="btn btn-default" href="<?=\yii\helpers\Url::base('https')?>/img/ResCD-064-Ratificar-ResAdRef117-Certificados-Digitales-Academica-SAescopia.pdf">ResCD Nro 064/20 &raquo;</a>
             </p>
 <!--                <p><a class="btn btn-default" href="">Resolución XXX/20 &raquo;</a></p>-->
             </div>

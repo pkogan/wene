@@ -108,11 +108,11 @@ class CertificadoController extends Controller {
          * :Todo Abstraer hack header pdf en Dependencia
          */
         if($model->idLote0->idActividad0->idTipoActividad0->tipo="Académica"){
-            $header='Certificado Digital emitido por la Facultad de Informática de la Universidad Nacional del Comahue (<a href="' . \yii\helpers\Url::base('http') . '/img/ResDecAdRef-117-Emision-Certificados-Diguitales-SA-2020.pdf">Res. AdRef Nro 117/20</a>)';
+            $header='Certificado Digital emitido por la Facultad de Informática de la Universidad Nacional del Comahue (<a href="' . \yii\helpers\Url::base('http') . '/img/ResCD-064-Ratificar-ResAdRef117-Certificados-Digitales-Academica-SAescopia.pdf">ResCD Nro 064/20</a>)';
             
         }else{
             
-            $header='Certificado Digital emitido por la Facultad de Informática de la Universidad Nacional del Comahue (<a href="' . \yii\helpers\Url::base('http') . '/img/ResDecAdRef-077-Sistema-Reintegro-Certificados-Digitales-EXT-2020.pdf">Res. AdRef Nro 077/20</a>)';
+            $header='Certificado Digital emitido por la Facultad de Informática de la Universidad Nacional del Comahue (<a href="' . \yii\helpers\Url::base('http') . '/img/ResCD-031-Ratificar-ResAdRef077-Certificados-Digitales-EXTescopia.pdf">ResCD Nro 031/20</a>)';
         }
         
         

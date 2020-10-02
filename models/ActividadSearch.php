@@ -69,7 +69,7 @@ class ActividadSearch extends Actividad
             'duracion' => $this->duracion,
         ]);
 
-        $query->andFilterWhere(['like', 'nombre', $this->nombre])
+        $query->andFilterWhere(['like', 'actividad.nombre', $this->nombre])
             ->andFilterWhere(['like', 'descripcion', $this->descripcion])
             ->andFilterWhere(['like', 'norma', $this->norma])
             ->andFilterWhere(['like', 'observaciones', $this->observaciones]);

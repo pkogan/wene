@@ -94,6 +94,9 @@ class LoteController extends Controller {
                                 $persona->dni = $row['dni'];
                                 $persona->mail = $fileop[3];
                                 $persona->apellidoNombre = $fileop[2];
+                                if(isset($fileop[4])){
+                                    $persona->legajo=$fileop[4];
+                                }
                                 if (!$persona->save()) {
                                     $row['msj'] .= '. Error al guardar Persona';
                                     foreach ($persona->errors as $atributo => $errores)

@@ -22,7 +22,8 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
     <?php if($provider->count==0){?>
     <p>Solo se aceptan archivos .csv de dos columnas, sin las cabeceras.  Columna 1 -> dni, Columna 2 -> observación</p>
-    <p>Opcionales se pueden agregar las columnas Columna 3 -> Apellido y Nombre, Columna 4 ->mail en el caso de importar Personas Nuevas</p>
+    <p>Opcionales se pueden agregar las columnas Columna 3 -> Apellido y Nombre, Columna 4 ->mail, Columna 5 -> legajo en el caso de importar Personas Nuevas</p>
+    <p>12345678,"","Parada Pepe","pepe@fi.uncoma.edu.ar","FAI-123"</p>
     <?php $form = ActiveForm::begin(); ?>
 
     <?= $form->field($modelform, 'archivo')->fileInput() ?>

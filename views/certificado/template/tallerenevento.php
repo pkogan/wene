@@ -23,7 +23,7 @@ use Da\QrCode\QrCode;
 
     <h1 >Certificado</h1>
 
-                <h3>Facultad de Informática Universidad Nacional del Comahue</h3>
+<!--                <h3>Facultad de Informática Universidad Nacional del Comahue</h3>-->
 
 
 

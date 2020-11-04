@@ -10,9 +10,14 @@ use Yii;
  * @property int $idDependecia
  * @property string $nombre
  * @property int|null $idDependenciaPadre
+ * @property string|null $mail
+ * @property string|null $clave
+ * @property string|null $smtp
+ * @property string|null $header
  *
  * @property Actividad[] $actividads
- * @property UsuarioDependencia[] $usuarioDependencias 
+ * @property TemplateDependencia[] $templateDependencias
+ * @property UsuarioDependencia[] $usuarioDependencias
  */
 class Dependencia extends \yii\db\ActiveRecord
 {
@@ -33,6 +38,9 @@ class Dependencia extends \yii\db\ActiveRecord
             [['nombre'], 'required'],
             [['idDependenciaPadre'], 'integer'],
             [['nombre'], 'string', 'max' => 300],
+            [['mail', 'smtp'], 'string', 'max' => 200],
+            [['clave'], 'string', 'max' => 100],
+            [['header'], 'string', 'max' => 1000],
         ];
     }
 
@@ -45,6 +53,10 @@ class Dependencia extends \yii\db\ActiveRecord
             'idDependecia' => 'Id Dependecia',
             'nombre' => 'Dependencia',
             'idDependenciaPadre' => 'Id Dependencia Padre',
+            'mail' => 'Mail',
+            'clave' => 'Clave',
+            'smtp' => 'Smtp',
+            'header' => 'Header',
         ];
     }
 
@@ -57,14 +69,24 @@ class Dependencia extends \yii\db\ActiveRecord
     {
         return $this->hasMany(Actividad::className(), ['idDependencia' => 'idDependecia']);
     }
-    
-      /** 
-    * Gets query for [[UsuarioDependencias]]. 
-    * 
-    * @return \yii\db\ActiveQuery 
-    */ 
-   public function getUsuarioDependencias() 
-   { 
-       return $this->hasMany(UsuarioDependencia::className(), ['idDependencia' => 'idDependecia']); 
-   } 
+
+    /**
+     * Gets query for [[TemplateDependencias]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getTemplateDependencias()
+    {
+        return $this->hasMany(TemplateDependencia::className(), ['idDependencia' => 'idDependecia']);
+    }
+
+    /**
+     * Gets query for [[UsuarioDependencias]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getUsuarioDependencias()
+    {
+        return $this->hasMany(UsuarioDependencia::className(), ['idDependencia' => 'idDependecia']);
+    }
 }

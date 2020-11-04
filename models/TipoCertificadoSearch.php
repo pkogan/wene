@@ -4,12 +4,12 @@ namespace app\models;
 
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use app\models\Dependencia;
+use app\models\TipoCertificado;
 
 /**
- * DependenciaSearch represents the model behind the search form of `app\models\Dependencia`.
+ * TipoCertificadoSearch represents the model behind the search form of `app\models\TipoCertificado`.
  */
-class DependenciaSearch extends Dependencia
+class TipoCertificadoSearch extends TipoCertificado
 {
     /**
      * {@inheritdoc}
@@ -17,8 +17,8 @@ class DependenciaSearch extends Dependencia
     public function rules()
     {
         return [
-            [['idDependecia', 'idDependenciaPadre'], 'integer'],
-            [['nombre', 'mail', 'clave', 'smpt'], 'safe'],
+            [['idTipoCertificado'], 'integer'],
+            [['tipo', 'conectorM', 'conectorF'], 'safe'],
         ];
     }
 
@@ -40,7 +40,7 @@ class DependenciaSearch extends Dependencia
      */
     public function search($params)
     {
-        $query = Dependencia::find();
+        $query = TipoCertificado::find();
 
         // add conditions that should always apply here
 
@@ -58,14 +58,12 @@ class DependenciaSearch extends Dependencia
 
         // grid filtering conditions
         $query->andFilterWhere([
-            'idDependecia' => $this->idDependecia,
-            'idDependenciaPadre' => $this->idDependenciaPadre,
+            'idTipoCertificado' => $this->idTipoCertificado,
         ]);
 
-        $query->andFilterWhere(['like', 'nombre', $this->nombre])
-            ->andFilterWhere(['like', 'mail', $this->mail])
-            ->andFilterWhere(['like', 'clave', $this->clave])
-            ->andFilterWhere(['like', 'smpt', $this->smpt]);
+        $query->andFilterWhere(['like', 'tipo', $this->tipo])
+            ->andFilterWhere(['like', 'conectorM', $this->conectorM])
+            ->andFilterWhere(['like', 'conectorF', $this->conectorF]);
 
         return $dataProvider;
     }

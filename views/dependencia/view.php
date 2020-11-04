@@ -34,5 +34,33 @@ $this->params['breadcrumbs'][] = $this->title;
             'idDependenciaPadre',
         ],
     ]) ?>
+    <h2>Templates</h2>
+    <p>
+    <?= Html::a('Agregar Template', ['/template-dependencia/create', 'id' => $model->idDependecia], ['class' => 'btn btn-success']) ?>
+    </p>
 
+     <?= \yii\grid\GridView::widget([
+        'dataProvider' => $dataProvider,
+        'filterModel' => $searchModel,
+        'columns' => [
+            ['class' => 'yii\grid\SerialColumn'],
+
+            //'idTemplateDependencia',
+            'idTemplate0.template',
+            //'idDependencia',
+
+            //['class' => 'yii\grid\ActionColumn'],
+              ['class' => 'yii\grid\ActionColumn',
+                'template' => '{delete}',
+                
+                'urlCreator' => function( $action, $model, $key, $index ) {
+                    /* if ($action == "update") {
+                      return \yii\helpers\Url::to(['/certificado/view', 'id' => $key]);
+                      } */
+                    if ($action == "delete") {
+                        return \yii\helpers\Url::to(['/template-dependencia/delete', 'id' => $model->idTemplateDependencia]);
+                    }
+                }],
+        ],
+    ]); ?>
 </div>

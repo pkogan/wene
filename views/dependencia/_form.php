@@ -16,6 +16,14 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'idDependenciaPadre')->textInput() ?>
 
+    <?= $form->field($model, 'mail')->textInput(['maxlength' => true]) ?>
+
+    <?= $form->field($model, 'clave')->textInput(['maxlength' => true]) ?>
+
+    <?= $form->field($model, 'smtp')->textInput(['maxlength' => true]) ?>
+
+    <?= $form->field($model, 'header')->textInput(['maxlength' => true]) ?>
+
     <div class="form-group">
         <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
     </div>

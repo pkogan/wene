@@ -72,6 +72,13 @@ AppAsset::register($this);
                                 ['label' => 'Dependencias', 'url' => ['/dependencia'],
                                 'visible' => !Yii::$app->user->isGuest && Yii::$app->user->identity->idRol == \app\models\Rol::ROL_ADMIN
                             ],
+                                ['label' => 'Template', 'url' => ['/template'],
+                                'visible' => !Yii::$app->user->isGuest && Yii::$app->user->identity->idRol == \app\models\Rol::ROL_ADMIN
+                            ],
+                                ['label' => 'Tipos Certificdos', 'url' => ['/tipo-certificado'],
+                                'visible' => !Yii::$app->user->isGuest && Yii::$app->user->identity->idRol == \app\models\Rol::ROL_ADMIN
+                            ],
+                            
                         ]],
                     //['label' => 'Contact', 'url' => ['/site/contact']],
                     Yii::$app->user->isGuest ? (

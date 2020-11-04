@@ -5,6 +5,7 @@ use yii\widgets\ActiveForm;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Lote */
+/* @var $actividad app\models\Actividad*/
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
@@ -26,11 +27,18 @@ use yii\widgets\ActiveForm;
             ->indexBy('idTipoCertificado')
             ->column())?>
 
-    <?= //$form->field($model, 'idTemplate')->textInput() 
-            $form->field($model, 'idTemplate')->dropDownList(\app\models\Template::find()
+    <?php //$form->field($model, 'idTemplate')->textInput()
+            echo $form->field($model, 'idTemplate')->dropDownList(\app\models\Template::find()
+            ->joinWith('templateDependencias')->where(['idDependencia'=> $actividad->idDependencia ])
             ->select(['template'])
             ->indexBy('idTemplate')
-            ->column())?>
+            ->column())
+
+/*            $form->field($model, 'idTemplate')->dropDownList(\app\models\Template::find()
+            ->select(['template'])
+            ->indexBy('idTemplate')
+            ->column())?>*/
+            ?>
 
     <?= //$form->field($model, 'fechaEmision')->textInput() 
             $form->field($model, 'fechaEmision')

@@ -107,12 +107,12 @@ class CertificadoController extends Controller {
         /**
          * :Todo Abstraer hack header pdf en Dependencia
          */
-        if($model->idLote0->idActividad0->idTipoActividad0->tipo="Académica"){
+        if(is_null($model->idLote0->idActividad0->idDependencia0->header)){
             $header='Certificado Digital emitido por la Facultad de Informática de la Universidad Nacional del Comahue (<a href="' . \yii\helpers\Url::base('http') . '/img/ResCD-064-Ratificar-ResAdRef117-Certificados-Digitales-Academica-SAescopia.pdf">ResCD Nro 064/20</a>)';
             
         }else{
-            
-            $header='Certificado Digital emitido por la Facultad de Informática de la Universidad Nacional del Comahue (<a href="' . \yii\helpers\Url::base('http') . '/img/ResCD-031-Ratificar-ResAdRef077-Certificados-Digitales-EXTescopia.pdf">ResCD Nro 031/20</a>)';
+            $header= $model->idLote0->idActividad0->idDependencia0->header;
+            //$header='Certificado Digital emitido por la Facultad de Informática de la Universidad Nacional del Comahue (<a href="' . \yii\helpers\Url::base('http') . '/img/ResCD-031-Ratificar-ResAdRef077-Certificados-Digitales-EXTescopia.pdf">ResCD Nro 031/20</a>)';
         }
         
         
@@ -157,7 +157,12 @@ class CertificadoController extends Controller {
         // return the pdf output as per the destination setting
         return $pdf->render();
     }
-
+    /**
+     * 
+     * @param Certificado $model
+     * @return boolean
+     * @throws \yii\web\NotAcceptableHttpException
+     */
     private function mail($model) {
         $subject = 'Certificado - ';
         /* Hack cambiar del en el caso de por ejermplo Académica 
@@ -167,13 +172,24 @@ class CertificadoController extends Controller {
         } else {
             $subject .= $model->idLote0->idActividad0->idTipoActividad0->tipo . ' ' . $model->idLote0->idActividad0->nombre;
         }
-
+        //Yii::$app->components['mailer']['transport']['username']=$model->idLote0->idActividad0->idDependencia0->mail;
+        if(!is_null($model->idLote0->idActividad0->idDependencia0->mail)){
+            Yii::$app->mailer->transport->setUsername($model->idLote0->idActividad0->idDependencia0->mail);
+            Yii::$app->mailer->transport->setPassword($model->idLote0->idActividad0->idDependencia0->clave);
+            Yii::$app->mailer->transport->setHost($model->idLote0->idActividad0->idDependencia0->smtp);
+            $from=$model->idLote0->idActividad0->idDependencia0->mail;
+        }
+        else{
+            $from='wene@fi.uncoma.edu.ar';
+        }
+        //print_r(Yii::$app->components);exit;
+        
         if (Yii::$app->mailer->compose()
-                        ->setFrom('wene@fi.uncoma.edu.ar')
+                        ->setFrom($from)//)
                         ->setTo(trim($model->idPersona0->mail))
                         ->setSubject($subject)
                         ->setHtmlBody('Estimadx, ' . mb_strtoupper($model->idPersona0->apellidoNombre) .
-                                ', este correo es enviado por el sistema (wene.fi.uncoma.edu.ar) de Certificados emitidos por la Facultad de Informática de la Universidad Nacional Comahue. ' .
+                                ', este correo es enviado por el sistema (wene.fi.uncoma.edu.ar) de Certificados desarrolado por la Facultad de Informática de la Universidad Nacional Comahue. ' .
                                 ' Ingrese al siguiente ' . \yii\helpers\Html::a('link', $model->getLink()) . ' para descargar su certificado.  Muchas Gracias.')
                         ->send()) {
             return true;

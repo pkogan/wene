@@ -65,7 +65,7 @@ class DependenciaSearch extends Dependencia
         $query->andFilterWhere(['like', 'nombre', $this->nombre])
             ->andFilterWhere(['like', 'mail', $this->mail])
             ->andFilterWhere(['like', 'clave', $this->clave])
-            ->andFilterWhere(['like', 'smpt', $this->smpt]);
+            ->andFilterWhere(['like', 'smtp', $this->smtp]);
 
         return $dataProvider;
     }

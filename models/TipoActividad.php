@@ -9,7 +9,8 @@ use Yii;
  *
  * @property int $idTipo
  * @property string $tipo
- *
+ * @property string $genero 
+ * 
  * @property Actividad[] $actividads
  */
 class TipoActividad extends \yii\db\ActiveRecord
@@ -30,6 +31,7 @@ class TipoActividad extends \yii\db\ActiveRecord
         return [
             [['tipo'], 'required'],
             [['tipo'], 'string', 'max' => 100],
+            [['genero'], 'string', 'max' => 1], 
         ];
     }
 
@@ -41,6 +43,7 @@ class TipoActividad extends \yii\db\ActiveRecord
         return [
             'idTipo' => 'Id Tipo',
             'tipo' => 'Tipo',
+            'genero' => 'Genero',
         ];
     }
 

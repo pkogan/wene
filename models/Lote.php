@@ -21,24 +21,21 @@ use Yii;
  * @property Estado $idEstado0
  * @property TipoCertificado $idTipoCertificado0
  */
-class Lote extends \yii\db\ActiveRecord
+class Lote extends \yii\db\ActiveRecord {
 
-
-{
     const TOPE_MAIL_LOTE = 50;
+
     /**
      * {@inheritdoc}
      */
-    public static function tableName()
-    {
+    public static function tableName() {
         return 'lote';
     }
 
     /**
      * {@inheritdoc}
      */
-    public function rules()
-    {
+    public function rules() {
         return [
             [['idActividad', 'idEstado', 'idTipoCertificado', 'idTemplate', 'fechaEmision'], 'required'],
             [['idActividad', 'idEstado', 'idTipoCertificado', 'idTemplate'], 'integer'],
@@ -54,8 +51,7 @@ class Lote extends \yii\db\ActiveRecord
     /**
      * {@inheritdoc}
      */
-    public function attributeLabels()
-    {
+    public function attributeLabels() {
         return [
             'idLote' => 'Id Lote',
             'idActividad' => 'Id Actividad',
@@ -67,42 +63,46 @@ class Lote extends \yii\db\ActiveRecord
         ];
     }
 
+    public function getConector() {
+        if ($this->idActividad0->idTipoActividad0->genero == 'M') {
+            return $this->idTipoCertificado0->conectorM;
+        } else {
+            return $this->idTipoCertificado0->conectorF;
+        }
+    }
+
     /**
      * Gets query for [[Certificados]].
      *
      * @return \yii\db\ActiveQuery
      */
-    public function getCertificados()
-    {
+    public function getCertificados() {
         return $this->hasMany(Certificado::className(), ['idLote' => 'idLote']);
     }
 
-    public function getCertificadosEstado($idEstado=null){
-         if($idEstado==null){
+    public function getCertificadosEstado($idEstado = null) {
+        if ($idEstado == null) {
             return $this->getCertificados();
-        }else{
+        } else {
             return $this->hasMany(Certificado::className(), ['idLote' => 'idLote'])
-                    ->andOnCondition(['certificado.idEstado'=>$idEstado]);
+                            ->andOnCondition(['certificado.idEstado' => $idEstado]);
         }
     }
-    
-    public function getCountCertificados($idEstado=null)
-    {
-        if($idEstado==null){
+
+    public function getCountCertificados($idEstado = null) {
+        if ($idEstado == null) {
             return $this->getCertificados()->count();
-        }else{
+        } else {
             return $this->getCertificadosEstado($idEstado)->count();
         }
-        
     }
-    
+
     /**
      * Gets query for [[IdTemplate0]].
      *
      * @return \yii\db\ActiveQuery
      */
-    public function getIdTemplate0()
-    {
+    public function getIdTemplate0() {
         return $this->hasOne(Template::className(), ['idTemplate' => 'idTemplate']);
     }
 
@@ -111,8 +111,7 @@ class Lote extends \yii\db\ActiveRecord
      *
      * @return \yii\db\ActiveQuery
      */
-    public function getIdActividad0()
-    {
+    public function getIdActividad0() {
         return $this->hasOne(Actividad::className(), ['idActividad' => 'idActividad']);
     }
 
@@ -121,8 +120,7 @@ class Lote extends \yii\db\ActiveRecord
      *
      * @return \yii\db\ActiveQuery
      */
-    public function getIdEstado0()
-    {
+    public function getIdEstado0() {
         return $this->hasOne(Estado::className(), ['idEstado' => 'idEstado']);
     }
 
@@ -131,21 +129,20 @@ class Lote extends \yii\db\ActiveRecord
      *
      * @return \yii\db\ActiveQuery
      */
-    public function getIdTipoCertificado0()
-    {
+    public function getIdTipoCertificado0() {
         return $this->hasOne(TipoCertificado::className(), ['idTipoCertificado' => 'idTipoCertificado']);
     }
-    public function getFechaTexto()
-    {
-       return DateSpanish::cadena($this->fechaEmision);
-        
+
+    public function getFechaTexto() {
+        return DateSpanish::cadena($this->fechaEmision);
     }
-    
-    public function validarPermisos(){
-          foreach ($this->idActividad0->idDependencia0->usuarioDependencias as $usuarioDependencia){
-                if(\Yii::$app->user->identity->idUsuario==$usuarioDependencia->idUsuario) return true;
-            }
-          throw new \yii\web\NotFoundHttpException('Está intentando acceder a un lote de una actividad sobre la que no tiene permisos.');
-     }
-    
+
+    public function validarPermisos() {
+        foreach ($this->idActividad0->idDependencia0->usuarioDependencias as $usuarioDependencia) {
+            if (\Yii::$app->user->identity->idUsuario == $usuarioDependencia->idUsuario)
+                return true;
+        }
+        throw new \yii\web\NotFoundHttpException('Está intentando acceder a un lote de una actividad sobre la que no tiene permisos.');
+    }
+
 }

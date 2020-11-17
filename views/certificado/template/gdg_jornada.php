@@ -14,11 +14,11 @@ use Da\QrCode\QrCode;
   <div class="col-xs-4">
             <img   width="40%" src="img/uncomarecortado.png" alt="UNCo"/></div>
         <div class="col-xs-3">
-            <img  src="img/gdg.png" alt="Sadosky"/></div>
+            <img   src="img/gdg.png" alt="Sadosky"/></div>
 
 
         <div class="col-xs-3">
-            <img  width="85%" src="img/faif.png" alt="Facultad de Informática"/></div>
+            <img  width="90%" src="img/faif.png" alt="Facultad de Informática"/></div>
 
     </div>
 

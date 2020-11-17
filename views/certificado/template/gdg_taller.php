@@ -36,6 +36,7 @@ use Da\QrCode\QrCode;
 <!--            ha presentado el artículo-->
             <b><i>"<?=$model->observacion?>"</i></b> en el marco del </b>
             <b>"<?= $model->idLote0->idActividad0->nombre ?>"</b>. 
+            <?= ($model->idLote0->idActividad0->norma!='')?'Avalado por '.$model->idLote0->idActividad0->norma.'. ':''?>
             <?= $model->idLote0->observacion ?></h3>
 
         <h3>Neuquén, <?= $model->idLote0->getFechaTexto(); ?>.</h3>

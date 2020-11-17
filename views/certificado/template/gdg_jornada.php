@@ -19,7 +19,7 @@ use Da\QrCode\QrCode;
 
         <div class="col-xs-3">
             <img  width="85%" src="img/faif.png" alt="Facultad de Informática"/></div>
-    </div>
+
     </div>
 
     <h1 >Certificado</h1>

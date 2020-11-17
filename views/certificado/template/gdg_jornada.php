@@ -33,7 +33,7 @@ use Da\QrCode\QrCode;
         <b><?= $model->idLote0->idActividad0->nombre ?></b>, el <?= $model->idLote0->idActividad0->getFechaTexto(); ?>.<br/>
         <!--y con una duración de <?= $model->idLote0->idActividad0->duracion ?> <?= $model->idLote0->idActividad0->medidaDuracion ?>.-->
         <?= ($model->idLote0->idActividad0->norma!='')?'Avalado por '.$model->idLote0->idActividad0->norma.'. ':''?>
-        <?= $model->idLote0->idActividad0->observaciones ?></h3>
+        <?= $model->idLote0->observaciones ?></h3>
 
     <h3 >Neuquén, <?= $model->idLote0->getFechaTexto(); ?>.</h3>
                 

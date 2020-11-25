@@ -109,11 +109,17 @@ AppAsset::register($this);
         </div>
 
         <div class="logos_pie">
-            <!--      <h5>Intituciones que son parte de este proyecto</h5>-->
-
+            
+        <h5>Actividades organizadas de conjunto con:</h5>
             <img src="<?= yii\helpers\Url::home();?>img/faif.png" alt="Facultad de Informática"/>
-            <img src="<?= yii\helpers\Url::home();?>img/sadosky.png" alt="Sadosky"/>
             <img src="<?= yii\helpers\Url::home();?>img/uncoma.png" alt="UNCo"/>
+            <img src="<?= yii\helpers\Url::home();?>img/sadosky.png" alt="Sadosky"/>
+            <img src="<?= yii\helpers\Url::home();?>img/logo-redunci.gif" alt="RedUnci"/>
+            <img src="<?= yii\helpers\Url::home();?>img/aten.png" alt="aten"/>
+            <img src="<?= yii\helpers\Url::home();?>img/patagonian.png" alt="Patagonian"/>
+            <img src="<?= yii\helpers\Url::home();?>img/gdg.png" alt="GDGNeuquen"/>
+            
+            
 
         </div>
 

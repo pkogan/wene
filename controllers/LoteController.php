@@ -30,17 +30,17 @@ class LoteController extends Controller {
                 'ruleConfig' => [
                     'class' => \app\models\AccessRule::className(),
                 ],
-                'only' => ['index', 'view', 'update', 'delete', 'create'],
+                'only' => ['index', 'view', 'update', 'delete', 'create', 'download'],
                 'rules' => [
                     //'class' => AccessRule::className(),
-                        [
+                    [
                         'allow' => true,
-                        'actions' => ['index', 'view', 'update', 'delete', 'create'],
+                        'actions' => ['index', 'view', 'update', 'delete', 'create', 'download'],
                         'roles' => [\app\models\Rol::ROL_GESTOR],
                     ],
-                        [
+                    [
                         'allow' => true,
-                        'actions' => ['view'],
+                        'actions' => ['view', 'download'],
                         'roles' => [\app\models\Rol::ROL_HACEDOR],
                     ],
                 ],
@@ -80,7 +80,7 @@ class LoteController extends Controller {
 
                 while (($fileop = fgetcsv($handle, 1000, ",")) !== false) {
                     //print_r($fileop);
-                    $contadores['registros'] ++;
+                    $contadores['registros']++;
                     $row = [];
                     if (isset($fileop[0]) && isset($fileop[1])) {
                         $row['dni'] = $fileop[0];
@@ -89,27 +89,27 @@ class LoteController extends Controller {
                         if ($persona == null) {
                             $row['msj'] = 'No Existe Persona con DNI ingresado';
                             if (isset($fileop[3]) && isset($fileop[2])) {
-                                $contadores['no existe persona'] ++;
+                                $contadores['no existe persona']++;
                                 $persona = new \app\models\Persona();
                                 $persona->dni = $row['dni'];
                                 $persona->mail = $fileop[3];
                                 $persona->apellidoNombre = $fileop[2];
-                                if(isset($fileop[4])){
-                                    $persona->legajo=$fileop[4];
+                                if (isset($fileop[4])) {
+                                    $persona->legajo = $fileop[4];
                                 }
                                 if (!$persona->save()) {
                                     $row['msj'] .= '. Error al guardar Persona';
                                     foreach ($persona->errors as $atributo => $errores)
                                         $row['msj'] .= ', ' . $atributo . ': ' . implode(', ', $errores);
-                                    $contadores['error al guardar persona'] ++;
+                                    $contadores['error al guardar persona']++;
                                     $persona = null;
                                 } else {
                                     $row['msj'] .= '. Persona importada ok';
-                                    $contadores['persona importada'] ++;
+                                    $contadores['persona importada']++;
                                 }
                             } else {
                                 $row['msj'] .= '. Error al guardar Persona no cargó columnas 3 y 4';
-                                $contadores['error al guardar persona'] ++;
+                                $contadores['error al guardar persona']++;
                             }
                         }
                         if ($persona != null) {
@@ -123,16 +123,16 @@ class LoteController extends Controller {
                                 $row['msj'] = 'Error al guardar Certificado';
                                 foreach ($certificado->errors as $atributo => $errores)
                                     $row['msj'] .= ', ' . $atributo . ': ' . implode(', ', $errores);
-                                $contadores['error al guardar certificado'] ++;
+                                $contadores['error al guardar certificado']++;
                             } else {
                                 $row['msj'] = 'ok';
-                                $contadores['importados'] ++;
+                                $contadores['importados']++;
                             }
                             //$row['certificado']=$certificado;
                         }
                         $rows[] = $row;
                     } else {
-                        $contadores['error en archivo'] ++;
+                        $contadores['error en archivo']++;
                     }
                 }
                 //print_r($rows);
@@ -196,6 +196,39 @@ class LoteController extends Controller {
     }
 
     /**
+     * Displays a single Lote model.
+     * @param integer $id
+     * @return mixed
+     * @throws NotFoundHttpException if the model cannot be found
+     */
+    public function actionDownload($id) {
+        $lote = $this->findModel($id);
+        $test = $lote->idActividad0->nombre . '-Lote' . $id . date('Ymd_His') . '.zip';
+        //var_dump($test);
+        $carpeta = '../tmp/';
+
+        $zip = new \ZipArchive();
+        $res = $zip->open($carpeta . $test, \ZipArchive::CREATE);
+        $csv = '';
+        if ($res) {
+            foreach ($lote->certificados as $certificado) {
+                $csv .= $certificado->idPersona0->dni . ',"' . $certificado->observacion . '","' . mb_strtoupper($certificado->idPersona0->apellidoNombre). '","' . $certificado->idPersona0->mail . '","' . $certificado->idPersona0->legajo. '","' .$certificado->getLinkpdf() . '"'."\n";
+                $zip->addFromString(mb_strtoupper($certificado->idPersona0->apellidoNombre) . '.pdf', file_get_contents($certificado->getLinkpdf()));
+            }
+            $zip->addFromString('0listado.csv', $csv);
+            $zip->close();
+            //exit('aca');
+            header('Content-Type: application/zip');
+            header('Content-Disposition: attachment; filename=' . $test);
+            //echo file_get_contents($carpeta.$test);
+            readfile($carpeta . $test);
+        } else {
+            echo 'zip error';
+            die;
+        }
+    }
+
+    /**
      * Creates a new Lote model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
@@ -212,8 +245,8 @@ class LoteController extends Controller {
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->idLote]);
         }
-        if(is_null($model->observacion)){
-            $model->observacion=$actividad->descripcion;
+        if (is_null($model->observacion)) {
+            $model->observacion = $actividad->descripcion;
         }
 
         return $this->render('create', [
@@ -249,11 +282,11 @@ class LoteController extends Controller {
      * @throws NotFoundHttpException if the model cannot be found
      */
     public function actionDelete($id) {
-        $model=$this->findModel($id);
-        $idActividad=$model->idActividad;
+        $model = $this->findModel($id);
+        $idActividad = $model->idActividad;
         $model->delete();
 
-        return $this->redirect(['/actividad/view','id'=>$idActividad]);
+        return $this->redirect(['/actividad/view', 'id' => $idActividad]);
     }
 
     /**
@@ -265,7 +298,8 @@ class LoteController extends Controller {
      */
     protected function findModel($id) {
         if (($model = Lote::findOne($id)) !== null) {
-               if($model->validarPermisos()) return $model;
+            if ($model->validarPermisos())
+                return $model;
         }
 
         throw new NotFoundHttpException('The requested page does not exist.');

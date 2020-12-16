@@ -121,7 +121,10 @@ class Certificado extends \yii\db\ActiveRecord {
     }
 
     public function getLink() {
-        return \yii\helpers\Url::base('http') . '/certificado/view?hash=' . $this->hash;
+        return \yii\helpers\Url::base('https') . '/certificado/view?hash=' . $this->hash;
+    }
+    public function getLinkpdf() {
+        return $this->getLink().'&pdf=1';
     }
     
     public function validarPermisos(){

@@ -62,15 +62,15 @@ class Actividad extends \yii\db\ActiveRecord {
     public function attributeLabels() {
         return [
             'idActividad' => 'Id Actividad',
-            'idTipoActividad' => 'Id Tipo Actividad',
-            'idDependencia' => 'Id Dependencia',
-            'idActividadPadre' => 'Id Actividad Padre',
+            'idTipoActividad' => 'Tipo Actividad',
+            'idDependencia' => 'Dependencia',
+            'idActividadPadre' => 'Actividad Padre',
             'nombre' => 'Nombre',
             'descripcion' => 'Descripcion',
-            'observaciones' => 'Texto en Certificado',
+            'observaciones' => 'Observación',
             'fecha' => 'Fecha',
             'norma' => 'Norma',
-            'idCiudad' => 'Id Ciudad',
+            'idCiudad' => 'Ciudad',
             'duracion' => 'Duracion',
             'medidaDuracion' => 'Medida duracion',
         ];

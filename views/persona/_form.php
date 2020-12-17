@@ -17,15 +17,22 @@ use yii\widgets\ActiveForm;
     <?= $form->field($model, 'dni')->textInput() ?>
 
     <?= $form->field($model, 'apellidoNombre')->textInput(['maxlength' => true]) ?>
+    
 
     <?= $form->field($model, 'legajo')->textInput(['maxlength' => true]) ?>
+    
+    <?=$form->field($model, 'idDependencia')->dropDownList(\app\models\Dependencia::find()
+            ->joinWith('usuarioDependencias')->where(['idUsuario'=> \Yii::$app->user->identity->idUsuario])
+            ->select(['nombre'])
+            ->indexBy('idDependecia')
+            ->column())?>
     
     <?= $form->field($model, 'telefono')->textInput(['maxlength' => true]) ?>
 
     
     <?= $form->field($model, 'Comentario')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'idCiudad')->textInput() ?>
+    <?php //echo $form->field($model, 'idCiudad')->textInput() ?>
 
     
 

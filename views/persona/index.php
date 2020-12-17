@@ -33,6 +33,14 @@ $this->params['breadcrumbs'][] = $this->title;
             'dni',
             'legajo',
             'apellidoNombre',
+            ['attribute' => 'idDependencia',
+                'label' => 'Dependencia',
+                'value'=>'idDependencia0.nombre',
+                'filter' => \yii\helpers\ArrayHelper::map(
+                        \app\models\Dependencia::find()->joinWith('usuarioDependencias')->where(['idUsuario'=> \Yii::$app->user->identity->idUsuario])->all()
+                        , 'idDependecia', 'nombre'),
+                ]
+            ,
             //'telefono',
             //'localidad',
             //'Comentario',

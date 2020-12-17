@@ -50,6 +50,7 @@ class LoteController extends Controller {
 
     public function actionImportar($id) {
         $lote = $this->findModel($id);
+        $idDependencia = $lote->idActividad0->idDependencia;
         $model = new \app\models\ImportarLoteForm();
         $rows = [];
         $contadores = [];
@@ -85,9 +86,9 @@ class LoteController extends Controller {
                     if (isset($fileop[0]) && isset($fileop[1])) {
                         $row['dni'] = $fileop[0];
                         $row['obs'] = $fileop[1];
-                        $persona = \app\models\Persona::findOne((['dni' => $row['dni']]));
+                        $persona = \app\models\Persona::findOne((['dni' => $row['dni'], 'idDependencia'=>$idDependencia]));
                         if ($persona == null) {
-                            $row['msj'] = 'No Existe Persona con DNI ingresado';
+                            $row['msj'] = 'No Existe Persona con DNI ingresado, en la Dependencia';
                             if (isset($fileop[3]) && isset($fileop[2])) {
                                 $contadores['no existe persona']++;
                                 $persona = new \app\models\Persona();
@@ -97,6 +98,7 @@ class LoteController extends Controller {
                                 if (isset($fileop[4])) {
                                     $persona->legajo = $fileop[4];
                                 }
+                                $persona->idDependencia=$idDependencia;
                                 if (!$persona->save()) {
                                     $row['msj'] .= '. Error al guardar Persona';
                                     foreach ($persona->errors as $atributo => $errores)

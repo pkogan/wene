@@ -31,8 +31,23 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\SerialColumn'],
 
             'idActividad',
-            'idTipoActividad0.tipo',
-            'idDependencia0.nombre',
+            //'idTipoActividad0.tipo',
+            ['attribute' => 'idTipoActividad',
+                'label' => 'Tipo',
+                'value'=>'idTipoActividad0.tipo',
+                'filter' => \yii\helpers\ArrayHelper::map(
+                \app\models\TipoActividad::find()->all()
+                        , 'idTipo', 'tipo'),
+                ],
+            //'idDependencia0.nombre',
+            ['attribute' => 'idDependencia',
+                'label' => 'Dependencia',
+                'value'=>'idDependencia0.nombre',
+                'filter' => \yii\helpers\ArrayHelper::map(
+                        \app\models\Dependencia::find()->joinWith('usuarioDependencias')->where(['idUsuario'=> \Yii::$app->user->identity->idUsuario])->all()
+                        , 'idDependecia', 'nombre'),
+                ]
+            ,
             //'idActividadPadre',
             'nombre',
             //'descripcion:ntext',

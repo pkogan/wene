@@ -18,7 +18,7 @@ class PersonaSearch extends Persona
     {
         return [
             [['idPersona', 'idUsuario', 'dni', 'idCiudad'], 'integer'],
-            [['mail', 'apellidoNombre', 'telefono', 'localidad', 'Comentario', 'token', 'legajo'], 'safe'],
+            [['mail', 'apellidoNombre', 'telefono', 'localidad', 'Comentario', 'token', 'legajo', 'idDependencia'], 'safe'],
         ];
     }
 
@@ -62,6 +62,7 @@ class PersonaSearch extends Persona
             'idUsuario' => $this->idUsuario,
             'dni' => $this->dni,
             'idCiudad' => $this->idCiudad,
+            'idDependencia' => $this->idDependencia,
         ]);
 
         $query->andFilterWhere(['like', 'mail', $this->mail])

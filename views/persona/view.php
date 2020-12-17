@@ -35,10 +35,11 @@ $this->params['breadcrumbs'][] = $this->title;
             'dni',
             'legajo',
             'apellidoNombre',
+            'idDependencia0.nombre',
             'telefono',
             //'localidad',
             'Comentario',
-            'idCiudad0.ciudad',
+            //'idCiudad0.ciudad',
             //'token',
         ],
     ]) ?>

@@ -62,7 +62,7 @@ class ActividadSearch extends Actividad
         $query->andFilterWhere([
             'idActividad' => $this->idActividad,
             'idTipoActividad' => $this->idTipoActividad,
-            'idDependencia' => $this->idDependencia,
+            'actividad.idDependencia' => $this->idDependencia,
             'idActividadPadre' => $this->idActividadPadre,
             'fecha' => $this->fecha,
             'idCiudad' => $this->idCiudad,

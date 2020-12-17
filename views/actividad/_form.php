@@ -41,7 +41,7 @@ use yii\widgets\ActiveForm;
             ->indexBy('idDependecia')
             ->column())?>
 
-    <?= $form->field($model, 'idActividadPadre')->textInput() ?>
+    <?php //echo $form->field($model, 'idActividadPadre')->textInput() ?>
 
     <?= $form->field($model, 'nombre')->textInput(['maxlength' => true]) ?>
 

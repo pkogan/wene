@@ -42,7 +42,7 @@ class Persona extends \yii\db\ActiveRecord {
     static function find() {
 
         $query = parent::find()->addSelect('*');
-        if (!\Yii::$app->user->isGuest()) {
+        if (!\Yii::$app->user->isGuest) {
             $in = \yii\helpers\ArrayHelper::getColumn(\app\models\Dependencia::find()->joinWith('usuarioDependencias')->where(['idUsuario' => \Yii::$app->user->identity->idUsuario])->all(), 'idDependecia');
             $in = '(' . implode(',', $in) . ')';
 

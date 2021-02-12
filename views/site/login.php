@@ -13,7 +13,7 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="site-login">
     <h1><?= Html::encode($this->title) ?></h1>
 
-    <p>Complete los campos para login:</p>
+    <p>Complete los campos para ingresar al sistema:</p>
 
     <?php $form = ActiveForm::begin([
         'id' => 'login-form',
@@ -39,5 +39,7 @@ $this->params['breadcrumbs'][] = $this->title;
         </div>
 
     <?php ActiveForm::end(); ?>
+    <p><?= yii\helpers\Html::a('¿Es la primera vez que ingresa al sistema para descargar sus certificados o se olvidó la contraseña?', ['/site/recuperar']) ?></p>
+    
 
 </div>

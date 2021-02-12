@@ -7,12 +7,10 @@ use Da\QrCode\QrCode;
 /* @var $this yii\web\View */
 /* @var $model app\models\Entrega */
 
-$this->title = 'Certificado #' . $model['hash'];
+$this->title = 'Validar Certificado';
 //$this->params['breadcrumbs'][] = ['label' => 'Entregas', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 ?>
-<?= Html::a('Descargar pdf', ['demo', 'hash' => $model['hash'],'pdf'=>'true'], ['class' => 'btn btn-primary']). ' ';?>
-<?= $this->render('_cert', ['model' => $model]);?>
-<p>Validar nuevo Certificado</p>
+<p>Para validar la autenticidad del documento, ingrese el código que se encuentra en la parte inferior derecha del certificado, o acceda al link del código QR que se encuentra en la parte inferior del certificado.</p>
 <?= $this->render('_formcert', ['model' => new \app\models\CertForm()]);?>

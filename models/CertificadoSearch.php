@@ -67,7 +67,9 @@ class CertificadoSearch extends Certificado
         
         
         $query->joinWith('idPersona0')->joinWith('idLote0.idActividad0.idDependencia0.usuarioDependencias');
-        $query->where(['usuarioDependencia.idUsuario'=> \Yii::$app->user->identity->idUsuario]);
+        if(\Yii::$app->user->identity->idRol!= Rol::ROL_CERTIFICANTE){
+            $query->where(['usuarioDependencia.idUsuario'=> \Yii::$app->user->identity->idUsuario]);
+        }
         
 
         // grid filtering conditions

@@ -78,6 +78,10 @@ class SiteController extends Controller {
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
             return $this->goBack();
         }
+        
+        if ($model->load(Yii::$app->request->get()) && $model->login()) {
+            return $this->goBack();
+        }
 
         $model->password = '';
         return $this->render('login', [
@@ -85,6 +89,77 @@ class SiteController extends Controller {
         ]);
     }
 
+    public function actionValidar() {
+        
+        return $this->render('validar' );
+        
+    }
+    
+    public function actionRecuperar() {
+        $model = new \app\models\RecuperarclaveForm();    //carga del modelo para utilizarlo luego
+        $model->mail = '';
+        //print_r(\Yii::$app->request->post());
+        if ($model->load(Yii::$app->request->post())) {// si se realizo un submit del boton guardar
+            //print_r($model->email);
+            if (!$model->mail == '') {
+
+                $modelRegistro = \app\models\Persona::find()
+                        ->where('mail="' . $model->mail . '"')
+                        ->one();
+                if (!is_null($modelRegistro)) {
+                    
+        $nuevaClave = substr(md5(time()), 0, 6);
+        /* Agrego token y dirección a Registro */
+        //print_r($modelRegistro);
+
+        
+                    if(is_null($modelRegistro->idUsuario)){
+                        //crear usuario
+                        $usuario=new \app\models\Usuario();
+                        $usuario->nombreUsuario=$modelRegistro->mail;
+                        $usuario->clave=$nuevaClave;
+                        $usuario->idRol= \app\models\Rol::ROL_CERTIFICANTE;
+                        if(!$usuario->save()){
+                            throw new \yii\base\UserException('no pudo guardar el usuario');
+                        }
+                        $modelRegistro->idUsuario=$usuario->idUsuario;
+                        if(!$modelRegistro->save()){
+                            throw new \yii\base\UserException('no pudo vincular el usuario');
+                        }
+                        
+                     }else{
+                         $modelRegistro->idUsuario0->clave = $nuevaClave;
+                         if(!$modelRegistro->idUsuario0->save()){
+                            throw new \yii\base\UserException('no pudo actualizar la clave');
+                         }
+                         
+                     }
+                    return $this->envioMail($modelRegistro);
+                } else {
+                    $model->addError('mail', 'el Correo es incorrecto o no está cargado. Si el problema persiste vuelva a registrarse');
+                }
+            }
+        }
+        return $this->render('recuperar', ['model' => $model]);
+    }
+    protected function envioMail($modelRegistro,$masivo=false) {
+
+      
+
+            Yii::$app->mailer->compose()
+                    ->setFrom('wene@fi.uncoma.edu.ar')
+                    ->setTo($modelRegistro->mail)
+                    ->setSubject('Datos para descargar certificados del sistema wene')
+                    ->setHtmlBody('Estomadx, ' . $modelRegistro->apellidoNombre .
+                            ', este correo es enviado por el sistema wene (sistema de Certificados). Ingrese al siguiente ' . \yii\helpers\Html::a('link', \yii\helpers\Url::base('http') . '/site/login?LoginForm[username]=' . $modelRegistro->idUsuario0->nombreUsuario.'&LoginForm[password]=' . $modelRegistro->idUsuario0->clave) .
+                            ' para descargar y ver el historial de sus certificados. <br/>'
+                            . 'Para próximo ingresos sus usuario es: '.$modelRegistro->idUsuario0->nombreUsuario. ' y su clave es: '. $modelRegistro->idUsuario0->clave.'</br> Muchas Gracias.')
+                    ->send();
+
+            if(!$masivo) return $this->render('mensaje', ['mensaje' => 'Se le ha enviado un Correo Electrónico. Revise su casilla']);
+       
+    }
+    
     /**
      * Login action.
      *

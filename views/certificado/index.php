@@ -39,6 +39,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     ],
                 ]),
              ],
+            ['label' => 'Dependencia Otorgante', 'attribute' => 'dependencia', 'value' => 'idLote0.idActividad0.idDependencia0.nombre'],
             ['label' => 'Apellido Nombre', 'attribute' => 'apellidoNombre', 'value' => 'idPersona0.apellidoNombre'],
             //['label' => 'mail', 'attribute' => 'mail', 'value' => 'idPersona0.mail'],
             ['label' => 'dni', 'attribute' => 'dni', 'value' => 'idPersona0.dni'],

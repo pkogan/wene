@@ -32,9 +32,14 @@ class CertificadoController extends Controller {
                 'ruleConfig' => [
                     'class' => \app\models\AccessRule::className(),
                 ],
-                'only' => ['index', 'view', 'update', 'delete', 'create', 'mail', 'maillote'],
+                'only' => ['index', 'view', 'update', 'delete', 'create', 'mail', 'maillote','mis'],
                 'rules' => [
                     //'class' => AccessRule::className(),
+                    [
+                        'allow' => true,
+                        'actions' => ['mis','view'],
+                        'roles' => ['@'],
+                    ],
                         [
                         'allow' => true,
                         'actions' => ['index', 'view', 'update', 'delete', 'create', 'mail', 'maillote'],
@@ -43,7 +48,7 @@ class CertificadoController extends Controller {
                         [
                         'allow' => true,
                         'actions' => ['view'],
-                        'roles' => ['?', \app\models\Rol::ROL_HACEDOR],
+                        'roles' => ['?'],
                     ],
                 ],
             ],
@@ -64,6 +69,29 @@ class CertificadoController extends Controller {
         ]);
     }
 
+    public function actionMis() {
+        $searchModel = new CertificadoSearch();
+        $personas=Yii::$app->user->identity->personas;
+        
+        if(count($personas)==1){
+            
+            
+            $dni=$personas[0]->dni;
+        }else{
+            throw new \yii\web\NotAcceptableHttpException('El usuario no tiene una persona asociada');
+        }
+        $searchModel->dni=$dni;
+        
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $dataProvider->pagination=false;
+        
+
+        return $this->render('mis', [
+                    'searchModel' => $searchModel,
+                    'dataProvider' => $dataProvider,
+        ]);
+    }
+    
     public function actionView($hash, $pdf = false) {
         /**
          * TODO: Unificar View y Ver

@@ -41,6 +41,7 @@ AppAsset::register($this);
                 'items' => [
                         ['label' => 'Inicio', 'url' => ['/site/index']],
                         ['label' => 'Acerca de', 'url' => ['/site/about']],
+                        ['label' => 'Mis Certificados', 'url'=>['/certificado/mis'],'visible'=>!Yii::$app->user->isGuest],
                         ['label' => 'Hacedor',
                         'visible' => !Yii::$app->user->isGuest && Yii::$app->user->identity->idRol == \app\models\Rol::ROL_HACEDOR,
                         'items' => [

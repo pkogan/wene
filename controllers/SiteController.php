@@ -150,10 +150,10 @@ class SiteController extends Controller {
                     ->setFrom('wene@fi.uncoma.edu.ar')
                     ->setTo($modelRegistro->mail)
                     ->setSubject('Datos para descargar certificados del sistema wene')
-                    ->setHtmlBody('Estomadx, ' . $modelRegistro->apellidoNombre .
+                    ->setHtmlBody('<p>Estomadx, ' . $modelRegistro->apellidoNombre .
                             ', este correo es enviado por el sistema wene (sistema de Certificados). Ingrese al siguiente ' . \yii\helpers\Html::a('link', \yii\helpers\Url::base('https') . '/site/login?LoginForm[username]=' . $modelRegistro->idUsuario0->nombreUsuario.'&LoginForm[password]=' . $modelRegistro->idUsuario0->clave) .
-                            ' para descargar y ver el historial de sus certificados. <br/>'
-                            . 'Para próximo ingresos sus usuario es: '.$modelRegistro->idUsuario0->nombreUsuario. ' y su clave es: '. $modelRegistro->idUsuario0->clave.'</br> Muchas Gracias.')
+                            ' para descargar y ver el historial de sus certificados. '.'</p>'
+                            . '<p><b>Para próximos ingresos, su usuario es: '.$modelRegistro->idUsuario0->nombreUsuario. ' y su clave es: '. $modelRegistro->idUsuario0->clave.'</p> <p>Muchas Gracias.</b><p>')
                     ->send();
 
             if(!$masivo) return $this->render('mensaje', ['mensaje' => 'Se le ha enviado un Correo Electrónico. Revise su casilla']);

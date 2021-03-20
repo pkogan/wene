@@ -196,7 +196,7 @@ class LoteController extends Controller {
                     'dataProvider' => $dataProvider,
         ]);
     }
-
+  
     /**
      * Displays a single Lote model.
      * @param integer $id

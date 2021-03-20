@@ -126,6 +126,12 @@ class Certificado extends \yii\db\ActiveRecord {
     public function getLinkpdf() {
         return $this->getLink().'&pdf=1';
     }
+    public function getFolderpath(){
+        return '../archivos/certificados/'.$this->idLote0->idActividad.'/'.$this->idLote.'/';
+    }
+    public function getFilepath(){
+        return $this->getFolderpath().$this->hash.'.pdf';
+    }
     
     public function validarPermisos(){
           foreach ($this->idLote0->idActividad0->idDependencia0->usuarioDependencias as $usuarioDependencia){

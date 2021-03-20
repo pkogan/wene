@@ -32,22 +32,22 @@ class CertificadoController extends Controller {
                 'ruleConfig' => [
                     'class' => \app\models\AccessRule::className(),
                 ],
-                'only' => ['index', 'view', 'update', 'delete', 'create', 'mail', 'maillote','mis'],
+                'only' => ['index', 'view', 'update', 'delete', 'create', 'mail', 'emitir', 'maillote', 'emitirlote', 'mis', 'norma'],
                 'rules' => [
                     //'class' => AccessRule::className(),
                     [
                         'allow' => true,
-                        'actions' => ['mis','view'],
+                        'actions' => ['mis', 'view','norma'],
                         'roles' => ['@'],
                     ],
-                        [
+                    [
                         'allow' => true,
-                        'actions' => ['index', 'view', 'update', 'delete', 'create', 'mail', 'maillote'],
+                        'actions' => ['index', 'view', 'update', 'delete', 'create', 'mail', 'emitir', 'maillote','emitirlote','norma'],
                         'roles' => [\app\models\Rol::ROL_GESTOR],
                     ],
-                        [
+                    [
                         'allow' => true,
-                        'actions' => ['view'],
+                        'actions' => ['view','norma'],
                         'roles' => ['?'],
                     ],
                 ],
@@ -71,27 +71,86 @@ class CertificadoController extends Controller {
 
     public function actionMis() {
         $searchModel = new CertificadoSearch();
-        $personas=Yii::$app->user->identity->personas;
-        
-        if(count($personas)==1){
-            
-            
-            $dni=$personas[0]->dni;
-        }else{
+        $personas = Yii::$app->user->identity->personas;
+
+        if (count($personas) == 1) {
+
+
+            $dni = $personas[0]->dni;
+        } else {
             throw new \yii\web\NotAcceptableHttpException('El usuario no tiene una persona asociada');
         }
-        $searchModel->dni=$dni;
-        
+        $searchModel->dni = $dni;
+
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-        $dataProvider->pagination=false;
-        
+        $dataProvider->pagination = false;
+
 
         return $this->render('mis', [
                     'searchModel' => $searchModel,
                     'dataProvider' => $dataProvider,
         ]);
     }
-    
+
+    public function actionEmitir($id) {
+        $model = $this->findModel($id);
+        $qrCode = $this->qr($model);
+        $this->generar($model, $qrCode);
+        $model->idEstado = \app\models\Estado::ESTADO_EMITIDO;
+            if (!$model->save()) {
+                throw new \yii\web\NotAcceptableHttpException('Error al guardar certificado');
+            }
+        return $this->render('ver', [
+                    'model' => $model,
+                    'qrCode' => $qrCode
+        ]);
+    }
+
+    public function actionEmitirlote($id) {
+        if (($lote = \app\models\Lote::findOne($id)) == null) {
+            throw new \yii\web\NotAcceptableHttpException('Lote Inexistente');
+        }
+        $lote->validarPermisos();
+        /*
+         * se se generan todos los certificados
+         */
+        set_time_limit(1200);
+        foreach ($lote->getCertificados()->all() as $model) {
+            //print_r($model);exit();
+            // if ($model->idEstado == \app\models\Estado::ESTADO_INICIAL) {
+            $this->generar($model, $this->qr($model));
+            $model->idEstado = \app\models\Estado::ESTADO_EMITIDO;
+            if (!$model->save()) {
+                throw new \yii\web\NotAcceptableHttpException('Error al guardar certificado');
+            }
+            //}
+        }
+        /**
+         * actualizar estado del lote
+         */
+        $lote->idEstado = \app\models\Estado::ESTADO_ENVIADO;
+        if ($lote->save()) {
+            return $this->redirect(['/lote/view', 'id' => $id]);
+        } else {
+            throw new \yii\web\NotAcceptableHttpException('Error al guardar lote');
+        }
+    }
+
+    public function actionNorma($hash) {
+        /**
+         * TODO: Unificar View y Ver
+         */
+        $model = Certificado::findOne(['hash' => $hash]);
+        if ($model == null) {
+            throw new \yii\web\NotAcceptableHttpException('Certificado Inexistente');
+        }
+        if(!is_null($model->idLote0->idActividad0->linkNorma)&&$model->idLote0->idActividad0->linkNorma!=''){
+            return Yii::$app->getResponse()->redirect($model->idLote0->idActividad0->linkNorma);
+
+        }else{
+            throw new \yii\web\NotAcceptableHttpException('Certificado sin vinculo a Norma');
+        }
+    }
     public function actionView($hash, $pdf = false) {
         /**
          * TODO: Unificar View y Ver
@@ -103,13 +162,37 @@ class CertificadoController extends Controller {
         $qrCode = $this->qr($model);
         //print_r($model); exit;
         if ($pdf) {
-            return $this->pdf($model, $qrCode);
+             /**
+             * Si está iniciado se genera temporal el pdf
+             * En caso contrario:
+              se busca en el sistema de archivos
+              que exista el documento y se descarga
+              si no se encuetra se genera el documento en la carpeta
+              y se descarga
+             */
+            if ($model->idEstado == \app\models\Estado::ESTADO_INICIAL) {
+                return $this->pdf($model, $qrCode);
+            } else {
+                //exit($model->getFilepath());
+                if (!file_exists($model->getFilepath())) {
+                    $this->generar($model, $qrCode);
+                }
+                return \Yii::$app->response->sendFile($model->getFilepath());
+            }
         } else {
             return $this->render('ver', [
                         'model' => $model,
                         'qrCode' => $qrCode
             ]);
         }
+    }
+
+    private function generar($model, $qrCode) {
+        $folder = $model->getFolderpath();
+        if (!is_dir($folder)) {
+            \yii\helpers\FileHelper::createDirectory($folder);
+        }
+        return $this->pdf($model, $qrCode, Pdf::DEST_FILE, $folder);
     }
 
     private function qr($model) {
@@ -121,13 +204,14 @@ class CertificadoController extends Controller {
         header('Content-Type: ' . $qrCode->getContentType());
         return $qrCode;
     }
+
     /**
      * 
      * @param Certificado $model
      * @param type $qrCode
      * @return type
      */
-    private function pdf($model, $qrCode) {
+    private function pdf($model, $qrCode, $destination = Pdf::DEST_BROWSER, $folder = '') {
         /* @var $model Certificado */
 
         $content = $this->renderPartial('template/' . $model->idLote0->idTemplate0->template, ['model' => $model,
@@ -135,28 +219,27 @@ class CertificadoController extends Controller {
         /**
          * :Todo Abstraer hack header pdf en Dependencia
          */
-        if(is_null($model->idLote0->idActividad0->idDependencia0->header)){
-            $header='Certificado Digital emitido por la Facultad de Informática de la Universidad Nacional del Comahue (<a href="' . \yii\helpers\Url::base('http') . '/img/ResCD-064-Ratificar-ResAdRef117-Certificados-Digitales-Academica-SAescopia.pdf">ResCD Nro 064/20</a>)';
-            
-        }else{
-            $header= $model->idLote0->idActividad0->idDependencia0->header;
+        if (is_null($model->idLote0->idActividad0->idDependencia0->header)) {
+            $header = 'Certificado Digital emitido por la Facultad de Informática de la Universidad Nacional del Comahue (<a href="' . \yii\helpers\Url::base('http') . '/img/ResCD-064-Ratificar-ResAdRef117-Certificados-Digitales-Academica-SAescopia.pdf">ResCD Nro 064/20</a>)';
+        } else {
+            $header = $model->idLote0->idActividad0->idDependencia0->header;
             //$header='Certificado Digital emitido por la Facultad de Informática de la Universidad Nacional del Comahue (<a href="' . \yii\helpers\Url::base('http') . '/img/ResCD-031-Ratificar-ResAdRef077-Certificados-Digitales-EXTescopia.pdf">ResCD Nro 031/20</a>)';
         }
-        
-        
+
+
         // get your HTML raw content without any layouts or scripts
         // setup kartik\mpdf\Pdf component
         $pdf = new Pdf([
             // set to use core fonts only
             //'filename'=>$model->idLote0->idActividad0->fecha.str_replace(' ', '', $model->idPersona0->apellidoNombre).'_'.substr($model->idLote0->idTipoCertificado0->tipo,0,3).'_'.substr($model->idLote0->idActividad0->idTipoActividad0->tipo,0,3).'.pdf',
-            'filename' => $model->hash . '.pdf',
+            'filename' => $folder . $model->hash . '.pdf',
             'mode' => Pdf::MODE_CORE,
             // A4 paper format
             'format' => Pdf::FORMAT_A4,
             // portrait orientation
             'orientation' => $model->idLote0->idTemplate0->orientacion,
             // stream to browser inline
-            'destination' => Pdf::DEST_BROWSER,
+            'destination' => $destination,
             // your html content input
             'content' => $content,
             // format content from your own css file if needed or use the
@@ -185,6 +268,7 @@ class CertificadoController extends Controller {
         // return the pdf output as per the destination setting
         return $pdf->render();
     }
+
     /**
      * 
      * @param Certificado $model
@@ -194,24 +278,23 @@ class CertificadoController extends Controller {
     private function mail($model) {
         $subject = 'Certificado - ';
         /* Hack cambiar del en el caso de por ejermplo Académica 
-            Todo: ver forma de generalizar */
+          Todo: ver forma de generalizar */
         if ($model->idLote0->idActividad0->idTipoActividad0->tipo == 'Académica') {
             $subject .= $model->idLote0->idActividad0->nombre;
         } else {
             $subject .= $model->idLote0->idActividad0->idTipoActividad0->tipo . ' ' . $model->idLote0->idActividad0->nombre;
         }
         //Yii::$app->components['mailer']['transport']['username']=$model->idLote0->idActividad0->idDependencia0->mail;
-        if(!is_null($model->idLote0->idActividad0->idDependencia0->mail)){
+        if (!is_null($model->idLote0->idActividad0->idDependencia0->mail)) {
             Yii::$app->mailer->transport->setUsername($model->idLote0->idActividad0->idDependencia0->mail);
             Yii::$app->mailer->transport->setPassword($model->idLote0->idActividad0->idDependencia0->clave);
             Yii::$app->mailer->transport->setHost($model->idLote0->idActividad0->idDependencia0->smtp);
-            $from=$model->idLote0->idActividad0->idDependencia0->mail;
-        }
-        else{
-            $from='wene@fi.uncoma.edu.ar';
+            $from = $model->idLote0->idActividad0->idDependencia0->mail;
+        } else {
+            $from = 'wene@fi.uncoma.edu.ar';
         }
         //print_r(Yii::$app->components);exit;
-        
+
         if (Yii::$app->mailer->compose()
                         ->setFrom($from)//)
                         ->setTo(trim($model->idPersona0->mail))
@@ -262,7 +345,7 @@ class CertificadoController extends Controller {
         /*
          * se envía mail a todo el lote en ESTADO_INICIAL a TOPE_MAIL_LOTE
          */
-        $certificadosEstadoInicial = $lote->getCertificadosEstado(\app\models\Estado::ESTADO_INICIAL)
+        $certificadosEstadoInicial = $lote->getCertificadosEstado(\app\models\Estado::ESTADO_EMITIDO)
                 ->limit(\app\models\Lote::TOPE_MAIL_LOTE)
                 ->all();
 
@@ -344,6 +427,7 @@ class CertificadoController extends Controller {
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->upload() && $model->save()) {
+            /*             * validar */
             return $this->redirect(['view', 'hash' => $model->hash]);
         }
 

@@ -29,6 +29,9 @@ $this->params['breadcrumbs'][] = $this->title;
     <p>
 <?= Html::a('Descargar PDF', ['view', 'hash' => $model->hash, 'pdf'=>true], ['class' => 'btn btn-success']) ?>
     <?php if(!Yii::$app->user->isGuest && Yii::$app->user->identity->idRol== app\models\Rol::ROL_GESTOR){
+         echo Html::a('Emitir', ['emitir', 'id' => $model->idCertificado], ['class' => 'btn btn-warning',
+                 'data'=>['confirm' => '¿Está seguro de emitir certificado? Podria eliminar datos frizados',
+                'method' => 'post',]]). ' ';
          echo Html::a('Comunicar', ['mail', 'hash' => $model->hash], [
             'class' => 'btn btn-primary',
             'data' => [

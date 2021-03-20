@@ -3,7 +3,7 @@
 use yii\helpers\Html;
 use yii\widgets\DetailView;
 if(!is_null($model->idLote0->idActividad0->linkNorma)&&$model->idLote0->idActividad0->linkNorma!=''){
-    $norma= Html::a($model->idLote0->idActividad0->norma,$model->idLote0->idActividad0->linkNorma);
+    $norma= Html::a($model->idLote0->idActividad0->norma,['norma', 'hash' => $model->hash]);
 }else{
     $norma=$model->idLote0->idActividad0->norma;
 }

@@ -20,14 +20,17 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <p>
         <?php
-        $inicial=$model->getCountCertificados(\app\models\Estado::ESTADO_INICIAL);
+        $inicial=$model->getCountCertificados(\app\models\Estado::ESTADO_EMITIDO);
         if($inicial>app\models\Lote::TOPE_MAIL_LOTE){
             $msj=app\models\Lote::TOPE_MAIL_LOTE. ' de '.$inicial;
         }else{
             $msj=$inicial;
         }
         if (!Yii::$app->user->isGuest && Yii::$app->user->identity->idRol == app\models\Rol::ROL_GESTOR) {
-            echo Html::a('Importar', ['importar', 'id' => $model->idLote], ['class' => 'btn btn-success']);
+            echo Html::a('Importar', ['importar', 'id' => $model->idLote], ['class' => 'btn btn-success']).' ';
+            echo Html::a('Emitir', ['/certificado/emitirlote', 'id' => $model->idLote], ['class' => 'btn btn-warning',
+                 'data'=>['confirm' => '¿Está seguro de emitir '.$model->getCountCertificados().' certificados del lote? Podria eliminar datos frizados. Puede tardar mucho tiempo.',
+                'method' => 'post',]]). ' ';
             echo ' '.Html::a('Comunicar', ['/certificado/maillote', 'id' => $model->idLote], ['class' => 'btn btn-primary',
                 'data' => ['confirm' => 'Está seguro de enviar mail a ' . $msj . ' personas con certificados en estado inicial del lote?']
             ]);

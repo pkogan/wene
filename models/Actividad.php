@@ -15,6 +15,7 @@ use Yii;
  * @property string $descripcion
  * @property string $fecha
  * @property string|null $norma
+ * @property string|null $linkNorma
  * @property int|null $idCiudad
  * @property int|null $duracion
  * @property string|null $medidaDuracion
@@ -45,9 +46,9 @@ class Actividad extends \yii\db\ActiveRecord {
         return [
                 [['idTipoActividad', 'idDependencia', 'nombre', 'descripcion', 'fecha'], 'required'],
                 [['idTipoActividad', 'idDependencia', 'idActividadPadre', 'idCiudad', 'duracion'], 'integer'],
-                [['descripcion', 'observaciones', 'medidaDuracion'], 'string'],
+                [['descripcion', 'observaciones', 'medidaDuracion', 'linkNorma'], 'string'],
                 [['fecha'], 'safe'],
-                [['nombre'], 'string', 'max' => 300],
+                [['nombre','linkNorma'], 'string', 'max' => 300],
                 [['norma'], 'string', 'max' => 100],
                 [['idActividadPadre'], 'exist', 'skipOnError' => true, 'targetClass' => Actividad::className(), 'targetAttribute' => ['idActividadPadre' => 'idActividad']],
                 [['idDependencia'], 'exist', 'skipOnError' => true, 'targetClass' => Dependencia::className(), 'targetAttribute' => ['idDependencia' => 'idDependecia']],
@@ -70,7 +71,9 @@ class Actividad extends \yii\db\ActiveRecord {
             'observaciones' => 'Observación',
             'fecha' => 'Fecha',
             'norma' => 'Norma',
+            'linkNorma'=> 'Link Norma',
             'idCiudad' => 'Ciudad',
+            'idProvincia'=> 'Provincia',
             'duracion' => 'Duracion',
             'medidaDuracion' => 'Medida duracion',
         ];

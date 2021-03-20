@@ -62,7 +62,7 @@ use yii\widgets\ActiveForm;
   <?= $form->field($model, 'duracion')->textInput() ?>
   <?= $form->field($model, 'medidaDuracion')->textInput() ?>
     <?= $form->field($model, 'norma')->textInput(['maxlength' => true]) ?>
-
+<?= $form->field($model, 'linkNorma')->textInput(['maxlength' => true]) ?>
     
     <?= $form->field($model, 'idProvincia')->dropDownList(yii\helpers\ArrayHelper::map(\app\models\Provincia::find()->orderBy('provincia')->all(), 'idProvincia', 'provincia'), ['id' => 'idProvincia', 'prompt' => 'Seleccionar ...'])
     ?>

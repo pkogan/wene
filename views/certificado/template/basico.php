@@ -2,6 +2,11 @@
 /* @var $model \app\models\Certificado */
 use yii\helpers\Html;
 use yii\widgets\DetailView;
+if(!is_null($model->idLote0->idActividad0->linkNorma)&&$model->idLote0->idActividad0->linkNorma!=''){
+    $norma= Html::a($model->idLote0->idActividad0->norma,$model->idLote0->idActividad0->linkNorma);
+}else{
+    $norma=$model->idLote0->idActividad0->norma;
+}
 echo DetailView::widget([
         'model' => $model,
         'attributes' => [
@@ -17,7 +22,8 @@ echo DetailView::widget([
             ['label'=>'Descripción Actividad','value'=>$model->idLote0->idActividad0->observaciones,
                 'visible'=>$model->idLote0->idActividad0->observaciones!=''],
             ['label'=>'Dependencia Otorgante','value'=>$model->idLote0->idActividad0->idDependencia0->nombre],
-            ['attribute'=>'idLote0.idActividad0.norma',
+            [//'attribute'=>'idLote0.idActividad0.norma',
+             'label'=>'Norma','value'=>$norma, 'format'=>'raw',  
             'visible'=>$model->idLote0->idActividad0->norma!=''],
             ['label'=>'Fecha','value'=>$model->idLote0->idActividad0->getFechaTexto(),
                 'visible'=>$model->idLote0->idTemplate!= \app\models\Template::ADJUNTO],

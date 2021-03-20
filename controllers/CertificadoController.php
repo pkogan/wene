@@ -177,7 +177,7 @@ class CertificadoController extends Controller {
                 if (!file_exists($model->getFilepath())) {
                     $this->generar($model, $qrCode);
                 }
-                return \Yii::$app->response->sendFile($model->getFilepath());
+                return \Yii::$app->response->sendFile($model->getFilepath(),null,['inline'=>true]);
             }
         } else {
             return $this->render('ver', [

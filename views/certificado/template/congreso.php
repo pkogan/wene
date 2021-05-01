@@ -38,7 +38,7 @@ use Da\QrCode\QrCode;
 
 
 
-        <h3>Se certifica que <b><?= mb_strtoupper($model->idPersona0->apellidoNombre); ?></b> DNI Nº <b><?= number_format($model->idPersona0->dni,0,',','.'); ?></b>
+        <h3>Se certifica que <b><?= mb_strtoupper($model->idPersona0->apellidoNombre,'UTF-8'); ?></b> DNI Nº <b><?= number_format($model->idPersona0->dni,0,',','.'); ?></b>
             <b><?= strtolower($model->idLote0->idTipoCertificado0->tipo) ?></b> <?=$model->idLote0->idTipoCertificado0->conectorM;?> <b>XV <?= $model->idLote0->idActividad0->idTipoActividad0->tipo ?></b>
             <b>"<?= $model->idLote0->idActividad0->nombre ?>"</b>. 
             <?= $model->idLote0->observacion ?></h3>

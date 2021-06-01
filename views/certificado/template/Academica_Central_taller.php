@@ -71,7 +71,7 @@ use Da\QrCode\QrCode;
             </div>
         </div>
 
-    <div class="row" style="padding-top: 20px">
+    <!--<div class="row" style="padding-top: 20px">-->
 
 <!--<p>
                 Se puede validar el Certificado, accediendo al link del código QR, o a <a href="<?= \yii\helpers\Url::base('https') ?>"><?= \yii\helpers\Url::base('https') ?></a> con el código <b><?= $model->hash ?>

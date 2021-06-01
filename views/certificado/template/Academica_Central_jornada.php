@@ -37,8 +37,38 @@ use Da\QrCode\QrCode;
         <?= $model->idLote0->observacion ?></h3>
 
     <h3 >Neuquén, <?= $model->idLote0->getFechaTexto(); ?>.</h3>
-                
-    <div class="row" style="padding-top: 50px">
+
+           <div class="row" style="font-size: 11px;">
+            <div class="col-xs-3" style="background-image: url('img/firmas/demo.png'); background-repeat: no-repeat; background-size: 17% auto; background-position: top">
+                <br/>
+                <br/>
+                <br/>
+                <b>Mg. Lidia Lopez</b><br/>
+                Secretaría Académica<br/>
+                Universidad Nacional del Comahue
+            </div>
+
+            <div class="col-xs-4" style="background-image: url('img/firmas/demo.png'); background-repeat: no-repeat; background-size: 20% auto; background-position: top">
+                <br/>
+                <br/>
+                <br/>
+                <b>Dra. Carina Fracchia</b><br/>
+                Co-Directora Maestría en Enseñanza en<br/>
+                Escenarios Digitales<br/>
+                Facultad de Informática - UNComahue
+            </div>
+
+            <div class="col-xs-3" style="background-image: url('img/firmas/firmapk.png'); background-repeat: no-repeat; background-size: 20% auto; background-position: top">
+                <br/>
+                <br/>
+                <br/>
+                <b>Lic. Pablo Kogan</b><br/>
+                Secretario de Extensión<br/>
+                Facultad de Informática - UNComahue
+            </div>
+        </div>
+
+    <div class="row" style="padding-top: 20px">
 <!--        <div class="col-xs-4" style="background-image:url('img/firmaazul.png');background-position: center; background-repeat: no-repeat; background-size: contain">-->
 
 

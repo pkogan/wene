@@ -21,6 +21,7 @@ DIRECTORY STRUCTURE
 -------------------
 
       assets/             contains assets definition
+      bd/                 contains bk bbdd
       commands/           contains console commands (controllers)
       config/             contains application configurations
       controllers/        contains Web controller classes
@@ -115,7 +116,7 @@ Edit the file `config/db.php` with real data, for example:
 ```php
 return [
     'class' => 'yii\db\Connection',
-    'dsn' => 'mysql:host=localhost;dbname=yii2basic',
+    'dsn' => 'mysql:host=localhost;dbname=wene',
     'username' => 'root',
     'password' => '1234',
     'charset' => 'utf8',
@@ -123,6 +124,7 @@ return [
 ```
 
 **NOTES:**
+- create bbdd from bd/wenelimpia.sql
 - Yii won't create the database for you, this has to be done manually before you can access it.
 - Check and edit the other files in the `config/` directory to customize your application as required.
 - Refer to the README in the `tests` directory for information specific to basic application tests.

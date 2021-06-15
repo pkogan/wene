@@ -178,7 +178,7 @@ class Persona extends \yii\db\ActiveRecord {
      */
     public function getDnioIdext(){
         if($this->dni!=null){
-            return 'DNI Nº <b>'. number_format($model->idPersona0->dni,0,',','.').'</b>';
+            return 'DNI Nº <b>'. number_format($this->dni,0,',','.').'</b>';
         }elseif($this->idExtranjero!=null && substr($this->idExtranjero, 0, 6)!='SINDNI'){
             return '(<b>'. $this->idExtranjero.'</b>)';
         }else{

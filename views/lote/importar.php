@@ -21,9 +21,13 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <h1><?= Html::encode($this->title) ?></h1>
     <?php if($provider->count==0){?>
-    <p>Solo se aceptan archivos .csv de al menos una columna, sin las cabeceras.  Columna 1 -> dni, Columna 2 -> observación</p>
-    <p>Opcionales se pueden agregar las columnas Columna 3 -> Apellido y Nombre, Columna 4 ->mail, Columna 5 -> legajo en el caso de importar Personas Nuevas</p>
-    <p>12345678,"","Parada Pepe","pepe@fi.uncoma.edu.ar","FAI-123"</p>
+    <p>Solo se aceptan archivos .csv (Separados por comas) de al menos cuatro columnas, sin las cabeceras.  </p>
+    <p>Columna 1 **(numérico)-> dni, Columna 2-> observación, Columna 3 *-> Apellido y Nombre, Columna 4 ->mail, Columna 5 -> legajo, Columna 6 **-> ID_Externo</p>
+    <p>12345678,"","Parada Pepe","pepe@fi.uncoma.edu.ar","FAI-123","ID-53498"</p>
+    <p>* Columnas Obligatorias</p>
+    <p>** Los identificadores de la persona son DNI o ID_Externo.  En el caso de tener DNI la Columna 6 (ID_Extranjero) es opcional. En el caso de no contar con DNI hay que dejar la columna 1 (dni) sin datos y la columna 6 (ID__Externo) con datos como el ejermplo que sigue:</p>
+    <p>,"","Parada Pepe","pepe@fi.uncoma.edu.ar","FAI-123","ID-53498"</p>
+    
     <?php $form = ActiveForm::begin(); ?>
 
     <?= $form->field($modelform, 'archivo')->fileInput() ?>

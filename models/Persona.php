@@ -19,6 +19,7 @@ use Yii;
  * @property string|null $token
  * @property string|null $legajo
  * @property int $idDependencia
+ * @property string|null $idExtranjero
  * 
  * @property Certificado[] $certificados
  * @property Usuario $idUsuario0
@@ -29,9 +30,12 @@ use Yii;
 class Persona extends \yii\db\ActiveRecord {
 
     public function validate($attributeNames = null, $clearErrors = true) {
-        if ($this->mail == '') {
-            $this->mail = null;
-        }
+//        if ($this->mail == '') {
+//            $this->mail = null;
+//        }
+//        if ($this->idExtranjero== '') {
+//            $this->idExtranjero = null;
+//        }
         return parent::validate($attributeNames, $clearErrors);
     }
 
@@ -42,7 +46,7 @@ class Persona extends \yii\db\ActiveRecord {
     static function find() {
 
         $query = parent::find()->addSelect('*');
-        if (!\Yii::$app->user->isGuest&&\Yii::$app->user->identity->idRol!= Rol::ROL_CERTIFICANTE) {
+        if (!\Yii::$app->user->isGuest && \Yii::$app->user->identity->idRol != Rol::ROL_CERTIFICANTE) {
             $in = \yii\helpers\ArrayHelper::getColumn(\app\models\Dependencia::find()->joinWith('usuarioDependencias')->where(['idUsuario' => \Yii::$app->user->identity->idUsuario])->all(), 'idDependecia');
             $in = '(' . implode(',', $in) . ')';
 
@@ -64,19 +68,42 @@ class Persona extends \yii\db\ActiveRecord {
     public function rules() {
         return [
             [['idUsuario', 'dni', 'idCiudad', 'idDependencia'], 'integer'],
-            [['dni', 'idDependencia', 'apellidoNombre'], 'required'],
+            [[/* 'dni', */ 'idDependencia', 'apellidoNombre'], 'required'],
             [['apellidoNombre', 'mail'], 'string', 'max' => 100],
             [['legajo'], 'string', 'max' => 20],
             [['token'], 'string', 'max' => 32],
             [['telefono'], 'string', 'max' => 30],
             [['localidad'], 'string', 'max' => 100],
             [['Comentario'], 'string', 'max' => 347],
+            [['idExtranjero'], 'string', 'max' => 50],
+            /**
+             * mail y idExtranjero se asignan null
+             */
+            [['mail', 'idExtranjero'], 'default'],
             /**
              * restricciones únicas asociadas a idDependencia
              */
+            [['idExtranjero'], 'unique', 'targetAttribute' => ['idDependencia', 'idExtranjero']],
             [['legajo'], 'unique', 'targetAttribute' => ['idDependencia', 'legajo']],
             [['dni'], 'unique', 'targetAttribute' => ['idDependencia', 'dni']],
             [['mail'], 'unique', 'targetAttribute' => ['idDependencia', 'mail']],
+            /**
+             * dni o idextranjero tienen que estar
+             */
+            ['dni', 'required', 'when' => function ($model) {
+                    return is_null($model->idExtranjero);
+                },
+                'whenClient' => "function (attribute, value) {
+                    return $('#idExtranjero').val() == NULL;
+                 }"
+            ,'message' => 'dni e id externo no pueden estar vacios al mismo tiempo'],
+            ['idExtranjero', 'required', 'when' => function ($model) {
+                    return is_null($model->dni);
+                },
+                'whenClient' => "function (attribute, value) {
+                    return $('#dni').val() == NULL;
+                 }"
+            ],
             [['mail'], 'email'],
             [['idUsuario'], 'exist', 'skipOnError' => true, 'targetClass' => Usuario::className(), 'targetAttribute' => ['idUsuario' => 'idUsuario']],
             [['idCiudad'], 'exist', 'skipOnError' => true, 'targetClass' => Ciudad::className(), 'targetAttribute' => ['idCiudad' => 'idCiudad']],
@@ -100,7 +127,8 @@ class Persona extends \yii\db\ActiveRecord {
             'idCiudad' => 'Id Ciudad',
             'token' => 'Token',
             'legajo' => 'Legajo',
-            'idDependencia' => 'Dependencia'
+            'idDependencia' => 'Dependencia',
+            'idExtranjero' => 'Id externo',
         ];
     }
 
@@ -140,4 +168,22 @@ class Persona extends \yii\db\ActiveRecord {
         return $this->hasOne(Dependencia::className(), ['idDependecia' => 'idDependencia']);
     }
 
+    /**
+     * Devuelve el identificador de la persona
+     * Si dni no es nul retorna dni
+     * Si idExtranjero no es nulo y no comienza con 'SINDNI' retorno idExtranjero
+     * Sino rentorna ''
+     * 
+     * @return string
+     */
+    public function getDnioIdext(){
+        if($this->dni!=null){
+            return 'DNI Nº <b>'. number_format($model->idPersona0->dni,0,',','.').'</b>';
+        }elseif($this->idExtranjero!=null && substr($this->idExtranjero, 0, 6)!='SINDNI'){
+            return '(<b>'. $this->idExtranjero.'</b>)';
+        }else{
+            return '';
+        }
+    }
+    
 }

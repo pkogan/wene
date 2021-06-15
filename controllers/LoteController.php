@@ -83,10 +83,20 @@ class LoteController extends Controller {
                     //print_r($fileop);
                     $contadores['registros']++;
                     $row = [];
-                    if (isset($fileop[0]) && isset($fileop[1])) {
-                        $row['dni'] = $fileop[0];
+                    if ((isset($fileop[0])||isset($fileop[5])) && isset($fileop[1])) {
+                        $row['idExtranjero'] = isset($fileop[5])?$fileop[5]:null;
+                        $row['dni'] = isset($fileop[0])?$fileop[0]:null;
+                        if(is_numeric($row['dni'])){
+                            $row['dni'] = $fileop[0];
+                            $persona = \app\models\Persona::findOne((['dni' => $row['dni'], 'idDependencia'=>$idDependencia]));
+                        }else{
+                            $row['dni'] = null;
+                            $persona = \app\models\Persona::findOne((['idExtranjero' => $row['idExtranjero'], 'idDependencia'=>$idDependencia]));
+                        }
+                                         
+                        
                         $row['obs'] = $fileop[1];
-                        $persona = \app\models\Persona::findOne((['dni' => $row['dni'], 'idDependencia'=>$idDependencia]));
+                        
                         if ($persona == null) {
                             $row['msj'] = 'No Existe Persona con DNI ingresado, en la Dependencia';
                             if (isset($fileop[3]) && isset($fileop[2])) {
@@ -98,6 +108,7 @@ class LoteController extends Controller {
                                 if (isset($fileop[4])) {
                                     $persona->legajo = $fileop[4];
                                 }
+                                $persona->idExtranjero=$row['idExtranjero'];
                                 $persona->idDependencia=$idDependencia;
                                 if (!$persona->save()) {
                                     $row['msj'] .= '. Error al guardar Persona';
@@ -110,7 +121,7 @@ class LoteController extends Controller {
                                     $contadores['persona importada']++;
                                 }
                             } else {
-                                $row['msj'] .= '. Error al guardar Persona no cargó columnas 3 y 4';
+                                $row['msj'] .= '. Error al guardar Persona no cargó columnas 3,  4 o 5';
                                 $contadores['error al guardar persona']++;
                             }
                         }

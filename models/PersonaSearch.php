@@ -18,7 +18,7 @@ class PersonaSearch extends Persona
     {
         return [
             [['idPersona', 'idUsuario', 'dni', 'idCiudad'], 'integer'],
-            [['mail', 'apellidoNombre', 'telefono', 'localidad', 'Comentario', 'token', 'legajo', 'idDependencia'], 'safe'],
+            [['mail', 'apellidoNombre', 'telefono', 'localidad', 'Comentario', 'token', 'legajo', 'idDependencia', 'idExtranjero'], 'safe'],
         ];
     }
 

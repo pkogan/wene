@@ -8,7 +8,8 @@ use Da\QrCode\QrCode;
 /* @var $model app\models\Certificado */
 ?>
 <div style="text-align: center">
-
+    <br>
+    <br>
     <div class="row" >
 
         <div class="col-xs-5">
@@ -29,8 +30,10 @@ use Da\QrCode\QrCode;
             ['label'=>'Condición Certificada','value'=>$model->idLote0->idTipoCertificado0->tipo],
             'idPersona0.apellidoNombre',
             'idPersona0.dni',
-            'idPersona0.legajo',
             
+            ['attribute'=>'idPersona0.legajo',
+            'visible'=>$model->idPersona0->legajo!=''],
+                
             ['label'=>'Detalles','value'=>$model->idLote0->observacion],
             //['label'=>'Descripción Actividad','value'=>$model->idLote0->idActividad0->observaciones],
             ['label'=>'Dependencia Otorgante','value'=>$model->idLote0->idActividad0->idDependencia0->nombre],

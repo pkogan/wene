@@ -234,6 +234,7 @@ class LoteController extends Controller {
             $zip->close();
             //exit('aca');
             header('Content-Type: application/zip');
+            header("Content-Length: ".filesize($carpeta . $test));
             header('Content-Disposition: attachment; filename=' . $test);
             //header('Content-Disposition:  filename=' . $test);
             //echo file_get_contents($carpeta.$test);

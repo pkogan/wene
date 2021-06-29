@@ -226,9 +226,12 @@ class LoteController extends Controller {
         $csv = '';
         if ($res) {
             foreach ($lote->certificados as $certificado) {
-                $csv .= $certificado->idPersona0->dni . ',"' . $certificado->observacion . '","' . mb_strtoupper($certificado->idPersona0->apellidoNombre). '","' . $certificado->idPersona0->mail . '","' . $certificado->idPersona0->legajo. '","' .$certificado->getLinkpdf() . '"'."\n";
-                //$zip->addFromString(mb_strtoupper($certificado->idPersona0->apellidoNombre) . '.pdf', file_get_contents($certificado->getLinkpdf()));
-                $zip->addFromString(mb_strtoupper($certificado->idPersona0->apellidoNombre) . '.pdf', file_get_contents($certificado->getFilepath()));
+                
+                    $csv .= $certificado->idPersona0->dni . ',"' . $certificado->observacion . '","' . mb_strtoupper($certificado->idPersona0->apellidoNombre). '","' . $certificado->idPersona0->mail . '","' .$certificado->idEstado0->estado. '","'. $certificado->idPersona0->legajo. '","' .$certificado->getLinkpdf() . '"'."\n";
+                    //$zip->addFromString(mb_strtoupper($certificado->idPersona0->apellidoNombre) . '.pdf', file_get_contents($certificado->getLinkpdf()));
+                if(file_exists($certificado->getFilepath())){    
+                    $zip->addFromString(mb_strtoupper($certificado->idPersona0->apellidoNombre) . '.pdf', file_get_contents($certificado->getFilepath()));
+                }
             }
             $zip->addFromString('0listado.csv', $csv);
             $zip->close();
@@ -238,7 +241,7 @@ class LoteController extends Controller {
             header('Content-Disposition: attachment; filename=' . $test);
             //header('Content-Disposition:  filename=' . $test);
             echo file_get_contents($carpeta.$test);
-            //readfile($carpeta . $test);
+            //readfile($carpeta . $test); daba error con lote 269 ?? no descargaba todo el archivo
         } else {
             echo 'zip error';
             die;

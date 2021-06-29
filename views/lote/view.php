@@ -70,7 +70,7 @@ $this->params['breadcrumbs'][] = $this->title;
     if (!Yii::$app->user->isGuest && Yii::$app->user->identity->idRol == app\models\Rol::ROL_GESTOR) {
         echo Html::a('Crear Certificado', ['/certificado/create', 'id' => $model->idLote], ['class' => 'btn btn-success']);
     }
-    echo " ".Html::a('Descargar Certificados', ['download', 'id' => $model->idLote], ['class' => 'btn btn-primary']);
+    echo " ".Html::a('Descargar Certificados (Emitidos)', ['download', 'id' => $model->idLote], ['class' => 'btn btn-primary']);
     ?>
     <?=
     yii\grid\GridView::widget([

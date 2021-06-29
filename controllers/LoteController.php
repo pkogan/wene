@@ -216,7 +216,8 @@ class LoteController extends Controller {
      */
     public function actionDownload($id) {
         $lote = $this->findModel($id);
-        $test = $lote->idActividad0->nombre . '-Lote' . $id . date('Ymd_His') . '.zip';
+        //$test = $lote->idActividad0->nombre . '-Lote' . $id . date('Ymd_His') . '.zip';
+        $test ='Lote' . $id . date('Ymd_His') . '.zip';
         //var_dump($test);
         $carpeta = '../tmp/';
 
@@ -232,7 +233,7 @@ class LoteController extends Controller {
             $zip->close();
             //exit('aca');
             header('Content-Type: application/zip');
-            header('Content-Disposition: attachment');// filename=' . $test);
+            header('Content-Disposition: attachment; filename=' . $test);
             //header('Content-Disposition:  filename=' . $test);
             //echo file_get_contents($carpeta.$test);
             readfile($carpeta . $test);

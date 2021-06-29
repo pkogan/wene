@@ -227,7 +227,8 @@ class LoteController extends Controller {
         if ($res) {
             foreach ($lote->certificados as $certificado) {
                 $csv .= $certificado->idPersona0->dni . ',"' . $certificado->observacion . '","' . mb_strtoupper($certificado->idPersona0->apellidoNombre). '","' . $certificado->idPersona0->mail . '","' . $certificado->idPersona0->legajo. '","' .$certificado->getLinkpdf() . '"'."\n";
-                $zip->addFromString(mb_strtoupper($certificado->idPersona0->apellidoNombre) . '.pdf', file_get_contents($certificado->getLinkpdf()));
+                //$zip->addFromString(mb_strtoupper($certificado->idPersona0->apellidoNombre) . '.pdf', file_get_contents($certificado->getLinkpdf()));
+                $zip->addFromString(mb_strtoupper($certificado->idPersona0->apellidoNombre) . '.pdf', file_get_contents($certificado->getFilepath()));
             }
             $zip->addFromString('0listado.csv', $csv);
             $zip->close();

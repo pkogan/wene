@@ -237,8 +237,8 @@ class LoteController extends Controller {
             header("Content-Length: ".filesize($carpeta . $test));
             header('Content-Disposition: attachment; filename=' . $test);
             //header('Content-Disposition:  filename=' . $test);
-            //echo file_get_contents($carpeta.$test);
-            readfile($carpeta . $test);
+            echo file_get_contents($carpeta.$test);
+            //readfile($carpeta . $test);
         } else {
             echo 'zip error';
             die;

@@ -35,6 +35,8 @@ if(!is_null($model->idLote0->idActividad0->linkNorma)&&$model->idLote0->idActivi
                 'visible'=>$model->idLote0->idActividad0->nombre!=$model->idLote0->idTipoCertificado0->tipo],
             ['label'=>'Descripción Actividad','value'=>$model->idLote0->observacion,
                 'visible'=>$model->idLote0->observacion!=''],
+            ['label'=>'Nota','value'=>$model->observacion,
+                'visible'=>$model->observacion!=''],
             ['label'=>'Dependencia Otorgante','value'=>$model->idLote0->idActividad0->idDependencia0->nombre],
             [//'attribute'=>'idLote0.idActividad0.norma',
              'label'=>'Norma','value'=>$norma, 'format'=>'raw',  

@@ -15,7 +15,7 @@ use Da\QrCode\QrCode;
     <img  src="img/faif150.png" alt="Facultad de Informática"/>-->
 
     
--    <div class="col-xs-4">
+    <div class="col-xs-4">
             <img  src="img/uncoma150.png" alt="UNCo"/></div>
         <div class="col-xs-3">
             <img  src="img/sadosky.png" alt="Sadosky"/></div>
@@ -32,7 +32,7 @@ use Da\QrCode\QrCode;
 
 
     <h3>Se certifica que <b><?=  mb_strtoupper($model->idPersona0->apellidoNombre,'UTF-8'); ?></b>, DNI Nº <b><?= number_format($model->idPersona0->dni,0,',','.'); ?></b><br/>
-        <b><?= $model->idLote0->idTipoCertificado0->tipo ?></b> el <b><?= $model->idLote0->idActividad0->idTipoActividad0->tipo ?></b>
+        <b><?= $model->idLote0->idTipoCertificado0->tipo ?></b> <?=$model->idLote0->getConector() ?> <b><?= $model->idLote0->idActividad0->idTipoActividad0->tipo ?></b>
         <b>"<?= $model->idLote0->idActividad0->nombre ?>"</b>, avalado por <?= $model->idLote0->idActividad0->norma?>.
         <?= $model->idLote0->observacion ?></h3>
     

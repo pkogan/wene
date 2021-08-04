@@ -17,7 +17,7 @@ use Da\QrCode\QrCode;
         <div class="col-xs-3">
             <img  src="img/ijan.png" alt="Facultad de Informática"/></div>
         <div class="col-xs-4">
-            <img width="70%" src="img/faif.png" alt="Facultad de Informática"/></div>
+            <img width="90%" src="img/faif.png" alt="Facultad de Informática"/></div>
     </div>
 
     <h1 >Certificado</h1>
@@ -28,7 +28,7 @@ use Da\QrCode\QrCode;
 
     <h3><?= $model->idLote0->observacion ?></h3>
 
-    <h4 >Neuquén, <?= $model->idLote0->getFechaTexto(); ?>.</h4>
+    <h3 >Neuquén, <?= $model->idLote0->getFechaTexto(); ?>.</h3>
                 
     <div class="row" style="padding-top: 30px">
 <!--        <div class="col-xs-4" style="background-image:url('img/firmaazul.png');background-position: center; background-repeat: no-repeat; background-size: contain">-->

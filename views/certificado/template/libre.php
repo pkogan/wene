@@ -25,8 +25,7 @@ use Da\QrCode\QrCode;
 
 
 
-    <h3>Se certifica que <b><?= $model->idPersona0->apellidoNombre; ?></b>
-        <?= $model->idLote0->observacion ?></h3>
+    <h4><?= $model->idLote0->observacion ?></h4>
 
     <h3 >Neuquén, <?= $model->idLote0->getFechaTexto(); ?>.</h3>
                 

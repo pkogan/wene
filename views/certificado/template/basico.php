@@ -19,7 +19,7 @@ echo DetailView::widget([
             ['label'=>'Tipo Actividad','value'=>$model->idLote0->idActividad0->idTipoActividad0->tipo],
             ['label'=>'Nombre Actividad','value'=>$model->idLote0->idActividad0->nombre,
                 'visible'=>$model->idLote0->idActividad0->nombre!=$model->idLote0->idTipoCertificado0->tipo],
-            ['label'=>'Descripción Actividad','value'=>$model->idLote0->observacion,
+            ['label'=>'Descripción Actividad','format'=>'raw','value'=>$model->idLote0->observacion,
                 'visible'=>$model->idLote0->observacion!=''],
             ['label'=>'Dependencia Otorgante','value'=>$model->idLote0->idActividad0->idDependencia0->nombre],
             [//'attribute'=>'idLote0.idActividad0.norma',

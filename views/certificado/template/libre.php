@@ -27,9 +27,9 @@ use Da\QrCode\QrCode;
 
     <h4><?= $model->idLote0->observacion ?></h4>
 
-    <h3 >Neuquén, <?= $model->idLote0->getFechaTexto(); ?>.</h3>
+    <h4 >Neuquén, <?= $model->idLote0->getFechaTexto(); ?>.</h4>
                 
-    <div class="row" style="padding-top: 50px">
+    <div class="row" style="padding-top: 30px">
 <!--        <div class="col-xs-4" style="background-image:url('img/firmaazul.png');background-position: center; background-repeat: no-repeat; background-size: contain">-->
 
 

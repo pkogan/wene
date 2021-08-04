@@ -25,7 +25,7 @@ use Da\QrCode\QrCode;
 
 
 
-    <h4><?= $model->idLote0->observacion ?></h4>
+    <h3><?= $model->idLote0->observacion ?></h3>
 
     <h4 >Neuquén, <?= $model->idLote0->getFechaTexto(); ?>.</h4>
                 

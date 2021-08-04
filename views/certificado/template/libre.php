@@ -11,7 +11,7 @@ use Da\QrCode\QrCode;
 
     <div class="row" >
 
-        <div class="col-xs-4">
+        <div class="col-xs-3">
             <img width="80%" src="img/uncoma150.png" alt="UNCo"/></div>
 <!--        <img class="logo" src="img/sadosky.png" alt="Sadosky"/>-->
         <div class="col-xs-3">

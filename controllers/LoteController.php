@@ -83,7 +83,7 @@ class LoteController extends Controller {
                     //print_r($fileop);
                     $contadores['registros']++;
                     $row = [];
-                    if ((isset($fileop[0])||isset($fileop[5])) && isset($fileop[1])) {
+                    if ((isset($fileop[0])||isset($fileop[5])) && isset($fileop[2])) {
                         $row['idExtranjero'] = isset($fileop[5])?$fileop[5]:null;
                         $row['dni'] = isset($fileop[0])?$fileop[0]:null;
                         if(is_numeric($row['dni'])){
@@ -99,12 +99,12 @@ class LoteController extends Controller {
                         
                         if ($persona == null) {
                             $row['msj'] = 'No Existe Persona con DNI ingresado, en la Dependencia';
-                            if (isset($fileop[3]) && isset($fileop[2])) {
+                            if ( isset($fileop[2])) {
                                 $contadores['no existe persona']++;
                                 $persona = new \app\models\Persona();
                                 $persona->dni = $row['dni'];
-                                $persona->mail = $fileop[3];
                                 $persona->apellidoNombre = $fileop[2];
+                                if( isset($fileop[3])) $persona->mail = $fileop[3];
                                 if (isset($fileop[4])) {
                                     $persona->legajo = $fileop[4];
                                 }
@@ -121,7 +121,7 @@ class LoteController extends Controller {
                                     $contadores['persona importada']++;
                                 }
                             } else {
-                                $row['msj'] .= '. Error al guardar Persona no cargó columnas 3,  4 o 5';
+                                $row['msj'] .= '. Error al guardar Persona no cargó columnas Nombre';
                                 $contadores['error al guardar persona']++;
                             }
                         }

@@ -225,7 +225,15 @@ class CertificadoController extends Controller {
             $header = $model->idLote0->idActividad0->idDependencia0->header;
             //$header='Certificado Digital emitido por la Facultad de Informática de la Universidad Nacional del Comahue (<a href="' . \yii\helpers\Url::base('http') . '/img/ResCD-031-Ratificar-ResAdRef077-Certificados-Digitales-EXTescopia.pdf">ResCD Nro 031/20</a>)';
         }
-
+        /**
+         * :Todo Abstraer hack tamaño pdf en Template
+         */
+        if ($model->idLote0->idTemplate0->template!='observatoriocredencial') {
+            $format = Pdf::FORMAT_A4;
+        } else {
+            $format = 'A6';
+            //$header='Certificado Digital emitido por la Facultad de Informática de la Universidad Nacional del Comahue (<a href="' . \yii\helpers\Url::base('http') . '/img/ResCD-031-Ratificar-ResAdRef077-Certificados-Digitales-EXTescopia.pdf">ResCD Nro 031/20</a>)';
+        }
 
         // get your HTML raw content without any layouts or scripts
         // setup kartik\mpdf\Pdf component
@@ -235,7 +243,7 @@ class CertificadoController extends Controller {
             'filename' => $folder . $model->hash . '.pdf',
             'mode' => Pdf::MODE_CORE,
             // A4 paper format
-            'format' => Pdf::FORMAT_A4,
+            'format' => $format,//'A6',//,
             // portrait orientation
             'orientation' => $model->idLote0->idTemplate0->orientacion,
             // stream to browser inline

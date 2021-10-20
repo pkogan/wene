@@ -21,10 +21,10 @@ if(!is_null($model->idLote0->idActividad0->linkNorma)&&$model->idLote0->idActivi
     <h4 >Certificado Digital</h4>
 <!--    <hr/>-->
 <!--    <h4>Apellido y Nombre</h4>-->
-<h3> <b><?= mb_strtoupper($model->idPersona0->apellidoNombre,'UTF-8'); ?></b><br/>
+<h4> <b><?= mb_strtoupper($model->idPersona0->apellidoNombre,'UTF-8'); ?></b><br/>
     
     
-    <b><?= $model->idPersona0->getDnioIdext();//number_format($model->idPersona0->dni,0,',','.'); ?></b></h3>
+    <b><?= $model->idPersona0->getDnioIdext();//number_format($model->idPersona0->dni,0,',','.'); ?></b></h4>
 <!--    <h4>DNI</h4>-->
 <!--    <hr/>-->
 <!--    <br/>-->

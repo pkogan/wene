@@ -231,7 +231,7 @@ class CertificadoController extends Controller {
         if ($model->idLote0->idTemplate0->template!='observatoriocredencial') {
             $format = Pdf::FORMAT_A4;
         } else {
-            $format = 'A6';
+            $format = 'A6';//'A6';//
             //$header='Certificado Digital emitido por la Facultad de Informática de la Universidad Nacional del Comahue (<a href="' . \yii\helpers\Url::base('http') . '/img/ResCD-031-Ratificar-ResAdRef077-Certificados-Digitales-EXTescopia.pdf">ResCD Nro 031/20</a>)';
         }
 

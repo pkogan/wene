@@ -26,7 +26,11 @@ if(!is_null($model->idLote0->idActividad0->linkNorma)&&$model->idLote0->idActivi
         'attributes' => [
             //'idCertificado',
             'idPersona0.apellidoNombre',
-            'idPersona0.dni',
+            //'idPersona0.dni',
+            ['attribute'=>'idPersona0.dni',
+            'visible'=>$model->idPersona0->dni!=null],
+            ['attribute'=>'idPersona0.idExtranjero',
+            'visible'=>$model->idPersona0->idExtranjero!=null],
             ['attribute'=>'idPersona0.legajo',
             'visible'=>$model->idPersona0->legajo!=''],
             ['label'=>'Condición Certificada','value'=>$model->idLote0->idTipoCertificado0->tipo],

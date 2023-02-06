@@ -87,15 +87,19 @@ http://localhost/basic/web/
 
 Update your vendor packages
 
-    docker-compose run --rm php composer update --prefer-dist
+    docker compose run --rm php composer update --prefer-dist
     
 Run the installation triggers (creating cookie validation code)
 
-    docker-compose run --rm php composer install    
+    docker compose run --rm php composer install    
     
 Start the container
 
-    docker-compose up -d
+    docker compose up -d
+
+Stop the container
+
+    docker compose down
     
 You can then access the application through the following URL:
 

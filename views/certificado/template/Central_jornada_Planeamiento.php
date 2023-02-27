@@ -18,7 +18,7 @@ use Da\QrCode\QrCode;
 
     
     <div class="col-xs-5">
-            <img width="100%"   src="img/planeamiento.png" alt="Planeamiento"/></div>
+            <img width="90%"   src="img/planeamiento.png" alt="Planeamiento"/></div>
             </div>
 
 

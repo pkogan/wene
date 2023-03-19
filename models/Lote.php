@@ -133,8 +133,8 @@ class Lote extends \yii\db\ActiveRecord {
         return $this->hasOne(TipoCertificado::className(), ['idTipoCertificado' => 'idTipoCertificado']);
     }
 
-    public function getFechaTexto() {
-        return DateSpanish::cadena($this->fechaEmision);
+    public function getFechaTexto() {       
+        return mb_strtolower(DateSpanish::cadena($this->fechaEmision));
     }
 
     public function validarPermisos() {

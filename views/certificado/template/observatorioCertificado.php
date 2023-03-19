@@ -40,7 +40,7 @@ use Da\QrCode\QrCode;
         <?= ($model->idLote0->idActividad0->norma != '') ? 'Avalado por ' . $model->idLote0->idActividad0->norma . '. ' : '' ?>
         <?= $model->idLote0->observacion ?></h3>
 
-    <h3 >Neuquén, <?= $model->idLote0->getFechaTexto(); ?>.</h3>
+    <h3 >Neuquén<?php //$model->idLote0->idActividad0->idCiudad0->municipio_nombre; ?>, <?= $model->idLote0->getFechaTexto(); ?>.</h3>
 
     <!--          <div class="row" style="font-size: 11px;">
                <div class="col-xs-3" style="background-image: url('img/firmas/firmalidia.png'); background-repeat: no-repeat; background-size: 35% auto; background-position: top">

@@ -297,6 +297,18 @@ class CertificadoController extends Controller {
             Yii::$app->mailer->transport->setUsername($model->idLote0->idActividad0->idDependencia0->mail);
             Yii::$app->mailer->transport->setPassword($model->idLote0->idActividad0->idDependencia0->clave);
             Yii::$app->mailer->transport->setHost($model->idLote0->idActividad0->idDependencia0->smtp);
+            //@todo: agregar dos campos a la dependencia Port y método para luego setearlos en cada envio
+            //hack envío uncoma
+            if(!is_null($model->idLote0->idActividad0->idDependencia0->port)) {
+                Yii::$app->mailer->transport->setPort($model->idLote0->idActividad0->idDependencia0->port);
+            }
+            if(!is_null($model->idLote0->idActividad0->idDependencia0->protocol)&&$model->idLote0->idActividad0->idDependencia0->protocol!=='') {
+                if(mb_strtoupper($model->idLote0->idActividad0->idDependencia0->protocol)=='PLAIN') {
+                    Yii::$app->mailer->transport->setEncryption(null);
+                }else{
+                    Yii::$app->mailer->transport->setEncryption($model->idLote0->idActividad0->idDependencia0->protocol);
+                }
+            }
             $from = $model->idLote0->idActividad0->idDependencia0->mail;
         } else {
             $from = 'wene@fi.uncoma.edu.ar';

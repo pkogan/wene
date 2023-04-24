@@ -13,6 +13,8 @@ use Yii;
  * @property string|null $mail
  * @property string|null $clave
  * @property string|null $smtp
+ * @property int|null $port
+ * @property string|null $protocol
  * @property string|null $header
  *
  * @property Actividad[] $actividads
@@ -36,11 +38,12 @@ class Dependencia extends \yii\db\ActiveRecord
     {
         return [
             [['nombre'], 'required'],
-            [['idDependenciaPadre'], 'integer'],
+            [['idDependenciaPadre','port'], 'integer'],
             [['nombre'], 'string', 'max' => 300],
             [['mail', 'smtp'], 'string', 'max' => 200],
             [['clave'], 'string', 'max' => 100],
             [['header'], 'string', 'max' => 1000],
+            [['protocol'], 'string', 'max' => 10],
         ];
     }
 
@@ -56,6 +59,8 @@ class Dependencia extends \yii\db\ActiveRecord
             'mail' => 'Mail',
             'clave' => 'Clave',
             'smtp' => 'Smtp',
+            'port' => 'Puerto',
+            'protocol' => 'Protocolo (null=tls gmail;PLAIN=básico uncoma)',
             'header' => 'Header',
         ];
     }

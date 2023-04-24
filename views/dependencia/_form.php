@@ -22,6 +22,10 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'smtp')->textInput(['maxlength' => true]) ?>
 
+    <?= $form->field($model, 'port')->textInput(['maxlength' => true]) ?>
+    
+    <?= $form->field($model, 'protocol')->textInput(['maxlength' => true]) ?>
+
     <?= $form->field($model, 'header')->textInput(['maxlength' => true]) ?>
 
     <div class="form-group">

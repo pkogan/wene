@@ -12,9 +12,9 @@ use Da\QrCode\QrCode;
 <div style='background: linear-gradient(circle, rgba(255,255,255,0.1), rgba(255,255,255,0.9))'> -->
 <div class="row" style="padding-top: 50px" >
 
-    <div class="col-xs-3">
+    <!-- <div class="col-xs-3">
             <img  width="60%" src="img/FALE/logoSAEL.jpeg" alt="SAEL"/></div>
-
+ -->
   <div class="col-xs-4">
   
   <img   width="50%" src="img/uncomarecortado.png" alt="UNCo"/></div>
@@ -32,7 +32,7 @@ use Da\QrCode\QrCode;
 
 
     <h3>Se certifica que <b><?= mb_strtoupper($model->idPersona0->apellidoNombre,'UTF-8'); ?></b>, DNI Nº <b><?= number_format($model->idPersona0->dni,0,',','.'); ?></b><br/>
-        <b><?= $model->idLote0->idTipoCertificado0->tipo ?></b> al <b><?= $model->idLote0->idActividad0->idTipoActividad0->tipo ?></b>
+        <b><?= $model->idLote0->idTipoCertificado0->tipo ?></b> <?=$model->idLote0->getConector() ?> <b><?= $model->idLote0->idActividad0->idTipoActividad0->tipo ?></b>
         
         <b><?= $model->idLote0->idActividad0->nombre ?></b><!--, el <?= $model->idLote0->idActividad0->getFechaTexto(); ?>.-->
         <!--y con una duración de <?= $model->idLote0->idActividad0->duracion ?> <?= $model->idLote0->idActividad0->medidaDuracion ?>.-->

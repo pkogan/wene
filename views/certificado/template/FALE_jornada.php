@@ -12,7 +12,7 @@ use Da\QrCode\QrCode;
     <div class="row" >
 
   <div class="col-xs-12">
-            <img   width="13%" src="img/uncomarecortado.png" alt="UNCo"/></div>
+            <img   width="20%" src="img/FALE/logo fadel.png" alt="Facultad de Lenguas"/></div>
  <!--       <div class="col-xs-3">
             <img   src="img/seac.jpg" alt="Académica"/></div>
 

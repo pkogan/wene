@@ -34,3 +34,4 @@ tests/_support/_generated
 /tmp/
 /archivos/adjuntos/
 /archivos/certificados/
+composer.lock

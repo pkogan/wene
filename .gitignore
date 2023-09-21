@@ -35,3 +35,6 @@ tests/_support/_generated
 /archivos/adjuntos/
 /archivos/certificados/
 composer.lock
+.env
+dbdata
+docker-compose.override.yml

@@ -1,239 +1,55 @@
-<p align="center">
-    <a href="https://github.com/yiisoft" target="_blank">
-        <img src="https://avatars0.githubusercontent.com/u/993323" height="100px">
-    </a>
-    <h1 align="center">Yii 2 Basic Project Template</h1>
-    <br>
-</p>
+# Fork Wene - UNCOMA
 
-Yii 2 Basic Project Template is a skeleton [Yii 2](http://www.yiiframework.com/) application best for
-rapidly creating small projects.
+## Instalación
+Se deja disponible un archivo `.env.example` a modo de ejemplo para utilizar en la instalación.
 
-The template contains the basic features including user login/logout and a contact page.
-It includes all commonly used configurations that would allow you to focus on adding new
-features to your application.
+Si quisiera modificar o agregar algún servicio de `docker-compose.yml` sin afectar el repositorio puede hacerlo mediante el uso de `docker-compose.override.yml` está ignorado por defecto.
 
-[![Latest Stable Version](https://img.shields.io/packagist/v/yiisoft/yii2-app-basic.svg)](https://packagist.org/packages/yiisoft/yii2-app-basic)
-[![Total Downloads](https://img.shields.io/packagist/dt/yiisoft/yii2-app-basic.svg)](https://packagist.org/packages/yiisoft/yii2-app-basic)
-[![Build Status](https://travis-ci.com/yiisoft/yii2-app-basic.svg?branch=master)](https://travis-ci.com/yiisoft/yii2-app-basic)
+### Instalar paquetes
+Una vez ejecutandose el ambiente, puede ingresar al servicio `php`:
+```sh
+docker compose exec php bash
 
-DIRECTORY STRUCTURE
--------------------
-
-      assets/             contains assets definition
-      bd/                 contains bk bbdd
-      commands/           contains console commands (controllers)
-      config/             contains application configurations
-      controllers/        contains Web controller classes
-      mail/               contains view files for e-mails
-      models/             contains model classes
-      runtime/            contains files generated during runtime
-      tests/              contains various tests for the basic application
-      vendor/             contains dependent 3rd-party packages
-      views/              contains view files for the Web application
-      web/                contains the entry script and Web resources
-
-
-
-REQUIREMENTS
-------------
-
-The minimum requirement by this project template that your Web server supports PHP 5.6.0.
-
-
-INSTALLATION
-------------
-
-### Install via Composer
-
-If you do not have [Composer](http://getcomposer.org/), you may install it by following the instructions
-at [getcomposer.org](http://getcomposer.org/doc/00-intro.md#installation-nix).
-
-You can then install this project template using the following command:
-
-~~~
-composer create-project --prefer-dist yiisoft/yii2-app-basic basic
-~~~
-
-Now you should be able to access the application through the following URL, assuming `basic` is the directory
-directly under the Web root.
-
-~~~
-http://localhost/basic/web/
-~~~
-
-### Install from an Archive File
-
-Extract the archive file downloaded from [yiiframework.com](http://www.yiiframework.com/download/) to
-a directory named `basic` that is directly under the Web root.
-
-Set cookie validation key in `config/web.php` file to some random secret string:
-
-```php
-'request' => [
-    // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
-    'cookieValidationKey' => '<secret random string goes here>',
-],
+# Ejecutar
+composer install
 ```
 
-You can then access the application through the following URL:
+### Crear carpetas
+Crear las carpetas en la raiz del proyecto:
+  - `tmp`
+  - `archivos/adjuntos`
+  - `archivos/certificados`
 
-~~~
-http://localhost/basic/web/
-~~~
+De no crearlas puede visualizarse errores como: `session_start(): open(....) failed: No such file or directory`.
 
-
-### Install with Docker
-
-Update your vendor packages
-
-    docker compose run --rm php composer update --prefer-dist
-    
-Run the installation triggers (creating cookie validation code)
-
-    docker compose run --rm php composer install    
-    
-Start the container
-
-    docker compose up -d
-
-Stop the container
-
-    docker compose down
-    
-You can then access the application through the following URL:
-
-    http://127.0.0.1:8000
-
-**NOTES:** 
-- Minimum required Docker engine version `17.04` for development (see [Performance tuning for volume mounts](https://docs.docker.com/docker-for-mac/osxfs-caching/))
-- The default configuration uses a host-volume in your home directory `.docker-composer` for composer caches
-
-
-CONFIGURATION
--------------
-
-### Database
-
-Edit the file `config/db.php` with real data, for example:
-
-```php
-return [
-    'class' => 'yii\db\Connection',
-    'dsn' => 'mysql:host=localhost;dbname=wene',
-    'username' => 'root',
-    'password' => '1234',
-    'charset' => 'utf8',
-];
+Es posible que también haya que reparar los permisos, puede ingresar al contenedor y repararlos:
+```
+chown -R www-data:www-data .
 ```
 
-**NOTES:**
-- create bbdd from bd/wenelimpia.sql
-- Yii won't create the database for you, this has to be done manually before you can access it.
-- Check and edit the other files in the `config/` directory to customize your application as required.
-- Refer to the README in the `tests` directory for information specific to basic application tests.
-
-
-TESTING
--------
-
-Tests are located in `tests` directory. They are developed with [Codeception PHP Testing Framework](http://codeception.com/).
-By default there are 3 test suites:
-
-- `unit`
-- `functional`
-- `acceptance`
-
-Tests can be executed by running
-
+### Consideraciones de la base de datos
+En cuanto a la base de datos, existen dos dumps:
+1. `bd/wenelimpia.sql`: está más completa sin embargo tiene un problema de un bug que poseía la versión de phpmyadmin para exportar el tipo de dato `point` (debía exportarlo como hexadecimal).
+2. `dump/wene.sql`: al contrario de la primera, no falla la importación, tiene menos información según lo analizado. Nos tomamos el atrevimiento de agregar un campo que si existe en la anterior para la tabla `dependencias` la columna `port`. Las lineas  agregadas son las siguientes
 ```
-vendor/bin/codecept run
+ALTER TABLE `dependencia` 
+ADD `port` INT NULL DEFAULT NULL AFTER `smtp`, 
+ADD `protocol` VARCHAR(10) NULL DEFAULT NULL AFTER `port`;
 ```
 
-The command above will execute unit and functional tests. Unit tests are testing the system components, while functional
-tests are for testing user interaction. Acceptance tests are disabled by default as they require additional setup since
-they perform testing in real browser. 
-
-
-### Running  acceptance tests
-
-To execute acceptance tests do the following:  
-
-1. Rename `tests/acceptance.suite.yml.example` to `tests/acceptance.suite.yml` to enable suite configuration
-
-2. Replace `codeception/base` package in `composer.json` with `codeception/codeception` to install full featured
-   version of Codeception
-
-3. Update dependencies with Composer 
-
-    ```
-    composer update  
-    ```
-
-4. Download [Selenium Server](http://www.seleniumhq.org/download/) and launch it:
-
-    ```
-    java -jar ~/selenium-server-standalone-x.xx.x.jar
-    ```
-
-    In case of using Selenium Server 3.0 with Firefox browser since v48 or Google Chrome since v53 you must download [GeckoDriver](https://github.com/mozilla/geckodriver/releases) or [ChromeDriver](https://sites.google.com/a/chromium.org/chromedriver/downloads) and launch Selenium with it:
-
-    ```
-    # for Firefox
-    java -jar -Dwebdriver.gecko.driver=~/geckodriver ~/selenium-server-standalone-3.xx.x.jar
-    
-    # for Google Chrome
-    java -jar -Dwebdriver.chrome.driver=~/chromedriver ~/selenium-server-standalone-3.xx.x.jar
-    ``` 
-    
-    As an alternative way you can use already configured Docker container with older versions of Selenium and Firefox:
-    
-    ```
-    docker run --net=host selenium/standalone-firefox:2.53.0
-    ```
-
-5. (Optional) Create `yii2_basic_tests` database and update it by applying migrations if you have them.
-
-   ```
-   tests/bin/yii migrate
-   ```
-
-   The database configuration can be found at `config/test_db.php`.
-
-
-6. Start web server:
-
-    ```
-    tests/bin/yii serve
-    ```
-
-7. Now you can run all available tests
-
-   ```
-   # run all available tests
-   vendor/bin/codecept run
-
-   # run acceptance tests
-   vendor/bin/codecept run acceptance
-
-   # run only unit and functional tests
-   vendor/bin/codecept run unit,functional
-   ```
-
-### Code coverage support
-
-By default, code coverage is disabled in `codeception.yml` configuration file, you should uncomment needed rows to be able
-to collect code coverage. You can run your tests and collect coverage with the following command:
-
-```
-#collect coverage for all tests
-vendor/bin/codecept run -- --coverage-html --coverage-xml
-
-#collect coverage only for unit tests
-vendor/bin/codecept run unit -- --coverage-html --coverage-xml
-
-#collect coverage for unit and functional tests
-vendor/bin/codecept run functional,unit -- --coverage-html --coverage-xml
+Por defecto dejamos que el motor de base de datos importe el dump que está en el repositorio oficial, en el archivo `docker-compose.yml` puede encontrar la linea que define esto:
+```yml
+    volumes:
+        - ./dump:/docker-entrypoint-initdb.d
 ```
 
-You can see code coverage output under the `tests/_output` directory.
+## Resumen
+En muy pocas palabras, el usuario `admin` puede crear dependencias que es una forma de englobar a una sede. Estas están "gestionadas" por usuarios como `gestor` que poseen la capacidad de crear certificados, registrar personas y asociar dichas personas a los certificados. Hay dos roles más `hacedor` y `certificante` (falta completar).
+
+### Sobre los templates (diseños de certificados)
+En cuanto a los `templates`, es posible crear nuevos, los mismos se encuentran en `views/certificado/template`. Esto permite personalizar certificados. 
+
+Además de crearlos en el `CRUD /template` se deben asociar a la dependencia para poder utilizarlos. Si te estás preguntando cómo hacerlo, vas al listado de dependencias, haces click en el ícono del ojo (`dependencias/view?id=<id>`) y en el view de esa dependencia hay un botón de `Agregar Template`.
+
+## Acceso por defecto
+En el dump vienen 2 usarios cargados, `admin` y `gestor`. La contraseña es la misma que el usuario.

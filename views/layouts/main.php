@@ -105,34 +105,16 @@ AppAsset::register($this);
             ])
             ?>
             <?= Alert::widget() ?>
-<?= $content ?>
+            <?= $content ?>
             </div>
-        </div>
-
-        <div class="logos_pie">
-            
-        <h5>Actividades organizadas de conjunto con:</h5>
-        <img src="<?= yii\helpers\Url::home();?>img/uncoma.png" alt="UNCo"/>    
-        <img src="<?= yii\helpers\Url::home();?>img/faif.png" alt="Facultad de Informática"/>
-        <img src="<?= yii\helpers\Url::home();?>img/fahu.jpeg" alt="Facultad de Humanidades"/>    
-        <img src="<?= yii\helpers\Url::home();?>img/RRII.png" alt="Subsecretaría de Relaciones Internacionales"/>    
-            <img src="<?= yii\helpers\Url::home();?>img/sadosky.png" alt="Sadosky"/>
-            <img src="<?= yii\helpers\Url::home();?>img/logo-redunci.gif" alt="RedUnci"/>
-            <img src="<?= yii\helpers\Url::home();?>img/aten.png" alt="aten"/>
-            <img src="<?= yii\helpers\Url::home();?>img/pagagonialibreredondo.png" alt="Patagonialibre"/>
-            <img src="<?= yii\helpers\Url::home();?>img/patagonian.png" alt="Patagonian"/>
-            <img src="<?= yii\helpers\Url::home();?>img/gdg.png" alt="GDGNeuquen"/>
-            
-            
-
         </div>
 
         <footer class="footer">
 
             <div class="container">
-                <p class="pull-left">Licencia GPL-3.0  <span class="copyleft"> &copy;</span> Facultad de Informática - Universidad Nacional del Comahue <?= date('Y') ?></p>
+                <p class="pull-left">Licencia GPL-3.0  <span class="copyleft"> &copy;</span> Es una bifurcación de Wene - Facultad de Informática - Universidad Nacional del Comahue</p>
 
-                <p class="pull-right"><?= Yii::powered() ?></p>
+                <p class="pull-right"><?= Yii::powered() ?> - Lab. Informática CURZA</p>
             </div>
 
 

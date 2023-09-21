@@ -3,7 +3,7 @@
 ## Instalación
 Se deja disponible un archivo `.env.example` a modo de ejemplo para utilizar en la instalación.
 
-Si quisiera modificar o agregar algún servicio de `docker-compose.yml` sin afectar el repositorio puede hacerlo mediante el uso de `docker-compose.override.yml` está ignorado por defecto.
+Si usted quisiera modificar o agregar algún servicio de `docker-compose.yml` sin afectar el repositorio puede hacerlo mediante el uso de `docker-compose.override.yml` está ignorado por defecto.
 
 ### Instalar paquetes
 Una vez ejecutandose el ambiente, puede ingresar al servicio `php`:
@@ -30,8 +30,8 @@ chown -R www-data:www-data .
 ### Consideraciones de la base de datos
 En cuanto a la base de datos, existen dos dumps:
 1. `bd/wenelimpia.sql`: está más completa sin embargo tiene un problema de un bug que poseía la versión de phpmyadmin para exportar el tipo de dato `point` (debía exportarlo como hexadecimal).
-2. `dump/wene.sql`: al contrario de la primera, no falla la importación, tiene menos información según lo analizado. Nos tomamos el atrevimiento de agregar un campo que si existe en la anterior para la tabla `dependencias` la columna `port`. Las lineas  agregadas son las siguientes
-```
+2. `dump/wene.sql`: al contrario de la primera, no falla la importación, tiene menos información según lo analizado. Nos tomamos el atrevimiento de agregar el campo `point` (que si existe en el otro dump) para la tabla `dependencias`. Las lineas  agregadas son las siguientes
+```sql
 ALTER TABLE `dependencia` 
 ADD `port` INT NULL DEFAULT NULL AFTER `smtp`, 
 ADD `protocol` VARCHAR(10) NULL DEFAULT NULL AFTER `port`;
@@ -44,7 +44,7 @@ Por defecto dejamos que el motor de base de datos importe el dump que está en e
 ```
 
 ## Resumen
-En muy pocas palabras, el usuario `admin` puede crear dependencias que es una forma de englobar a una sede. Estas están "gestionadas" por usuarios como `gestor` que poseen la capacidad de crear certificados, registrar personas y asociar dichas personas a los certificados. Hay dos roles más `hacedor` y `certificante` (falta completar).
+En muy pocas palabras, el usuario `admin` puede crear dependencias que es una forma de englobar a una sede u organización que emitirá los certificados. Estas están "gestionadas" por usuarios como `gestor` que poseen la capacidad de crear certificados, registrar personas y asociar dichas personas a los certificados. Hay dos roles más `hacedor` y `certificante` (falta completar).
 
 ### Sobre los templates (diseños de certificados)
 En cuanto a los `templates`, es posible crear nuevos, los mismos se encuentran en `views/certificado/template`. Esto permite personalizar certificados. 

@@ -118,7 +118,7 @@ class SiteController extends Controller {
                         //crear usuario
                         $usuario= new \app\models\Usuario();
                         $usuario->nombreUsuario=$modelRegistro->mail;
-                        $usuario->clave = $nuevaClave;
+                        $usuario->setClave($nuevaClave);
                         $usuario->idRol = \app\models\Rol::ROL_CERTIFICANTE;
 
                         if(!$usuario->save()) {
@@ -131,7 +131,7 @@ class SiteController extends Controller {
                         }
                         
                      } else {
-                         $modelRegistro->idUsuario0->clave = $nuevaClave;
+                         $modelRegistro->idUsuario0->setClave($nuevaClave);
                          if (!$modelRegistro->idUsuario0->save()) {
                             throw new \yii\base\UserException('no pudo actualizar la clave');
                          }

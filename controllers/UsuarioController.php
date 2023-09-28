@@ -120,8 +120,11 @@ public function behaviors() {
     {
         $model = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->idUsuario]);
+        if ($model->load(Yii::$app->request->post())) {
+            $model->setClave($model->clave);
+            if ($model->save()) {
+                return $this->redirect(['view', 'id' => $model->idUsuario]);
+            }
         }
 
         return $this->render('set-password', [

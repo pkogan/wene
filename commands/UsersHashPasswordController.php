@@ -3,13 +3,12 @@
 namespace app\commands;
 
 use app\models\Usuario;
-use Yii;
 use yii\console\Controller;
 use yii\console\ExitCode;
 use yii\db\Transaction;
 
 /**
- * Hash password all users. Check if hash password is invalid and process
+ * Hash password users if hash is BCRYPT
  * @author Julian Murphy
  */
 class UsersHashPasswordController extends Controller
@@ -37,7 +36,7 @@ class UsersHashPasswordController extends Controller
 
                     foreach ($users as $user) {
                         if (password_needs_rehash($user->clave, PASSWORD_BCRYPT, ['cost' => 13])) {
-                            $user->clave = $user->clave;
+                            $user->setClave($user->clave);
                             $user->save(false);
 
                             $userProcessed++;

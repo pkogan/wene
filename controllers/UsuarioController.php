@@ -116,6 +116,22 @@ public function behaviors() {
         ]);
     }
 
+    public function actionSetPassword($id)
+    {
+        $model = $this->findModel($id);
+
+        if ($model->load(Yii::$app->request->post())) {
+            $model->setClave($model->clave);
+            if ($model->save()) {
+                return $this->redirect(['view', 'id' => $model->idUsuario]);
+            }
+        }
+
+        return $this->render('set-password', [
+            'model' => $model,
+        ]);
+    }
+
     /**
      * Deletes an existing Usuario model.
      * If deletion is successful, the browser will be redirected to the 'index' page.

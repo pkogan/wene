@@ -14,8 +14,6 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'nombreUsuario')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'clave')->textInput(['maxlength' => true]) ?>
-
     <?= $form->field($model, 'idRol')->dropDownList(\app\models\Rol::find()
             ->select(['nombre'])
             ->indexBy('idRol')

@@ -1,0 +1,15 @@
+image: ubuntu
+
+before_script:
+  - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client git -y )'
+  - eval $(ssh-agent -s)
+  - echo "$SERVER_PROD_KEY" | tr -d '\r' | ssh-add -
+  - mkdir -p ~/.ssh
+  - chmod 700 ~/.ssh
+  - ssh-keyscan -p $SERVER_PROD_PORT $SERVER_PROD_IP >> ~/.ssh/known_hosts
+  
+deploys:
+  script:
+  - ssh -A $SERVER_PROD_USER@$SERVER_PROD_IP -p $SERVER_PROD_PORT "cd $PROJECT_DIRECTORY &&  git checkout main && git pull origin $BRANCH && exit"
+  only:
+    - main

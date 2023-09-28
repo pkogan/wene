@@ -31,9 +31,16 @@ class Usuario extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
         return self::findOne(['nombreUsuario' => $username]);
     }
 
-    public function validatePassword($password) {
+    public function beforeSave($insert)
+    {
+        $this->clave = Yii::$app->security->generatePasswordHash($this->clave);
 
-        return $this->clave === $password;
+        return parent::beforeSave($insert);
+    }
+
+    public function validatePassword($password)
+    {
+        return Yii::$app->security->validatePassword($password, $this->clave);
     }
 
     public static function findIdentity($id) {

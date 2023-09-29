@@ -87,8 +87,12 @@ public function behaviors() {
     {
         $model = new Usuario();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->idUsuario]);
+        if (Yii::$app->request->isPost) {
+            $model->load(Yii::$app->request->post());
+            $model->setClave($model->clave);
+            if ($model->save()) {
+                return $this->redirect(['view', 'id' => $model->idUsuario]);
+            }
         }
 
         return $this->render('create', [

@@ -19,7 +19,7 @@ use yii\widgets\ActiveForm;
             ->indexBy('idRol')
             ->column())?>
 
-    <?php if ($is_create): ?>
+    <?php if (isset($is_create) && $is_create): ?>
         <?= $form->field($model, 'clave')->textInput(['maxlength' => true, 'value' => '']) ?>
     <?php endif; ?>
     <div class="form-group">

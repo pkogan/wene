@@ -55,7 +55,7 @@ if(!is_null($model->idLote0->idActividad0->linkNorma)&&$model->idLote0->idActivi
             <br>
     <br>
     <br>
-    <br>s
+    <br>
     </div>
     <div style='text-align: center; background: url(img/CNE2023/templateCNE2023.png);  background-repeat: no-repeat;  background-size: 800px '>
     <br>

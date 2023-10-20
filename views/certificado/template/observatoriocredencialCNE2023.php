@@ -6,7 +6,26 @@ if(!is_null($model->idLote0->idActividad0->linkNorma)&&$model->idLote0->idActivi
     $norma= Html::a($model->idLote0->idActividad0->norma,['norma', 'hash' => $model->hash]);
 }else{
     $norma=$model->idLote0->idActividad0->norma;
-}?>
+}
+
+function mb_ucfirst($string, $encoding = 'UTF-8'){
+    $salida_minuscula= mb_strtolower($string);
+    $anterior = mb_strtoupper(mb_substr($string, 0, 1, $encoding), $encoding);
+    $salida=$anterior;
+    for ($i=1; $i<strlen($salida_minuscula); $i++) { 
+        if($anterior==" "){
+            $anterior=mb_strtoupper(mb_substr($salida_minuscula, $i, 1, $encoding), $encoding);
+            
+        }else{
+            $anterior=mb_substr($salida_minuscula, $i, 1, $encoding);
+        }
+        $salida.=$anterior;
+    }
+    
+    return  $salida;
+  }
+
+?>
 <div style="text-align: center">
     <div class="row" style="padding-top: 5px">
 
@@ -56,6 +75,7 @@ if(!is_null($model->idLote0->idActividad0->linkNorma)&&$model->idLote0->idActivi
     <br>
     <br>
     <br>
+    <p>--</p>
     </div>
     <div style='text-align: center; background: url(img/CNE2023/templateCNE2023.png);  background-repeat: no-repeat;  background-size: 800px '>
     <br>
@@ -71,33 +91,16 @@ if(!is_null($model->idLote0->idActividad0->linkNorma)&&$model->idLote0->idActivi
     <br>
     <br>
     <br>
-    <p>UNIVERSIDAD NACIONAL DEL COMAHUE</p>
+    <p>Universidad Nacional del Comahue</p>
     <br>
-    <p><?= mb_strtoupper($model->idPersona0->apellidoNombre,'UTF-8'); ?></p>
+    <p><?= mb_ucfirst($model->idPersona0->apellidoNombre,'UTF-8'); ?></p>
     <br>
     <p><?= number_format($model->idPersona0->dni,0,',','.')?></p>
     <br>
     <br>
     <br>
     <br>
-    <br>    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
+
 </div>
     <div >
         <br/>

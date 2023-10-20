@@ -185,5 +185,21 @@ class Persona extends \yii\db\ActiveRecord {
             return '';
         }
     }
-    
+    public function getApellidoNombreUcfirst( $encoding = 'UTF-8'){
+        $string=$this->apellidoNombre;
+        $salida_minuscula= mb_strtolower($string);
+        $anterior = mb_strtoupper(mb_substr($string, 0, 1, $encoding), $encoding);
+        $salida=$anterior;
+        for ($i=1; $i<strlen($salida_minuscula); $i++) { 
+            if($anterior==" "){
+                $anterior=mb_strtoupper(mb_substr($salida_minuscula, $i, 1, $encoding), $encoding);
+                
+            }else{
+                $anterior=mb_substr($salida_minuscula, $i, 1, $encoding);
+            }
+            $salida.=$anterior;
+        }
+        
+        return  $salida;
+      }
 }

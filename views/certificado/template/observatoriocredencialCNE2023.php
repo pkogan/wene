@@ -8,22 +8,7 @@ if(!is_null($model->idLote0->idActividad0->linkNorma)&&$model->idLote0->idActivi
     $norma=$model->idLote0->idActividad0->norma;
 }
 
-function mb_ucfirst($string, $encoding = 'UTF-8'){
-    $salida_minuscula= mb_strtolower($string);
-    $anterior = mb_strtoupper(mb_substr($string, 0, 1, $encoding), $encoding);
-    $salida=$anterior;
-    for ($i=1; $i<strlen($salida_minuscula); $i++) { 
-        if($anterior==" "){
-            $anterior=mb_strtoupper(mb_substr($salida_minuscula, $i, 1, $encoding), $encoding);
-            
-        }else{
-            $anterior=mb_substr($salida_minuscula, $i, 1, $encoding);
-        }
-        $salida.=$anterior;
-    }
-    
-    return  $salida;
-  }
+
 
 ?>
 <div style="text-align: center">
@@ -93,7 +78,7 @@ function mb_ucfirst($string, $encoding = 'UTF-8'){
     <br>
     <p>Universidad Nacional del Comahue</p>
     <br>
-    <p><?= mb_ucfirst($model->idPersona0->apellidoNombre,'UTF-8'); ?></p>
+    <p><?= $model->idPersona0->getApellidoNombreUcfirst(); ?></p>
     <br>
     <p><?= number_format($model->idPersona0->dni,0,',','.')?></p>
     <br>

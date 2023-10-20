@@ -265,9 +265,9 @@ class CertificadoController extends Controller {
             'marginRight' => 15,
             'methods' => [
                 'SetHeader' => [$header],
-                /*'SetFooter' => ['<p>Se puede validar el Certificado, accediendo al link del código QR, o a <a href="' . \yii\helpers\Url::base('https') . '">' . \yii\helpers\Url::base('https') . '</a> con el código ' . $model->hash . '</p>' .
-                    'Sistema de Certificados <img style="padding-top:2px" height="12px" src="img/logolargonegro.png"/> </p> '],*/
-                    'SetFooter' => ['<p>Sistema de Certificados <img style="padding-top:2px" height="12px" src="img/logolargonegro.png"/> </p> ']
+                'SetFooter' => ['<p>Se puede validar por QR, o el código ' . $model->hash . ' en</p>' .
+                    '<p> <a href="' . \yii\helpers\Url::base('https') . '">https://wene.fi.uncoma.edu.ar <img style="padding-top:2px" height="12px" src="img/logolargonegro.png"/></a> </p> '],
+                    //'SetFooter' => ['<p>Sistema de Certificados <img style="padding-top:2px" height="12px" src="img/logolargonegro.png"/> </p> ']
             ]
         ]);
 

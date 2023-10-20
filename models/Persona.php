@@ -187,7 +187,7 @@ class Persona extends \yii\db\ActiveRecord {
     }
     public function getApellidoNombreUcfirst( $encoding = 'UTF-8'){
         $string=$this->apellidoNombre;
-        $salida_minuscula= mb_strtolower($string);
+        $salida_minuscula= mb_strtolower($string,$encoding);
         $anterior = mb_strtoupper(mb_substr($string, 0, 1, $encoding), $encoding);
         $salida=$anterior;
         for ($i=1; $i<strlen($salida_minuscula); $i++) { 

@@ -12,29 +12,33 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <p>
         Sistema desarrollado por la Facultad de Informática de la Universidad Nacional del Comahue.
-        Bajo licencia GNU GPL.  
+        Bajo licencia GNU GPL.
     </p>
 
     <code>Fuentes disponibles en <a href="https://github.com/pkogan/wene">https://github.com/pkogan/wene</a></code>
 
 
         <div class="row">
+        <div>
+            <h2>Resolución del CURZA relacionada al uso de Wene</h2>
+            <p><a class="btn" href="https://certificaciones.curza.uncoma.edu.ar/img/resol_0153_2022_curza_wene.pdf">Resolución CD 0153/22 - CURZA</a></p>
+        </div>
             <div class="col-lg-4">
                 <h2>Certificados Digitales</h2>
 
                 <p>Con el objetivo de agilizar los procesos, hacer un aporte al medio ambiente y ahorrar papel, todas las actividades realizadas por la Facultad de Informática tendrán solamente certificados digitales</p>
                 <p> <a class="btn btn-default" href="<?= \yii\helpers\Url::base('https') ?>/img/ResCD-031-Ratificar-ResAdRef077-Certificados-Digitales-EXTescopia.pdf">ResCD Nro 031/20 &raquo;</a>
                     <a class="btn btn-default" href="<?= \yii\helpers\Url::base('https') ?>/img/ResCD-064-Ratificar-ResAdRef117-Certificados-Digitales-Academica-SAescopia.pdf">ResCD Nro 064/20 &raquo;</a>
-                  
+
                 </p>
-                
-                
+
+
                 <h2>Registro histórico de Actividades</h2>
 
                 <p> Lxs titulares que han recibido certificados por mail, puenden acceder a su historial de actividades/certificados emitidos por las Organizaciones que utilizan el sistema</p>
                 <p> <?= yii\helpers\Html::a('Buscar mis Certificados &raquo;', ['/certificado/mis'], ['class' => 'btn btn-default']) ?>
-                    
-                    
+
+
                 </p>
     <!--                <p><a class="btn btn-default" href="">Resolución XXX/20 &raquo;</a></p>-->
             </div>

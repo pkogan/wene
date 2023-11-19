@@ -19,10 +19,10 @@ $config = [
            'showScriptName' => false,
            'rules' => [
                '' => 'site/index',
-               
+
                '<action>'=>'<action>'
 
-               
+
            ],
        ],
         'request' => [
@@ -40,7 +40,7 @@ $config = [
             'errorAction' => 'site/error',
         ],
         'mailer' => [
-          
+
             'class' => 'yii\swiftmailer\Mailer',
             // send all mails to a file by default. You have to set
             // 'useFileTransport' to false and configure a transport
@@ -60,12 +60,25 @@ $config = [
             // for the mailer to send real emails.
 
         ],
-        'log' => [
+'log' => [
             'traceLevel' => YII_DEBUG ? 3 : 0,
             'targets' => [
                 [
                     'class' => 'yii\log\FileTarget',
-                    'levels' => ['error', 'warning'],
+                    'logVars' => ['_POST', '_GET'],
+                    'levels' =>
+                      YII_DEBUG ?
+                        ['error', 'warning', 'info', 'trace']
+                        :
+                        ['error', 'warning']
+                ],
+                'info' => [
+                    'class' => 'yii\log\FileTarget',
+                    'logFile' => "@runtime/logs/info.log",
+                    'except' => ['yii\db\*'],
+                    'logVars' => ['_POST', '_GET'],
+                    'levels' =>
+                        ['info']
                 ],
             ],
         ],

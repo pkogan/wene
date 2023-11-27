@@ -16,11 +16,11 @@ use Da\QrCode\QrCode;
        
 
         <div class="col-xs-4">
-            <img  width="50%" src="img/FALE/40ADTransparente.png" alt="40 años"/></div>
+            <img  width="60%" src="img/FALE/40ADTransparente.png" alt="40 años"/></div>
             <div class="col-xs-3">
             <img   width="70%" src="img/FALE/logo fadel.png" alt="Facultad de Lenguas"/></div>            
             <div class="col-xs-3">
-            <img  width="50%" src="img/FALE/50annosUNCo.png" alt="50 años"/></div>            
+            <img  width="60%" src="img/FALE/50annosUNCo.png" alt="50 años"/></div>            
 
     </div>
 

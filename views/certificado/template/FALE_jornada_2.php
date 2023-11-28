@@ -38,7 +38,7 @@ use Da\QrCode\QrCode;
         <?=($model->idLote0->idActividad0->norma!='')?' avalado por <a href="'.$model->idLote0->idActividad0->linkNorma.'">'.$model->idLote0->idActividad0->norma.'</a>. ':''?>
         <?= $model->idLote0->observacion ?></h3>
 
-    <h3 >Neuquén, <?= $model->idLote0->getFechaTexto(); ?>.</h3>
+    <h3 >General Roca Fiske Menuco, <?= $model->idLote0->getFechaTexto(); ?>.</h3>
 
  <!--          <div class="row" style="font-size: 11px;">
             <div class="col-xs-3" style="background-image: url('img/firmas/firmalidia.png'); background-repeat: no-repeat; background-size: 35% auto; background-position: top">

@@ -33,9 +33,12 @@ use Da\QrCode\QrCode;
     <h3>Se certifica que <b><?= mb_strtoupper($model->idPersona0->apellidoNombre,'UTF-8'); ?></b>, DNI Nº <b><?= number_format($model->idPersona0->dni,0,',','.'); ?></b><br/>
         <b><?= $model->idLote0->idTipoCertificado0->tipo ?></b> <?=$model->idLote0->getConector() ?> <b><?= $model->idLote0->idActividad0->idTipoActividad0->tipo ?></b>
         
-        <b><?= $model->idLote0->idActividad0->nombre?></b><!--, el <?= $model->idLote0->idActividad0->getFechaTexto(); ?>.-->
+        <b><?= $model->idLote0->idActividad0->nombre?></b>
+        
+        <!--, el <?= $model->idLote0->idActividad0->getFechaTexto(); ?>.-->
         <!--y con una duración de <?= $model->idLote0->idActividad0->duracion ?> <?= $model->idLote0->idActividad0->medidaDuracion ?>.-->
         <?=($model->idLote0->idActividad0->norma!='')?' avalado por <a href="'.$model->idLote0->idActividad0->linkNorma.'">'.$model->idLote0->idActividad0->norma.'</a>. ':''?>
+        <?= $model->observacion ?>
         <?= $model->idLote0->observacion ?></h3>
 
     <h3 >General Roca Fiske Menuco, <?= $model->idLote0->getFechaTexto(); ?>.</h3>

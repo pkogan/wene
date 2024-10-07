@@ -28,7 +28,7 @@ use Da\QrCode\QrCode;
 
 
 
-    <h3>Se certifica que <b><?= mb_strtoupper($model->idPersona0->apellidoNombre,'UTF-8'); ?></b>, DNI Nº <b><?=$model->idPersona0->getDnioIdExt()?></b><br/>
+    <h3>Se certifica que <b><?= mb_strtoupper($model->idPersona0->apellidoNombre,'UTF-8'); ?></b>, <?=$model->idPersona0->getDnioIdExt()?><br/>
         <b><?= $model->idLote0->idTipoCertificado0->tipo ?></b> <?=$model->idLote0->getConector() ?> <b><?= $model->idLote0->idActividad0->idTipoActividad0->tipo ?></b>
         
         <b><?= $model->idLote0->idActividad0->nombre ?></b><!--, el <?= $model->idLote0->idActividad0->getFechaTexto(); ?>.-->

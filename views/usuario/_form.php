@@ -14,13 +14,14 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'nombreUsuario')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'clave')->textInput(['maxlength' => true]) ?>
-
     <?= $form->field($model, 'idRol')->dropDownList(\app\models\Rol::find()
             ->select(['nombre'])
             ->indexBy('idRol')
             ->column())?>
 
+    <?php if (isset($is_create) && $is_create): ?>
+        <?= $form->field($model, 'clave')->textInput(['maxlength' => true, 'value' => '']) ?>
+    <?php endif; ?>
     <div class="form-group">
         <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
     </div>
